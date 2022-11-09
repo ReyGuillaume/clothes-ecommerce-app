@@ -10,8 +10,48 @@
 <body>
     <h1>Hello World</h1>
     <p>Groupe11 - Undefined</p>
-    <p>ok </p>
+    
+    <div class="testCrud">
+
+        <!-- Test crud Article -->
+
+        <h2>Test Crud Article</h2>
+        <div class="addArticle">
+            <h3>Create</h3>
+            <label for="name">name</label><input type="text" class="addArticleInput" id="name" required>
+            <label for="id_size">id_size</label><input type="number" class="addArticleInput" id="id_size" required>
+            <label for="id_subcategory">id_subcategory</label><input type="number" class="addArticleInput" id="id_subcategory" required>
+            <label for="id_gender">id_gender</label><input type="number" class="addArticleInput" id="id_gender" required>
+            <label for="id_brand">id_brand</label><input type="number" class="addArticleInput" id="id_brand" required>
+            <label for="price">price</label><input type="number" class="addArticleInput" id="price" required>
+            <label for="description">description</label><textarea class="addArticleInput" id="description required" cols="30" rows="10"></textarea>
+            <input type="submit" value="Add">
+        </div>
+        <div class="readArticle">
+            <h3>Read</h3>
+            <label for="id">id</label><input type="number" class="readArticleInput" id="id" required>
+            <input type="submit" value="Read">
+        </div>
+        <div class="updateArticle">
+            <h3>Update</h3>
+            <label for="id">id</label><input type="number" class="updateArticleInput" id="id" required>
+            <label for="name">name</label><input type="text" class="updateArticleInput" id="name" required>
+            <label for="id_size">id_size</label><input type="number" class="updateArticleInput" id="id_size" required>
+            <label for="id_subcategory">id_subcategory</label><input type="number" class="updateArticleInput" id="id_subcategory" required>
+            <label for="id_gender">id_gender</label><input type="number" class="updateArticleInput" id="id_gender" required>
+            <label for="id_brand">id_brand</label><input type="number" class="updateArticleInput" id="id_brand" required>
+            <label for="price">price</label><input type="number" class="updateArticleInput" id="price" required>
+            <label for="description">description</label><textarea class="updateArticleInput" id="description required" cols="30" rows="10"></textarea>
+            <input type="submit" value="Update">
+        </div>
+        <div class="deleteArticle">
+            <h3>Delete</h3>
+            <label for="id">id</label><input type="number" class="deleteArticleInput" id="id" required>
+            <input type="submit" value="Delete">
+        </div>
+    </div>
 </body>
 </html>
 
 <script src="./src/js/main.js" defer></script>
+<script src="./src/js/testcrud.js" defer></script>
