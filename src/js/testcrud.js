@@ -176,3 +176,82 @@ async function deleteSubcategory() {
 }
 
 formDeleteSubcategory.querySelector("input[type=submit]").addEventListener("click", deleteSubcategory)
+
+
+// ============ C == A == T == E == G == O == R == Y =============
+
+// ======================= Add Category =======================
+const formCreateCategory = document.querySelector(".addCategory")
+
+async function addCategory() {
+    // Add a Category to Category base
+    let valuesArr = getFormValues(formCreateCategory, ".addCategoryInput")
+    let [name] = [...valuesArr]
+    let res = executePhp(formCreateCategory, 
+        ".addCategoryInput", 
+        [name], 
+        `./services/sql/Category.crud.php?function=create&name=${name}`
+    )
+    return res
+}
+
+formCreateCategory.querySelector("input[type=submit]").addEventListener("click", addCategory)
+
+
+// ======================= Read Category =======================
+const formReadCategory = document.querySelector(".readCategory")
+
+async function readCategory() {
+    // Read a Category to Category base
+
+    let valuesArr = getFormValues(formReadCategory, ".readCategoryInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadCategory, 
+        ".readCategoryInput", 
+        [id] ,
+        `./services/sql/Category.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadCategory.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readCategory())
+})
+
+
+// ======================= Update Category Data =======================
+const formUpdateCategory = document.querySelector(".updateCategory")
+
+async function updateCategory() {
+    // Update a Category to Category base
+
+    let valuesArr = getFormValues(formUpdateCategory, ".updateCategoryInput")
+    let [id, name] = [...valuesArr]
+    let res = executePhp(formUpdateCategory, 
+        ".updateCategoryInput", 
+        [id, name] ,
+        `./services/sql/Category.crud.php?function=update&id=${id}&name=${name}`
+    )
+    return res
+}
+
+formUpdateCategory.querySelector("input[type=submit]").addEventListener("click", updateCategory)
+
+
+// ======================= Delete Category =======================
+const formDeleteCategory = document.querySelector(".deleteCategory")
+
+async function deleteCategory() {
+    // Delete a Category to Category base
+
+    let valuesArr = getFormValues(formDeleteCategory, ".deleteCategoryInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formUpdateCategory, 
+        ".updateCategoryInput", 
+        [id], 
+        `./services/sql/Category.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteCategory.querySelector("input[type=submit]").addEventListener("click", deleteCategory)
