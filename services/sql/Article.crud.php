@@ -2,7 +2,7 @@
 
 $db = new PDO("mysql:host=localhost;dbname=projetwebl2","root","root");
 
-// ======================= Add Article =======================
+// ======================= Create Article =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `article`(`name`, `id_size`, `id_subcategory`, `id_gender`, `id_brand`, `price`, `description`) VALUES (:name, :id_size, :id_subcategory, :id_gender, :id_brand, :price, :description)");
 
