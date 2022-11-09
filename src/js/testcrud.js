@@ -12,10 +12,10 @@ async function executePhp (form, inputClassName, variables, url) {
         return
     } else {
         form.querySelectorAll(inputClassName).forEach(elt => elt.value = "")
-        let res = []
-        await fetch(url)
-        .then(Response => res = Response)
-        .catch(e => alert(e))
+        alert("Executed")
+        let res = {}
+        res = await fetch(url)
+        .then(response => response.json())
         return res
     }
 }
@@ -29,12 +29,12 @@ async function addArticle() {
     // Add an Article to article base
     let valuesArr = getFormValues(formCreateArticle, ".addArticleInput")
     let [name, id_size, id_subcategory, id_gender, id_brand, price, description] = [...valuesArr]
-    executePhp(formCreateArticle, 
+    let res = executePhp(formCreateArticle, 
         ".addArticleInput", 
         [name, id_size, id_subcategory, id_gender, id_brand, price, description], 
         `./services/sql/Article.crud.php?function=create&name=${name}&id_size=${id_size}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}`
     )
-    alert("Article added")
+    return res
 }
 
 formCreateArticle.querySelector("input[type=submit]").addEventListener("click", addArticle)
@@ -48,17 +48,16 @@ async function readArticle() {
 
     let valuesArr = getFormValues(formReadArticle, ".readArticleInput")
     let [id] = [...valuesArr]
-    executePhp(formReadArticle, 
+    let res = executePhp(formReadArticle, 
         ".readArticleInput", 
         [id] ,
         `./services/sql/Article.crud.php?function=read&id=${id}`
     )
-    alert("Article data fetched")
+    return res
 }
 
 formReadArticle.querySelector("input[type=submit]").addEventListener("click", () => {
-    let res = readArticle()
-    console.log(res)
+    console.log(readArticle())
 })
 
 
@@ -70,12 +69,12 @@ async function updateArticle() {
 
     let valuesArr = getFormValues(formUpdateArticle, ".updateArticleInput")
     let [id, name, id_size, id_subcategory, id_gender, id_brand, price, description] = [...valuesArr]
-    executePhp(formUpdateArticle, 
+    let res = executePhp(formUpdateArticle, 
         ".updateArticleInput", 
         [id, name, id_size, id_subcategory, id_gender, id_brand, price, description] ,
         `./services/sql/Article.crud.php?function=update&id=${id}&name=${name}&id_size=${id_size}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}`
     )
-    alert("Article updated")
+    return res
 }
 
 formUpdateArticle.querySelector("input[type=submit]").addEventListener("click", updateArticle)
@@ -89,12 +88,12 @@ async function deleteArticle() {
 
     let valuesArr = getFormValues(formDeleteArticle, ".deleteArticleInput")
     let [id] = [...valuesArr]
-    executePhp(formUpdateArticle, 
+    let res = executePhp(formUpdateArticle, 
         ".updateArticleInput", 
         [id], 
         `./services/sql/Article.crud.php?function=delete&id=${id}`
     )
-    alert("Article deleted")
+    return res
 }
 
 formDeleteArticle.querySelector("input[type=submit]").addEventListener("click", deleteArticle)
@@ -109,12 +108,12 @@ async function addSubcategory() {
     // Add a Subcategory to Subcategory base
     let valuesArr = getFormValues(formCreateSubcategory, ".addSubcategoryInput")
     let [name, id_category] = [...valuesArr]
-    executePhp(formCreateSubcategory, 
+    let res = executePhp(formCreateSubcategory, 
         ".addSubcategoryInput", 
         [name, id_category], 
         `./services/sql/Subcategory.crud.php?function=create&name=${name}&id_category=${id_category}`
     )
-    alert("Subcategory added")
+    return res
 }
 
 formCreateSubcategory.querySelector("input[type=submit]").addEventListener("click", addSubcategory)
@@ -128,17 +127,16 @@ async function readSubcategory() {
 
     let valuesArr = getFormValues(formReadSubcategory, ".readSubcategoryInput")
     let [id] = [...valuesArr]
-    executePhp(formReadSubcategory, 
+    let res = executePhp(formReadSubcategory, 
         ".readSubcategoryInput", 
         [id] ,
         `./services/sql/Subcategory.crud.php?function=read&id=${id}`
     )
-    alert("Subcategory data fetched")
+    return res
 }
 
 formReadSubcategory.querySelector("input[type=submit]").addEventListener("click", () => {
-    let res = readSubcategory()
-    console.log(res)
+    console.log(readSubcategory())
 })
 
 
@@ -150,12 +148,12 @@ async function updateSubcategory() {
 
     let valuesArr = getFormValues(formUpdateSubcategory, ".updateSubcategoryInput")
     let [id, name, id_category] = [...valuesArr]
-    executePhp(formUpdateSubcategory, 
+    let res = executePhp(formUpdateSubcategory, 
         ".updateSubcategoryInput", 
         [id, name, id_category] ,
         `./services/sql/Subcategory.crud.php?function=update&id=${id}&name=${name}&id_category=${id_category}`
     )
-    alert("Subcategory updated")
+    return res
 }
 
 formUpdateSubcategory.querySelector("input[type=submit]").addEventListener("click", updateSubcategory)
@@ -169,12 +167,12 @@ async function deleteSubcategory() {
 
     let valuesArr = getFormValues(formDeleteSubcategory, ".deleteSubcategoryInput")
     let [id] = [...valuesArr]
-    executePhp(formUpdateSubcategory, 
+    let res = executePhp(formUpdateSubcategory, 
         ".updateSubcategoryInput", 
         [id], 
         `./services/sql/Subcategory.crud.php?function=delete&id=${id}`
     )
-    alert("Subcategory deleted")
+    return res
 }
 
 formDeleteSubcategory.querySelector("input[type=submit]").addEventListener("click", deleteSubcategory)
