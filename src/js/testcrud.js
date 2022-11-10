@@ -1,5 +1,10 @@
 
 const getFormValues = (form, inputClassName) => { 
+
+//  Return an Array with all values of form
+//      * form <object> : the container of all inputs of the form
+//      * inputClassName <string> : className of all inputs of the form
+
     let valuesArr = []
     let inputList = form.querySelectorAll(inputClassName)
     inputList.forEach(elt => valuesArr.push(elt.value))
@@ -7,6 +12,15 @@ const getFormValues = (form, inputClassName) => {
 }
 
 async function executePhp (form, inputClassName, variables, url) {
+
+//  Fetch the response of php file and return it in json format 
+//      * form <object> : the container of all inputs of the form
+//      * inputClassName <string> : className of all inputs of the form
+//      * variables <array> : Array containing variables names of crud function
+//      * url <string> : The url of file .php with a "function" setting and all variables in $_GET
+//          /!\ "function" setting must be "create" / "read" / "update" / "delete"
+//          -- url exemple : "./services/sql/Subcategory.crud.php?function=read&id=1`
+
     if ([...variables].includes("")) {
         alert("An input is empty")
         return
@@ -22,7 +36,7 @@ async function executePhp (form, inputClassName, variables, url) {
 
 // ========== A === R === T === I === C === L === E ==========
 
-// ======================= Add Article =======================
+// --------------- Add Article ---------------
 const formCreateArticle = document.querySelector(".addArticle")
 
 async function addArticle() {
@@ -40,7 +54,7 @@ async function addArticle() {
 formCreateArticle.querySelector("input[type=submit]").addEventListener("click", addArticle)
 
 
-// ======================= Read Article =======================
+// --------------- Read Article ---------------
 const formReadArticle = document.querySelector(".readArticle")
 
 async function readArticle() {
@@ -61,7 +75,7 @@ formReadArticle.querySelector("input[type=submit]").addEventListener("click", ()
 })
 
 
-// ======================= Update Article Data =======================
+// --------------- Update Article Data ---------------
 const formUpdateArticle = document.querySelector(".updateArticle")
 
 async function updateArticle() {
@@ -80,7 +94,7 @@ async function updateArticle() {
 formUpdateArticle.querySelector("input[type=submit]").addEventListener("click", updateArticle)
 
 
-// ======================= Delete Article =======================
+// --------------- Delete Article ---------------
 const formDeleteArticle = document.querySelector(".deleteArticle")
 
 async function deleteArticle() {
@@ -101,7 +115,7 @@ formDeleteArticle.querySelector("input[type=submit]").addEventListener("click", 
 
 // ======== S = U = B = C = A = T = E = G = O = R = Y ========
 
-// ======================= Add Subcategory =======================
+// --------------- Add Subcategory ---------------
 const formCreateSubcategory = document.querySelector(".addSubcategory")
 
 async function addSubcategory() {
@@ -119,7 +133,7 @@ async function addSubcategory() {
 formCreateSubcategory.querySelector("input[type=submit]").addEventListener("click", addSubcategory)
 
 
-// ======================= Read Subcategory =======================
+// --------------- Read Subcategory ---------------
 const formReadSubcategory = document.querySelector(".readSubcategory")
 
 async function readSubcategory() {
@@ -140,7 +154,7 @@ formReadSubcategory.querySelector("input[type=submit]").addEventListener("click"
 })
 
 
-// ======================= Update Subcategory Data =======================
+// --------------- Update Subcategory Data ---------------
 const formUpdateSubcategory = document.querySelector(".updateSubcategory")
 
 async function updateSubcategory() {
@@ -159,7 +173,7 @@ async function updateSubcategory() {
 formUpdateSubcategory.querySelector("input[type=submit]").addEventListener("click", updateSubcategory)
 
 
-// ======================= Delete Subcategory =======================
+// --------------- Delete Subcategory ---------------
 const formDeleteSubcategory = document.querySelector(".deleteSubcategory")
 
 async function deleteSubcategory() {
@@ -180,7 +194,7 @@ formDeleteSubcategory.querySelector("input[type=submit]").addEventListener("clic
 
 // ============ C == A == T == E == G == O == R == Y =============
 
-// ======================= Add Category =======================
+// --------------- Add Category ---------------
 const formCreateCategory = document.querySelector(".addCategory")
 
 async function addCategory() {
@@ -198,7 +212,7 @@ async function addCategory() {
 formCreateCategory.querySelector("input[type=submit]").addEventListener("click", addCategory)
 
 
-// ======================= Read Category =======================
+// --------------- Read Category ---------------
 const formReadCategory = document.querySelector(".readCategory")
 
 async function readCategory() {
@@ -219,7 +233,7 @@ formReadCategory.querySelector("input[type=submit]").addEventListener("click", (
 })
 
 
-// ======================= Update Category Data =======================
+// --------------- Update Category Data ---------------
 const formUpdateCategory = document.querySelector(".updateCategory")
 
 async function updateCategory() {
@@ -238,7 +252,7 @@ async function updateCategory() {
 formUpdateCategory.querySelector("input[type=submit]").addEventListener("click", updateCategory)
 
 
-// ======================= Delete Category =======================
+// --------------- Delete Category ---------------
 const formDeleteCategory = document.querySelector(".deleteCategory")
 
 async function deleteCategory() {
