@@ -269,3 +269,86 @@ async function deleteCategory() {
 }
 
 formDeleteCategory.querySelector("input[type=submit]").addEventListener("click", deleteCategory)
+
+
+
+
+
+// ========== L === O === G ==========
+
+// --------------- Add Log ---------------
+const formCreateLog = document.querySelector(".addLog")
+
+async function addLog() {
+    // Add an Log to Log base
+    let valuesArr = getFormValues(formCreateLog, ".addLogInput")
+    let [id_admin, action] = [...valuesArr]
+    let res = executePhp(formCreateLog, 
+        ".addLogInput", 
+        [id_admin, action], 
+        `./services/sql/Log.crud.php?function=create&id_admin=${id_admin}&action=${action}`
+    )
+    return res
+}
+
+formCreateLog.querySelector("input[type=submit]").addEventListener("click", addLog)
+
+
+// --------------- Read Log ---------------
+const formReadLog = document.querySelector(".readLog")
+
+async function readLog() {
+    // Read an Log to log base
+
+    let valuesArr = getFormValues(formReadLog, ".readLogInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadLog, 
+        ".readLogInput", 
+        [id] ,
+        `./services/sql/Log.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadLog.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readLog())
+})
+
+// --------------- Update Log Data ---------------
+const formUpdateLog = document.querySelector(".updateLog")
+
+async function updateLog() {
+    // Update an Log to log base
+
+    let valuesArr = getFormValues(formUpdateLog, ".updateLogInput")
+    let [id, id_admin, action] = [...valuesArr]
+    let res = executePhp(formUpdateLog, 
+        ".updateLogInput", 
+        [id, id_admin, action] ,
+        `./services/sql/Log.crud.php?function=update&id=${id}&id_admin=${id_admin}&action=${action}`
+    )
+    return res
+}
+
+formUpdateLog.querySelector("input[type=submit]").addEventListener("click", updateLog)
+
+// --------------- Delete Log ---------------
+const formDeleteLog = document.querySelector(".deleteLog")
+
+async function deleteLog() {
+    // Delete an Log to log base
+
+    let valuesArr = getFormValues(formDeleteLog, ".deleteLogInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formUpdateLog, 
+        ".updateLogInput", 
+        [id], 
+        `./services/sql/Log.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteLog.querySelector("input[type=submit]").addEventListener("click", deleteLog)
+
+
+
