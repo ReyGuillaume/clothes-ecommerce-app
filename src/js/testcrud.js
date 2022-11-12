@@ -351,4 +351,81 @@ async function deleteLog() {
 formDeleteLog.querySelector("input[type=submit]").addEventListener("click", deleteLog)
 
 
+// ========== A === D === M === I === N ==========
+
+// --------------- Add Admin ---------------
+const formCreateAdmin = document.querySelector(".addAdmin")
+
+async function addAdmin() {
+    // Add an Admin to admin base
+    let valuesArr = getFormValues(formCreateAdmin, ".addAdminInput")
+    let [username, password] = [...valuesArr]
+    let res = executePhp(formCreateAdmin, 
+        ".addAdminInput", 
+        [id_admin, action], 
+        `./services/sql/Admin.crud.php?function=create&username=${username}&password=${password}`
+    )
+    return res
+}
+
+formCreateAdmin.querySelector("input[type=submit]").addEventListener("click", addAdmin)
+
+
+// --------------- Read Admin ---------------
+const formReadAdmin = document.querySelector(".readAdmin")
+
+async function readAdmin() {
+    // Read an Admin to admin base
+
+    let valuesArr = getFormValues(formReadAdmin, ".readAdminInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadAdmin, 
+        ".readAdminInput", 
+        [id] ,
+        `./services/sql/Admin.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadAdmin.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAdmin())
+})
+
+// --------------- Update Admin Data ---------------
+const formUpdateAdmin = document.querySelector(".updateAdmin")
+
+async function updateAdmin() {
+    // Update an Admin to admin base
+
+    let valuesArr = getFormValues(formUpdateAdmin, ".updateAdminInput")
+    let [id, username, password] = [...valuesArr]
+    let res = executePhp(formUpdateAdmin, 
+        ".updateAdminInput", 
+        [id, username, password] ,
+        `./services/sql/Admin.crud.php?function=update&id=${id}&username=${username}&password=${password}`
+    )
+    return res
+}
+
+formUpdateAdmin.querySelector("input[type=submit]").addEventListener("click", updateAdmin)
+
+// --------------- Delete Admin ---------------
+const formDeleteAdmin = document.querySelector(".deleteAdmin")
+
+async function deleteAdmin() {
+    // Delete an Admin to admin base
+
+    let valuesArr = getFormValues(formDeleteAdmin, ".deleteAdminInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formUpdateAdmin, 
+        ".updateAdminInput", 
+        [id], 
+        `./services/sql/Admin.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteAdmin.querySelector("input[type=submit]").addEventListener("click", deleteAdmin)
+
+
 
