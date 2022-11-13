@@ -42,11 +42,11 @@ const formCreateArticle = document.querySelector(".addArticle")
 async function addArticle() {
     // Add an Article to article base
     let valuesArr = getFormValues(formCreateArticle, ".addArticleInput")
-    let [name, id_size, id_subcategory, id_gender, id_brand, price, description] = [...valuesArr]
+    let [name, id_size, id_subcategory, id_gender, id_brand, price, description, image] = [...valuesArr]
     let res = executePhp(formCreateArticle, 
         ".addArticleInput", 
-        [name, id_size, id_subcategory, id_gender, id_brand, price, description], 
-        `./services/sql/Article.crud.php?function=create&name=${name}&id_size=${id_size}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}`
+        [name, id_size, id_subcategory, id_gender, id_brand, price, description, image], 
+        `./services/sql/Article.crud.php?function=create&name=${name}&id_size=${id_size}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}&image=${image}`
     )
     return res
 }
@@ -82,11 +82,11 @@ async function updateArticle() {
     // Update an Article to article base
 
     let valuesArr = getFormValues(formUpdateArticle, ".updateArticleInput")
-    let [id, name, id_size, id_subcategory, id_gender, id_brand, price, description] = [...valuesArr]
+    let [id, name, id_size, id_subcategory, id_gender, id_brand, price, description, image] = [...valuesArr]
     let res = executePhp(formUpdateArticle, 
         ".updateArticleInput", 
-        [id, name, id_size, id_subcategory, id_gender, id_brand, price, description] ,
-        `./services/sql/Article.crud.php?function=update&id=${id}&name=${name}&id_size=${id_size}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}`
+        [id, name, id_size, id_subcategory, id_gender, id_brand, price, description, image] ,
+        `./services/sql/Article.crud.php?function=update&id=${id}&name=${name}&id_size=${id_size}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}&image=${image}`
     )
     return res
 }
