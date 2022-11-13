@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 09 Novembre 2022 à 16:46
+-- Généré le :  Dim 13 Novembre 2022 à 09:32
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.18
 
@@ -60,7 +60,8 @@ CREATE TABLE `article` (
   `id_gender` int(11) NOT NULL,
   `id_brand` int(11) NOT NULL,
   `price` float NOT NULL,
-  `description` varchar(300) NOT NULL
+  `description` varchar(300) NOT NULL,
+  `image` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -96,6 +97,13 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'coucou');
 
 -- --------------------------------------------------------
 
@@ -166,6 +174,13 @@ CREATE TABLE `subcategory` (
   `name` varchar(45) NOT NULL,
   `id_category` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `subcategory`
+--
+
+INSERT INTO `subcategory` (`id`, `name`, `id_category`) VALUES
+(1, 'sous-couccou', 1);
 
 -- --------------------------------------------------------
 
@@ -294,7 +309,7 @@ ALTER TABLE `adress`
 -- AUTO_INCREMENT pour la table `article`
 --
 ALTER TABLE `article`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `brand`
 --
@@ -398,4 +413,3 @@ ALTER TABLE `user`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
