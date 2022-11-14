@@ -427,5 +427,230 @@ async function deleteAdmin() {
 
 formDeleteAdmin.querySelector("input[type=submit]").addEventListener("click", deleteAdmin)
 
+// ============ G == E == N == D == E == R ===========
+
+// --------------- Add Gender ---------------
+const formCreateGender = document.querySelector(".addGender")
+
+async function addGender() {
+    // Add a Gender to Gender base
+    let valuesArr = getFormValues(formCreateGender, ".addGenderInput")
+    let [name] = [...valuesArr]
+    let res = executePhp(formCreateGender, 
+        ".addGenderInput", 
+        [name], 
+        `./services/sql/Gender.crud.php?function=create&name=${name}`
+    )
+    return res
+}
+
+formCreateGender.querySelector("input[type=submit]").addEventListener("click", addGender)
 
 
+// --------------- Read Gender ---------------
+const formReadGender = document.querySelector(".readGender")
+
+async function readGender() {
+    // Read a Gender to Gender base
+
+    let valuesArr = getFormValues(formReadGender, ".readGenderInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadGender, 
+        ".readGenderInput", 
+        [id] ,
+        `./services/sql/Gender.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadGender.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readGender())
+})
+
+// --------------- Update Gender Data ---------------
+const formUpdateGender = document.querySelector(".updateGender")
+
+async function updateGender() {
+    // Update a Gender to Gender base
+
+    let valuesArr = getFormValues(formUpdateGender, ".updateGenderInput")
+    let [id, name] = [...valuesArr]
+    let res = executePhp(formUpdateAdmin, 
+        ".updateGenderInput", 
+        [id, name] ,
+        `./services/sql/Gender.crud.php?function=update&id=${id}&name=${name}`
+    )
+    return res
+}
+
+formUpdateGender.querySelector("input[type=submit]").addEventListener("click", updateGender)
+
+// --------------- Delete Gender ---------------
+const formDeleteGender = document.querySelector(".deleteGender")
+
+async function deleteGender() {
+    // Delete a Gender to Gender base
+
+    let valuesArr = getFormValues(formDeleteGender, ".deleteGenderInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formUpdateGender, 
+        ".updateGenderInput", 
+        [id], 
+        `./services/sql/Gender.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteGender.querySelector("input[type=submit]").addEventListener("click", deleteGender)
+
+// ============ B == R == A == N == D ===========
+
+// --------------- Add Brand ---------------
+const formCreateBrand = document.querySelector(".addBrand")
+
+async function addBrand() {
+    // Add a Brand to Brand base
+    let valuesArr = getFormValues(formCreateBrand, ".addBrandInput")
+    let [name] = [...valuesArr]
+    let res = executePhp(formCreateBrand, 
+        ".addBrandInput", 
+        [name], 
+        `./services/sql/Brand.crud.php?function=create&name=${name}`
+    )
+    return res
+}
+
+formCreateBrand.querySelector("input[type=submit]").addEventListener("click", addBrand)
+
+
+// --------------- Read Brand ---------------
+const formReadBrand = document.querySelector(".readBrand")
+
+async function readBrand() {
+    // Read a Brand to Brand base
+
+    let valuesArr = getFormValues(formReadBrand, ".readBrandInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadBrand, 
+        ".readBrandInput", 
+        [id] ,
+        `./services/sql/Brand.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadBrand.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readBrand())
+})
+
+// --------------- Update Brand Data ---------------
+const formUpdateBrand = document.querySelector(".updateBrand")
+
+async function updateBrand() {
+    // Update a Brand to Brand base
+
+    let valuesArr = getFormValues(formUpdateBrand, ".updateBrandInput")
+    let [id, name] = [...valuesArr]
+    let res = executePhp(formUpdateBrand, 
+        ".updateBrandInput", 
+        [id, name] ,
+        `./services/sql/Brand.crud.php?function=update&id=${id}&name=${name}`
+    )
+    return res
+}
+
+formUpdateBrand.querySelector("input[type=submit]").addEventListener("click", updateBrand)
+
+// --------------- Delete Brand ---------------
+const formDeleteBrand = document.querySelector(".deleteBrand")
+
+async function deleteBrand() {
+    // Delete a Brand to Brand base
+
+    let valuesArr = getFormValues(formDeleteBrand, ".deleteBrandInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formDeleteBrand, 
+        ".deleteBrandInput", 
+        [id], 
+        `./services/sql/Brand.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteBrand.querySelector("input[type=submit]").addEventListener("click", deleteBrand)
+
+// ============ A == D == R == E == S == S ==========
+
+// --------------- Add Adress ---------------
+const formCreateAdress = document.querySelector(".addAdress")
+
+async function addAdress() {
+    // Add a Adress to Adress base
+    let valuesArr = getFormValues(formCreateAdress, ".addAdressInput")
+    let [number, street, city, country] = [...valuesArr]
+    let res = executePhp(formCreateAdress, 
+        ".addAdressInput", 
+        [number, street, city, country], 
+        `./services/sql/Adress.crud.php?function=create&number=${number}&street=${street}&city=${city}&country=${country}`
+    )
+    return res
+}
+
+formCreateAdress.querySelector("input[type=submit]").addEventListener("click", addAdress)
+
+// --------------- Read Adress ---------------
+const formReadAdress = document.querySelector(".readAdress")
+
+async function readAdress() {
+    // Read an Adress to Adress base
+
+    let valuesArr = getFormValues(formReadAdress, ".readAdressInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadAdress, 
+        ".readAdressInput", 
+        [id] ,
+        `./services/sql/Adress.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadAdress.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAdress())
+})
+
+// --------------- Update Adress Data ---------------
+const formUpdateAdress = document.querySelector(".updateAdress")
+
+async function updateAdress() {
+    // Update an Adress to Adress base
+
+    let valuesArr = getFormValues(formUpdateAdress, ".updateAdressInput")
+    let [id, number, street, city, country] = [...valuesArr]
+    console.log(id, number, street, city, country)
+    let res = executePhp(formUpdateAdress, 
+        ".updateAdressInput", 
+        [id, number, street, city, country] ,
+        `./services/sql/Adress.crud.php?function=update&id=${id}&number=${number}&street=${street}&city=${city}&country=${country}`
+    )
+    return res
+}
+
+formUpdateAdress.querySelector("input[type=submit]").addEventListener("click", updateAdress)
+
+// --------------- Delete Adress ---------------
+const formDeleteAdress = document.querySelector(".deleteAdress")
+
+async function deleteAdress() {
+    // Delete an Adress to Adress base
+
+    let valuesArr = getFormValues(formDeleteAdress, ".deleteAdressInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formUpdateAdress, 
+        ".updateAdressInput", 
+        [id], 
+        `./services/sql/Adress.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteAdress.querySelector("input[type=submit]").addEventListener("click", deleteAdress)
