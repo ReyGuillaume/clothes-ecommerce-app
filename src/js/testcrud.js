@@ -362,7 +362,7 @@ async function addAdmin() {
     let [username, password] = [...valuesArr]
     let res = executePhp(formCreateAdmin, 
         ".addAdminInput", 
-        [id_admin, action], 
+        [username, password], 
         `./services/sql/Admin.crud.php?function=create&username=${username}&password=${password}`
     )
     return res
@@ -730,3 +730,79 @@ async function deleteStock() {
 }
 
 formDeleteStock.querySelector("input[type=submit]").addEventListener("click", deleteStock)
+
+// ========== S === I === Z === E ==========
+
+// --------------- Add Size ---------------
+const formCreateSize = document.querySelector(".addSize")
+
+async function addSize() {
+    // Add an Size to size base
+    let valuesArr = getFormValues(formCreateSize, ".addSizeInput")
+    let [name, id_stock] = [...valuesArr]
+    let res = executePhp(formCreateSize, 
+        ".addSizeInput", 
+        [name, id_stock], 
+        `./services/sql/Size.crud.php?function=create&name=${name}&id_stock=${id_stock}`
+    )
+    return res
+}
+
+formCreateSize.querySelector("input[type=submit]").addEventListener("click", addSize)
+
+
+// --------------- Read Size ---------------
+const formReadSize = document.querySelector(".readSize")
+
+async function readSize() {
+    // Read an Size to size base
+
+    let valuesArr = getFormValues(formReadSize, ".readSizeInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadSize, 
+        ".readSizeInput", 
+        [id] ,
+        `./services/sql/Size.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadSize.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readSize())
+})
+
+// --------------- Update Size Data ---------------
+const formUpdateSize = document.querySelector(".updateSize")
+
+async function updateSize() {
+    // Update an Size to Size base
+
+    let valuesArr = getFormValues(formUpdateSize, ".updateSizeInput")
+    let [id, name, id_stock] = [...valuesArr]
+    let res = executePhp(formUpdateSize, 
+        ".updateSizeInput", 
+        [id, name, id_stock] ,
+        `./services/sql/Size.crud.php?function=update&id=${id}&name=${name}&id_stock=${id_stock}`
+    )
+    return res
+}
+
+formUpdateSize.querySelector("input[type=submit]").addEventListener("click", updateSize)
+
+// --------------- Delete Size ---------------
+const formDeleteSize = document.querySelector(".deleteSize")
+
+async function deleteSize() {
+    // Delete an Size to size base
+
+    let valuesArr = getFormValues(formDeleteSize, ".deleteSizeInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formUpdateSize, 
+        ".updateSizeInput", 
+        [id], 
+        `./services/sql/Size.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteSize.querySelector("input[type=submit]").addEventListener("click", deleteSize)

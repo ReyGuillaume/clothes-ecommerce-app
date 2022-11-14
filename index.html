@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="testCrudLog">
+    <div class="testCrudAdmin">
 
         <!-- Test crud Admin -->
 
@@ -290,6 +290,37 @@
 
 </body>
 </html>
+
+<div class="testCrudSize">
+
+    <!-- Test crud Size -->
+
+    <h2>Test Crud Size</h2>
+    <div class="addSize">
+        <h3>Create</h3>
+        <label for="name">Name</label><input type="text" class="addSizeInput" id="name" required>
+        <label for="id_stock">id_stock</label><textarea class="addSizeInput" id="id_stock" required></textarea>
+        <input type="submit" value="Add">
+    </div>
+    <div class="readSize">
+        <h3>Read</h3>
+        <label for="id">id</label><input type="number" class="readSizeInput" id="id" required>
+        <input type="submit" value="Read">
+    </div>
+    <div class="updateSize">
+        <h3>Update</h3>
+        <label for="id">id</label><input type="number" class="updateSizeInput" id="id" required>
+        <label for="name">Name</label><input type="text" class="updateSizeInput" id="name" required>
+        <label for="id_stock">id_stock</label><textarea class="updateSizeInput" id="id_stock" required></textarea>
+        
+        <input type="submit" value="Update">
+    </div>
+    <div class="deleteSize">
+        <h3>Delete</h3>
+        <label for="id">id</label><input type="number" class="deleteSizeInput" id="id" required>
+        <input type="submit" value="Delete">
+    </div>
+</div>
 
 <script src="./src/js/main.js" defer></script>
 <script src="./src/js/testcrud.js" defer></script>
