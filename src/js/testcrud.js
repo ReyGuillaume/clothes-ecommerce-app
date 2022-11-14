@@ -654,3 +654,79 @@ async function deleteAdress() {
 }
 
 formDeleteAdress.querySelector("input[type=submit]").addEventListener("click", deleteAdress)
+
+// ========== S === T === O === C === K ==========
+
+// --------------- Add Stock ---------------
+const formCreateStock = document.querySelector(".addStock")
+
+async function addStock() {
+    // Add an Stock to stock base
+    let valuesArr = getFormValues(formCreateStock, ".addStockInput")
+    let [qty_stock] = [...valuesArr]
+    let res = executePhp(formCreateStock, 
+        ".addStockInput", 
+        [qty_stock], 
+        `./services/sql/Stock.crud.php?function=create&qty_stock=${qty_stock}`
+    )
+    return res
+}
+
+formCreateStock.querySelector("input[type=submit]").addEventListener("click", addStock)
+
+
+// --------------- Read Stock ---------------
+const formReadStock = document.querySelector(".readStock")
+
+async function readStock() {
+    // Read an Stock to stock base
+
+    let valuesArr = getFormValues(formReadStock, ".readStockInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadStock, 
+        ".readStockInput", 
+        [id] ,
+        `./services/sql/Stock.crud.php?function=read&id=${id}`
+    )
+    return res
+}
+
+formReadStock.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readStock())
+})
+
+// --------------- Update Stock Data ---------------
+const formUpdateStock = document.querySelector(".updateStock")
+
+async function updateStock() {
+    // Update an Stock to stock base
+
+    let valuesArr = getFormValues(formUpdateStock, ".updateStockInput")
+    let [id, qty_stock] = [...valuesArr]
+    let res = executePhp(formUpdateStock, 
+        ".updateStockInput", 
+        [id, qty_stock] ,
+        `./services/sql/Stock.crud.php?function=update&id=${id}&qty_stock=${qty_stock}`
+    )
+    return res
+}
+
+formUpdateAdmin.querySelector("input[type=submit]").addEventListener("click", updateAdmin)
+
+// --------------- Delete Stock ---------------
+const formDeleteStock = document.querySelector(".deleteStock")
+
+async function deleteStock() {
+    // Delete an Stock to stock base
+
+    let valuesArr = getFormValues(formDeleteStock, ".deleteStockInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formUpdateStock, 
+        ".updateStockInput", 
+        [id], 
+        `./services/sql/Stock.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteStock.querySelector("input[type=submit]").addEventListener("click", deleteStock)
