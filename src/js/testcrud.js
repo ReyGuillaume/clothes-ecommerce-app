@@ -711,7 +711,7 @@ async function updateStock() {
     return res
 }
 
-formUpdateAdmin.querySelector("input[type=submit]").addEventListener("click", updateAdmin)
+formUpdateStock.querySelector("input[type=submit]").addEventListener("click", updateStock)
 
 // --------------- Delete Stock ---------------
 const formDeleteStock = document.querySelector(".deleteStock")
