@@ -453,7 +453,7 @@ async function addAddress() {
     let res = executePhp(formCreateAddress, 
         ".addAddressInput", 
         [id_Cart, number, street, city, country], 
-        `./services/sql/address_crud.php?function=create&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
+        `./services/sql/Address.crud.php?function=create&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
     )
     return res
 }
@@ -471,7 +471,7 @@ async function updateAddress() {
     let res = executePhp(formUpdateAddress, 
         ".updateAddressInput", 
         [id, id_Cart, number, street, city, country] ,
-        `./services/sql/address_crud.php?function=update&id=${id}&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
+        `./services/sql/Address.crud.php?function=update&id=${id}&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
     )
     return res
 }
@@ -489,7 +489,7 @@ async function readAddress() {
     let res = executePhp(formReadAddress, 
         ".readAddressInput", 
         [id_Cart] ,
-        `./services/sql/address_crud.php?function=read&id_Cart=${id_Cart}`
+        `./services/sql/Address.crud.php?function=read&id_Cart=${id_Cart}`
     )
     return res
 }
@@ -509,7 +509,7 @@ async function deleteAddress() {
     let res = executePhp(formDeleteAddress, 
         ".updateAddressInput", 
         [id], 
-        `./services/sql/address_crud.php?function=delete&id=${id}`
+        `./services/sql/Address.crud.php?function=delete&id=${id}`
     )
     return res
 }
@@ -528,7 +528,7 @@ async function addUser() {
     let res = executePhp(formCreateUser, 
         ".addUserInput", 
         [firstname, lastname, mail, phone_number, password], 
-        `./services/sql/user_crud.php?function=create&firstname=${firstname}&lastname=${lastname}&mail=${mail}&phone_number=${phone_number}&password=${password}`
+        `./services/sql/User.crud.php?function=create&firstname=${firstname}&lastname=${lastname}&mail=${mail}&phone_number=${phone_number}&password=${password}`
     )
     return res
 }
@@ -549,7 +549,7 @@ async function readUser() {
         create("th", tr_title, header)
     }
 
-    await fetch("./services/sql/user_crud.php?function=read")
+    await fetch("./services/sql/User.crud.php?function=read")
         .then(response => response.json())
         .then( function(data){
             if(data.length != 0){
@@ -579,7 +579,7 @@ async function updateUser() {
     let res = executePhp(formUpdateUser, 
         ".updateUserInput", 
         [id, firstname, lastname, mail, phone_number, password], 
-        `./services/sql/user_crud.php?function=update&id=${id}&firstname=${firstname}&lastname=${lastname}&mail=${mail}&phone_number=${phone_number}&password=${password}`
+        `./services/sql/User.crud.php?function=update&id=${id}&firstname=${firstname}&lastname=${lastname}&mail=${mail}&phone_number=${phone_number}&password=${password}`
     )
     return res
 }
@@ -597,7 +597,7 @@ async function deleteUser() {
     let res = executePhp(formDeleteUser, 
         ".updateUserInput", 
         [id], 
-        `./services/sql/user_crud.php?function=delete&id=${id}`
+        `./services/sql/User.crud.php?function=delete&id=${id}`
     )
     return res
 }
@@ -617,7 +617,7 @@ async function addCart() {
     let res = executePhp(formCreateCart, 
         ".addCartInput", 
         [id_user], 
-        `./services/sql/cart_crud.php?function=create&id_user=${id_user}`
+        `./services/sql/Cart.crud.php?function=create&id_user=${id_user}`
     )
     return res
 }
@@ -638,7 +638,7 @@ async function readCart() {
         create("th", tr_title, header)
     }
 
-    await fetch("./services/sql/Cart_crud.php?function=read")
+    await fetch("./services/sql/Cart.crud.php?function=read")
         .then(response => response.json())
         .then( function(data){
             if(data.length != 0){
@@ -669,7 +669,7 @@ async function updateCart() {
     let res = executePhp(formUpdateCart, 
         ".updateCartInput", 
         [id, id_user], 
-        `./services/sql/Cart_crud.php?function=update&id=${id}&id_user=${id_user}`
+        `./services/sql/Cart.crud.php?function=update&id=${id}&id_user=${id_user}`
     )
     return res
 }
@@ -687,7 +687,7 @@ async function deleteCart() {
     let res = executePhp(formDeleteCart, 
         ".updateCartInput", 
         [id], 
-        `./services/sql/Cart_crud.php?function=delete&id=${id}`
+        `./services/sql/Cart.crud.php?function=delete&id=${id}`
     )
     return res
 }
@@ -706,7 +706,7 @@ async function addCartItem() {
     let res = executePhp(formCreateCartItem, 
         ".addCartItemInput", 
         [id_cart, id_article, quantity], 
-        `./services/sql/CartItem_crud.php?function=create&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
+        `./services/sql/CartItem.crud.php?function=create&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
     )
     return res
 }
@@ -727,7 +727,7 @@ async function readCartItem() {
         create("th", tr_title, header)
     }
 
-    await fetch("./services/sql/CartItem_crud.php?function=read")
+    await fetch("./services/sql/CartItem.crud.php?function=read")
         .then(response => response.json())
         .then( function(data){
             if(data.length != 0){
@@ -758,7 +758,7 @@ async function updateCartItem() {
     let res = executePhp(formUpdateCartItem, 
         ".updateCartItemInput", 
         [id, id_cart, id_article, quantity], 
-        `./services/sql/cartitem_crud.php?function=update&id=${id}&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
+        `./services/sql/CartItem.crud.php?function=update&id=${id}&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
     )
     return res
 }
@@ -776,7 +776,7 @@ async function deleteCartItem() {
     let res = executePhp(formDeleteCartItem, 
         ".updateCartItemInput", 
         [id], 
-        `./services/sql/CartItem_crud.php?function=delete&id=${id}`
+        `./services/sql/CartItem.crud.php?function=delete&id=${id}`
     )
     return res
 }
@@ -798,7 +798,7 @@ async function addOrder() {
     let res = executePhp(formCreateOrder, 
         ".addOrderInput", 
         [id_user, id_cart, number, street, city, country, id_status], 
-        `./services/sql/Order_crud.php?function=create&id_user=${id_user}&id_cart=${id_cart}&number=${number}&street=${street}&city=${city}&country=${country}&id_status=${id_status}&date=${date}`
+        `./services/sql/Order.crud.php?function=create&id_user=${id_user}&id_cart=${id_cart}&number=${number}&street=${street}&city=${city}&country=${country}&id_status=${id_status}&date=${date}`
     )
     return res
 }
@@ -819,7 +819,7 @@ async function readOrder() {
         create("th", tr_title, header)
     }
 
-    await fetch("./services/sql/Order_crud.php?function=read")
+    await fetch("./services/sql/Order.crud.php?function=read")
         .then(response => response.json())
         .then( function(data){
             if(data.length != 0){
@@ -850,7 +850,7 @@ async function updateOrder() {
     let res = executePhp(formUpdateOrder, 
         ".updateOrderInput", 
         [id, id_user, id_cart, number, street, city, country, id_status], 
-        `./services/sql/Order_crud.php?function=update&id=${id}&id_user=${id_user}&id_cart=${id_cart}&number=${number}&street=${street}&city=${city}&country=${country}&id_status=${id_status}`
+        `./services/sql/Order.crud.php?function=update&id=${id}&id_user=${id_user}&id_cart=${id_cart}&number=${number}&street=${street}&city=${city}&country=${country}&id_status=${id_status}`
     )
     return res
 }
@@ -868,7 +868,7 @@ async function deleteOrder() {
     let res = executePhp(formDeleteOrder, 
         ".updateOrderInput", 
         [id], 
-        `./services/sql/Order_crud.php?function=delete&id=${id}`
+        `./services/sql/Order.crud.php?function=delete&id=${id}`
     )
     return res
 }
