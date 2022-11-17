@@ -1,6 +1,7 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2","root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+
 // ======================= Create User =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `order`(`id_user`, `id_cart`, `number`, `street`, `city`, `country`, `id_status`, `date`) VALUES (:id_user, :id_cart, :number, :street, :city, :country, :id_status, :date)");

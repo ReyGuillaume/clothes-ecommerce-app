@@ -449,11 +449,11 @@ const formCreateAddress = document.querySelector(".addAddress")
 async function addAddress() {
     // Add an Cart to admin base
     let valuesArr = getFormValues(formCreateAddress, ".addAddressInput")
-    let [id_Cart, number, street, city, country] = [...valuesArr]
+    let [id_user, number, street, city, country] = [...valuesArr]
     let res = executePhp(formCreateAddress, 
         ".addAddressInput", 
-        [id_Cart, number, street, city, country], 
-        `./services/sql/Address.crud.php?function=create&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
+        [id_user, number, street, city, country], 
+        `./services/sql/Address.crud.php?function=create&id_user=${id_user}&number=${number}&street=${street}&city=${city}&country=${country}`
     )
     return res
 }
@@ -467,11 +467,11 @@ async function updateAddress() {
     // Update an Admin to admin base
 
     let valuesArr = getFormValues(formUpdateAddress, ".updateAddressInput")
-    let [id, id_Cart, number, street, city, country] = [...valuesArr]
+    let [id, id_user, number, street, city, country] = [...valuesArr]
     let res = executePhp(formUpdateAddress, 
         ".updateAddressInput", 
-        [id, id_Cart, number, street, city, country] ,
-        `./services/sql/Address.crud.php?function=update&id=${id}&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
+        [id, id_user, number, street, city, country] ,
+        `./services/sql/Address.crud.php?function=update&id=${id}&id_user=${id_user}&number=${number}&street=${street}&city=${city}&country=${country}`
     )
     return res
 }
@@ -485,11 +485,11 @@ async function readAddress() {
     // Read an Admin to admin base
 
     let valuesArr = getFormValues(formReadAddress, ".readAddressInput")
-    let [id_Cart] = [...valuesArr]
+    let [id] = [...valuesArr]
     let res = executePhp(formReadAddress, 
         ".readAddressInput", 
-        [id_Cart] ,
-        `./services/sql/Address.crud.php?function=read&id_Cart=${id_Cart}`
+        [id] ,
+        `./services/sql/Address.crud.php?function=read&id=${id}`
     )
     return res
 }
@@ -1026,3 +1026,91 @@ async function deleteSize() {
 }
 
 formDeleteSize.querySelector("input[type=submit]").addEventListener("click", deleteSize)
+
+// ========== ORDER STATUS ==========
+
+// --------------- Add OrderStatus ---------------
+const formCreateOrderStatus = document.querySelector(".addOrderStatus")
+
+async function addOrderStatus() {
+    // Add an OrderStatus to admin base
+    let valuesArr = getFormValues(formCreateOrderStatus, ".addOrderStatusInput")
+    let [status] = [...valuesArr]
+    let res = executePhp(formCreateOrderStatus, 
+        ".addOrderStatusInput", 
+        [status], 
+        `./services/sql/OrderStatus.crud.php?function=create&status=${status}`
+    )
+    return res
+}
+
+formCreateOrderStatus.querySelector("input[type=submit]").addEventListener("click", addOrderStatus)
+
+
+// --------------- Read OrderStatus ---------------
+const formReadOrderStatus = document.querySelector(".readOrderStatus")
+const readOrderStatusTable = document.querySelector(".readOrderStatusTable")
+
+async function readOrderStatus() {
+    // Read an Admin to admin base
+    let headers = ["id","status"]
+    
+    tr_title = create("tr", readOrderStatusTable)
+    for(let header of headers){
+        create("th", tr_title, header)
+    }
+
+    await fetch("./services/sql/OrderStatus.crud.php?function=read")
+        .then(response => response.json())
+        .then( function(data){
+            if(data.length != 0){
+                for(let OrderStatus of data){
+                    tr_OrderStatus = create("tr", readOrderStatusTable)
+                    for(let header of headers){
+                        create("td", tr_OrderStatus, OrderStatus[header])
+                    }
+                }
+            }
+            else{
+                create("tr", readOrderStatusTable, "empty")
+            }
+        })
+}
+
+formReadOrderStatus.querySelector("input[type=submit]").addEventListener("click", () => {
+    readOrderStatus()
+})
+
+// --------------- Update OrderStatus ---------------
+const formUpdateOrderStatus = document.querySelector(".updateOrderStatus")
+
+async function updateOrderStatus() {
+    let valuesArr = getFormValues(formUpdateOrderStatus, ".updateOrderStatusInput")
+    let [id, status] = [...valuesArr]
+    let res = executePhp(formUpdateOrderStatus, 
+        ".updateOrderStatusInput", 
+        [id, status], 
+        `./services/sql/OrderStatus.crud.php?function=update&id=${id}&status=${status}`
+    )
+    return res
+}
+
+formUpdateOrderStatus.querySelector("input[type=submit]").addEventListener("click", updateOrderStatus)
+
+// --------------- Delete OrderStatus ---------------
+const formDeleteOrderStatus = document.querySelector(".deleteOrderStatus")
+
+async function deleteOrderStatus() {
+    // Delete an Admin to admin base
+
+    let valuesArr = getFormValues(formDeleteOrderStatus, ".deleteOrderStatusInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formDeleteOrderStatus, 
+        ".deleteOrderStatusInput", 
+        [id], 
+        `./services/sql/OrderStatus.crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteOrderStatus.querySelector("input[type=submit]").addEventListener("click", deleteOrderStatus)

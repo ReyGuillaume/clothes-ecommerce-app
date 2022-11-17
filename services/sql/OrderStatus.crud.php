@@ -4,9 +4,9 @@ $db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","
 
 // ======================= Create User =======================
 function create($db) {
-    $stm = $db->prepare("INSERT INTO `cart`(`id_user`) VALUES (:id_user)");
+    $stm = $db->prepare("INSERT INTO `order_status`(`status`) VALUES (:status)");
 
-    $stm->bindValue(":id_user", $_GET["id_user"]);
+    $stm->bindValue(":status", $_GET["status"]);
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
@@ -14,10 +14,10 @@ function create($db) {
 
 // ======================= Update User =======================
 function update($db) {
-    $stm = $db->prepare("UPDATE `cart` SET `id_user`=:id_user WHERE id =:id");
+    $stm = $db->prepare("UPDATE `order_status` SET `status`=:status WHERE id =:id");
 
     $stm->bindValue(":id", $_GET["id"]);
-    $stm->bindValue(":id_user", $_GET["id_user"]);
+    $stm->bindValue(":status", $_GET["status"]);
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
@@ -25,14 +25,14 @@ function update($db) {
 
 // ======================= Read User Data =======================
 function read($db) {
-    $stm = $db->prepare("SELECT * FROM `cart`");
+    $stm = $db->prepare("SELECT * FROM `order_status`");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
 
 // ======================= Delete Article =======================
 function delete($db) {
-    $stm = $db->prepare("DELETE FROM `cart` WHERE id = :id");
+    $stm = $db->prepare("DELETE FROM `order_status` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
     $stm->execute();
     echo json_encode($stm->fetchAll());

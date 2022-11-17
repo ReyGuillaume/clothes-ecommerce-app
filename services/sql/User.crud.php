@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2","root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
 
 // ======================= Create User =======================
 function create($db) {

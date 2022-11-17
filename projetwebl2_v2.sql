@@ -166,10 +166,10 @@ CREATE TABLE `order_status` (
 
 INSERT INTO `order_status` (`id`, `status`) 
 VALUES
-  (1, 'En cours de preparation'),
+  (1, 'En cours de préparation'),
   (2, 'En cours de livraison'),
-  (3, 'Livree'),
-  (4, 'Annulee');
+  (3, 'Livrée'),
+  (4, 'Annulée');
 
 -- --------------------------------------------------------
 --
@@ -254,7 +254,7 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `address` (`id`, `number`, `street`, `city`, `country`, `id_user`) VALUES
-(1, '17', 'Rue de la Raclette', 'Chambéry', 'France', 1);
+(1, '126', 'Rue de la Raclette', 'Chambéry', 'France', 1);
 
 --
 -- Index pour les tables exportées
