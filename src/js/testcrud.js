@@ -1,3 +1,15 @@
+function create(tagName, container, text=null, classs=null, id=null) {
+	let element = document.createElement(tagName)
+	container.appendChild(element)
+	if (text)
+		element.appendChild(document.createTextNode(text))
+	if (classs)
+		element.classList.add(classs)
+	if (id)
+		element.id = id
+	return element
+}
+
 
 const getFormValues = (form, inputClassName) => { 
 
@@ -25,7 +37,9 @@ async function executePhp (form, inputClassName, variables, url) {
         alert("An input is empty")
         return
     } else {
-        form.querySelectorAll(inputClassName).forEach(elt => elt.value = "")
+        if(inputClassName){
+            form.querySelectorAll(inputClassName).forEach(elt => elt.value = "")
+        }
         alert("Executed")
         let res = {}
         res = await fetch(url)
@@ -362,7 +376,7 @@ async function addAdmin() {
     let [username, password] = [...valuesArr]
     let res = executePhp(formCreateAdmin, 
         ".addAdminInput", 
-        [id_admin, action], 
+        [username, password], 
         `./services/sql/Admin.crud.php?function=create&username=${username}&password=${password}`
     )
     return res
@@ -398,11 +412,11 @@ async function updateAdmin() {
     // Update an Admin to admin base
 
     let valuesArr = getFormValues(formUpdateAdmin, ".updateAdminInput")
-    let [id, username, password] = [...valuesArr]
+    let [id, Cartname, password] = [...valuesArr]
     let res = executePhp(formUpdateAdmin, 
         ".updateAdminInput", 
-        [id, username, password] ,
-        `./services/sql/Admin.crud.php?function=update&id=${id}&username=${username}&password=${password}`
+        [id, Cartname, password] ,
+        `./services/sql/Admin.crud.php?function=update&id=${id}&Cartname=${Cartname}&password=${password}`
     )
     return res
 }
@@ -427,5 +441,437 @@ async function deleteAdmin() {
 
 formDeleteAdmin.querySelector("input[type=submit]").addEventListener("click", deleteAdmin)
 
+// ========== ADDRESS ==========
 
+// --------------- Add Address ---------------
+const formCreateAddress = document.querySelector(".addAddress")
+
+async function addAddress() {
+    // Add an Cart to admin base
+    let valuesArr = getFormValues(formCreateAddress, ".addAddressInput")
+    let [id_Cart, number, street, city, country] = [...valuesArr]
+    let res = executePhp(formCreateAddress, 
+        ".addAddressInput", 
+        [id_Cart, number, street, city, country], 
+        `./services/sql/address_crud.php?function=create&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
+    )
+    return res
+}
+
+formCreateAddress.querySelector("input[type=submit]").addEventListener("click", addAddress)
+
+// --------------- Update Address ---------------
+const formUpdateAddress = document.querySelector(".updateAddress")
+
+async function updateAddress() {
+    // Update an Admin to admin base
+
+    let valuesArr = getFormValues(formUpdateAddress, ".updateAddressInput")
+    let [id, id_Cart, number, street, city, country] = [...valuesArr]
+    let res = executePhp(formUpdateAddress, 
+        ".updateAddressInput", 
+        [id, id_Cart, number, street, city, country] ,
+        `./services/sql/address_crud.php?function=update&id=${id}&id_Cart=${id_Cart}&number=${number}&street=${street}&city=${city}&country=${country}`
+    )
+    return res
+}
+
+formUpdateAddress.querySelector("input[type=submit]").addEventListener("click", updateAddress)
+
+// --------------- Read Admin ---------------
+const formReadAddress = document.querySelector(".readAddress")
+
+async function readAddress() {
+    // Read an Admin to admin base
+
+    let valuesArr = getFormValues(formReadAddress, ".readAddressInput")
+    let [id_Cart] = [...valuesArr]
+    let res = executePhp(formReadAddress, 
+        ".readAddressInput", 
+        [id_Cart] ,
+        `./services/sql/address_crud.php?function=read&id_Cart=${id_Cart}`
+    )
+    return res
+}
+
+formReadAddress.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAddress())
+})
+
+// --------------- Delete Cart ---------------
+const formDeleteAddress = document.querySelector(".deleteAddress")
+
+async function deleteAddress() {
+    // Delete an Admin to admin base
+
+    let valuesArr = getFormValues(formDeleteAddress, ".deleteAddressInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formDeleteAddress, 
+        ".updateAddressInput", 
+        [id], 
+        `./services/sql/address_crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteAddress.querySelector("input[type=submit]").addEventListener("click", deleteAddress)
+
+// ========== U === S === E === R ==========
+
+// --------------- Add User ---------------
+const formCreateUser = document.querySelector(".addUser")
+
+async function addUser() {
+    // Add an User to admin base
+    let valuesArr = getFormValues(formCreateUser, ".addUserInput")
+    let [firstname, lastname, mail, phone_number, password] = [...valuesArr]
+    let res = executePhp(formCreateUser, 
+        ".addUserInput", 
+        [firstname, lastname, mail, phone_number, password], 
+        `./services/sql/user_crud.php?function=create&firstname=${firstname}&lastname=${lastname}&mail=${mail}&phone_number=${phone_number}&password=${password}`
+    )
+    return res
+}
+
+formCreateUser.querySelector("input[type=submit]").addEventListener("click", addUser)
+
+
+// --------------- Read User ---------------
+const formReadUser = document.querySelector(".readUser")
+const readUserTable = document.querySelector(".readUserTable")
+
+async function readUser() {
+    // Read an Admin to admin base
+    let headers = ["id", "firstname", "lastname", "mail", "phone_number", "password"]
+    
+    tr_title = create("tr", readUserTable)
+    for(let header of headers){
+        create("th", tr_title, header)
+    }
+
+    await fetch("./services/sql/user_crud.php?function=read")
+        .then(response => response.json())
+        .then( function(data){
+            if(data.length != 0){
+                for(let user of data){
+                    tr_user = create("tr", readUserTable)
+                    for(let header of headers){
+                        create("td", tr_user, user[header])
+                    }
+                }
+            }
+            else{
+                create("tr", readUserTable, "empty")
+            }
+        })
+}
+
+formReadUser.querySelector("input[type=submit]").addEventListener("click", () => {
+    readUser()
+})
+
+// --------------- Update User ---------------
+const formUpdateUser = document.querySelector(".updateUser")
+
+async function updateUser() {
+    let valuesArr = getFormValues(formUpdateUser, ".updateUserInput")
+    let [id, firstname, lastname, mail, phone_number, password] = [...valuesArr]
+    let res = executePhp(formUpdateUser, 
+        ".updateUserInput", 
+        [id, firstname, lastname, mail, phone_number, password], 
+        `./services/sql/user_crud.php?function=update&id=${id}&firstname=${firstname}&lastname=${lastname}&mail=${mail}&phone_number=${phone_number}&password=${password}`
+    )
+    return res
+}
+
+formUpdateUser.querySelector("input[type=submit]").addEventListener("click", updateUser)
+
+// --------------- Delete User ---------------
+const formDeleteUser = document.querySelector(".deleteUser")
+
+async function deleteUser() {
+    // Delete an Admin to admin base
+
+    let valuesArr = getFormValues(formDeleteUser, ".deleteUserInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formDeleteUser, 
+        ".updateUserInput", 
+        [id], 
+        `./services/sql/user_crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteUser.querySelector("input[type=submit]").addEventListener("click", deleteUser)
+
+
+// ========== C === A === R === T ==========
+
+// --------------- Add Cart ---------------
+const formCreateCart = document.querySelector(".addCart")
+
+async function addCart() {
+    // Add an Cart to admin base
+    let valuesArr = getFormValues(formCreateCart, ".addCartInput")
+    let [id_user] = [...valuesArr]
+    let res = executePhp(formCreateCart, 
+        ".addCartInput", 
+        [id_user], 
+        `./services/sql/cart_crud.php?function=create&id_user=${id_user}`
+    )
+    return res
+}
+
+formCreateCart.querySelector("input[type=submit]").addEventListener("click", addCart)
+
+
+// --------------- Read Cart ---------------
+const formReadCart = document.querySelector(".readCart")
+const readCartTable = document.querySelector(".readCartTable")
+
+async function readCart() {
+    // Read an Admin to admin base
+    let headers = ["id", "id_user"]
+    
+    tr_title = create("tr", readCartTable)
+    for(let header of headers){
+        create("th", tr_title, header)
+    }
+
+    await fetch("./services/sql/Cart_crud.php?function=read")
+        .then(response => response.json())
+        .then( function(data){
+            if(data.length != 0){
+                console.log(data)
+                for(let Cart of data){
+                    tr_Cart = create("tr", readCartTable)
+                    for(let header of headers){
+                        create("td", tr_Cart, Cart[header])
+                    }
+                }
+            }
+            else{
+                create("tr", readCartTable, "empty")
+            }
+        })
+}
+
+formReadCart.querySelector("input[type=submit]").addEventListener("click", () => {
+    readCart()
+})
+
+// --------------- Update Cart ---------------
+const formUpdateCart = document.querySelector(".updateCart")
+
+async function updateCart() {
+    let valuesArr = getFormValues(formUpdateCart, ".updateCartInput")
+    let [id, id_user] = [...valuesArr]
+    let res = executePhp(formUpdateCart, 
+        ".updateCartInput", 
+        [id, id_user], 
+        `./services/sql/Cart_crud.php?function=update&id=${id}&id_user=${id_user}`
+    )
+    return res
+}
+
+formUpdateCart.querySelector("input[type=submit]").addEventListener("click", updateCart)
+
+// --------------- Delete Cart ---------------
+const formDeleteCart = document.querySelector(".deleteCart")
+
+async function deleteCart() {
+    // Delete an Admin to admin base
+
+    let valuesArr = getFormValues(formDeleteCart, ".deleteCartInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formDeleteCart, 
+        ".updateCartInput", 
+        [id], 
+        `./services/sql/Cart_crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteCart.querySelector("input[type=submit]").addEventListener("click", deleteCart)
+
+// ========== C === A === R === T === I=== T=== E=== M ==========
+
+// --------------- Add CartItem ---------------
+const formCreateCartItem = document.querySelector(".addCartItem")
+
+async function addCartItem() {
+    // Add an CartItem to admin base
+    let valuesArr = getFormValues(formCreateCartItem, ".addCartItemInput")
+    let [id_cart, id_article, quantity] = [...valuesArr]
+    let res = executePhp(formCreateCartItem, 
+        ".addCartItemInput", 
+        [id_cart, id_article, quantity], 
+        `./services/sql/CartItem_crud.php?function=create&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
+    )
+    return res
+}
+
+formCreateCartItem.querySelector("input[type=submit]").addEventListener("click", addCartItem)
+
+
+// --------------- Read CartItem ---------------
+const formReadCartItem = document.querySelector(".readCartItem")
+const readCartItemTable = document.querySelector(".readCartItemTable")
+
+async function readCartItem() {
+    // Read an Admin to admin base
+    let headers = ["id", "id_cart", "id_article", "quantity"]
+    
+    tr_title = create("tr", readCartItemTable)
+    for(let header of headers){
+        create("th", tr_title, header)
+    }
+
+    await fetch("./services/sql/CartItem_crud.php?function=read")
+        .then(response => response.json())
+        .then( function(data){
+            if(data.length != 0){
+                console.log(data)
+                for(let CartItem of data){
+                    tr_CartItem = create("tr", readCartItemTable)
+                    for(let header of headers){
+                        create("td", tr_CartItem, CartItem[header])
+                    }
+                }
+            }
+            else{
+                create("tr", readCartItemTable, "empty")
+            }
+        })
+}
+
+formReadCartItem.querySelector("input[type=submit]").addEventListener("click", () => {
+    readCartItem()
+})
+
+// --------------- Update CartItem ---------------
+const formUpdateCartItem = document.querySelector(".updateCartItem")
+
+async function updateCartItem() {
+    let valuesArr = getFormValues(formUpdateCartItem, ".updateCartItemInput")
+    let [id, id_cart, id_article, quantity] = [...valuesArr]
+    let res = executePhp(formUpdateCartItem, 
+        ".updateCartItemInput", 
+        [id, id_cart, id_article, quantity], 
+        `./services/sql/cartitem_crud.php?function=update&id=${id}&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
+    )
+    return res
+}
+
+formUpdateCartItem.querySelector("input[type=submit]").addEventListener("click", updateCartItem)
+
+// --------------- Delete CartItem ---------------
+const formDeleteCartItem = document.querySelector(".deleteCartItem")
+
+async function deleteCartItem() {
+    // Delete an Admin to admin base
+
+    let valuesArr = getFormValues(formDeleteCartItem, ".deleteCartItemInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formDeleteCartItem, 
+        ".updateCartItemInput", 
+        [id], 
+        `./services/sql/CartItem_crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteCartItem.querySelector("input[type=submit]").addEventListener("click", deleteCartItem)
+
+
+// ========== O === R === D === E === R ==========
+
+// --------------- Add Order ---------------
+const formCreateOrder = document.querySelector(".addOrder")
+
+async function addOrder() {
+    // Add an Order to admin base
+    let valuesArr = getFormValues(formCreateOrder, ".addOrderInput")
+    let [id_user, id_cart, number, street, city, country, id_status] = [...valuesArr]
+    let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    console.log(date)
+    let res = executePhp(formCreateOrder, 
+        ".addOrderInput", 
+        [id_user, id_cart, number, street, city, country, id_status], 
+        `./services/sql/Order_crud.php?function=create&id_user=${id_user}&id_cart=${id_cart}&number=${number}&street=${street}&city=${city}&country=${country}&id_status=${id_status}&date=${date}`
+    )
+    return res
+}
+
+formCreateOrder.querySelector("input[type=submit]").addEventListener("click", addOrder)
+
+
+// --------------- Read Order ---------------
+const formReadOrder = document.querySelector(".readOrder")
+const readOrderTable = document.querySelector(".readOrderTable")
+
+async function readOrder() {
+    // Read an Admin to admin base
+    let headers = ["id", "id_user", "id_cart", "number", "street", "city", "country", "id_status", "date"]
+    
+    tr_title = create("tr", readOrderTable)
+    for(let header of headers){
+        create("th", tr_title, header)
+    }
+
+    await fetch("./services/sql/Order_crud.php?function=read")
+        .then(response => response.json())
+        .then( function(data){
+            if(data.length != 0){
+                console.log(data)
+                for(let Order of data){
+                    tr_Order = create("tr", readOrderTable)
+                    for(let header of headers){
+                        create("td", tr_Order, Order[header])
+                    }
+                }
+            }
+            else{
+                create("tr", readOrderTable, "empty")
+            }
+        })
+}
+
+formReadOrder.querySelector("input[type=submit]").addEventListener("click", () => {
+    readOrder()
+})
+
+// --------------- Update Order ---------------
+const formUpdateOrder = document.querySelector(".updateOrder")
+
+async function updateOrder() {
+    let valuesArr = getFormValues(formUpdateOrder, ".updateOrderInput")
+    let [id, id_user, id_cart, number, street, city, country, id_status] = [...valuesArr]
+    let res = executePhp(formUpdateOrder, 
+        ".updateOrderInput", 
+        [id, id_user, id_cart, number, street, city, country, id_status], 
+        `./services/sql/Order_crud.php?function=update&id=${id}&id_user=${id_user}&id_cart=${id_cart}&number=${number}&street=${street}&city=${city}&country=${country}&id_status=${id_status}`
+    )
+    return res
+}
+
+formUpdateOrder.querySelector("input[type=submit]").addEventListener("click", updateOrder)
+
+// --------------- Delete Order ---------------
+const formDeleteOrder = document.querySelector(".deleteOrder")
+
+async function deleteOrder() {
+    // Delete an Admin to admin base
+
+    let valuesArr = getFormValues(formDeleteOrder, ".deleteOrderInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formDeleteOrder, 
+        ".updateOrderInput", 
+        [id], 
+        `./services/sql/Order_crud.php?function=delete&id=${id}`
+    )
+    return res
+}
+
+formDeleteOrder.querySelector("input[type=submit]").addEventListener("click", deleteOrder)
 

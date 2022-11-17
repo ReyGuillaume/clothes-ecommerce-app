@@ -14,7 +14,6 @@
     <div class="testCrudArticle">
 
         <!-- Test crud Article -->
-
         <h2>Test Crud Article</h2>
         <div class="addArticle">
             <h3>Create</h3>
@@ -56,7 +55,7 @@
     <div class="testCrudSubcategory">
 
         <!-- Test crud Subcategory -->
-
+        <hr>
         <h2>Test Crud Subcategory</h2>
         <div class="addSubcategory">
             <h3>Create</h3>
@@ -73,7 +72,7 @@
             <h3>Update</h3>
             <label for="id">id</label><input type="number" class="updateSubcategoryInput" id="id" required>
             <label for="name">name</label><input type="text" class="updateSubcategoryInput" id="name" required>
-            <label for="id_subcategory">id_subcategory</label><input type="number" class="updateSubcategoryInput" id="id_subcategory" required>
+            <label for="id_subcategory">id_category</label><input type="number" class="updateSubcategoryInput" id="id_subcategory" required>
             <input type="submit" value="Update">
         </div>
         <div class="deleteSubcategory">
@@ -86,7 +85,7 @@
     <div class="testCrudCategory">
 
         <!-- Test crud Category -->
-
+        <hr>
         <h2>Test Crud Category</h2>
         <div class="addCategory">
             <h3>Create</h3>
@@ -114,7 +113,7 @@
     <div class="testCrudLog">
 
         <!-- Test crud Log -->
-
+        <hr>
         <h2>Test Crud Log</h2>
         <div class="addLog">
             <h3>Create</h3>
@@ -146,11 +145,12 @@
 
         <!-- Test crud Admin -->
 
+        <hr>
         <h2>Test Crud Admin</h2>
         <div class="addAdmin">
             <h3>Create</h3>
             <label for="username">username</label><input type="text" class="addAdminInput" id="username" required>
-            <label for="password">Paswword</label><textarea class="addAdminInput" id="password" required></textarea>
+            <label for="password">password</label><input type="password" class="addAdminInput" id="password" required>
             <input type="submit" value="Add">
         </div>
         <div class="readAdmin">
@@ -173,7 +173,198 @@
         </div>
     </div>
 
+    <div class="testCrudAddress">
 
+        <!-- Test crud Address -->
+
+        <hr>
+        <h2>Test Crud Address</h2>
+        <div class="addAddress">
+            <h3>Create</h3>
+            <label for="id_user">id_user</label><input type="number" class="addAddressInput" id="id_user" required>
+            <label for="number">number</label><input type="number" class="addAddressInput" id="number" required>
+            <label for="street">street</label><textarea class="addAddressInput" id="street" required></textarea>
+            <label for="city">city</label><textarea class="addAddressInput" id="city" required></textarea>
+            <label for="country">country</label><textarea class="addAddressInput" id="country" required></textarea>
+            <input type="submit" value="Add">
+        </div>
+        <div class="readAddress">
+            <h3>Read</h3>
+            <label for="id_user">id_user</label><input type="number" class="readAddressInput" id="id_user" required>
+            <input type="submit" value="Read">
+        </div>
+        <div class="updateAddress">
+            <h3>Update</h3>
+            <label for="id">id</label><input type="number" class="updateAddressInput" id="id" required>
+            <label for="id_user">id_user</label><input type="number" class="updateAddressInput" id="id_user" required>
+            <label for="number">number</label><input type="number" class="updateAddressInput" id="number" required>
+            <label for="street">street</label><textarea class="updateAddressInput" id="street" required></textarea>
+            <label for="city">city</label><textarea class="updateAddressInput" id="city" required></textarea>
+            <label for="country">country</label><textarea class="updateAddressInput" id="country" required></textarea>
+            <input type="submit" value="Update">
+        </div>
+        <div class="deleteAddress">
+            <h3>Delete</h3>
+            <label for="id">id</label><input type="number" class="deleteAddressInput" id="id" required>
+            <input type="submit" value="Delete">
+        </div>
+    </div>  
+
+    <!-- Test crud User -->
+    <div class="testCrudUser">
+
+    <hr>
+    <h2>Test Crud User</h2>
+    <div class="addUser">
+        <h3>Sign Up</h3>
+        <label for="name">firstname</label><input type="text" class="addUserInput" id="name" required>
+        <label for="name">lastname</label><input type="text" class="addUserInput" id="name" required>
+        <label for="name">mail</label><input type="email" class="addUserInput" id="name" required>
+        <label for="name">phone_number</label><input type="number" class="addUserInput" id="name" required>
+        <label for="name">password</label><input type="password" class="addUserInput" id="name" required>
+        <input type="submit" value="Sign Up">
+    </div>
+
+    <div class="readUser">
+        <h3>Read</h3>
+        <input type="submit" value="Read">
+        <table class="readUserTable">
+        </table>
+    </div>
+    
+    <div class="updateUser">
+        <h3>Update User</h3>
+        <label for="name">id</label><input type="number" class="updateUserInput" id="name" required>
+        <label for="name">firstname</label><input type="text" class="updateUserInput" id="name" required>
+        <label for="name">lastname</label><input type="text" class="updateUserInput" id="name" required>
+        <label for="name">mail</label><input type="email" class="updateUserInput" id="name" required>
+        <label for="name">phone_number</label><input type="number" class="updateUserInput" id="name" required>
+        <label for="name">password</label><input type="password" class="updateUserInput" id="name" required>
+        <input type="submit" value="Update User">
+    </div>
+
+    <div class="deleteUser">
+        <h3>Delete</h3>
+        <label for="id">id</label><input type="number" class="deleteUserInput" id="id" required>
+        <input type="submit" value="Delete">
+    </div>
+    
+    </div>
+
+    <!-- Test crud Cart -->
+    <div class="testCrudCart">
+
+    <hr>
+    <h2>Test Crud Cart</h2>
+    <div class="addCart">
+        <h3>Sign Up</h3>
+        <label for="id_user">id_user</label><input type="text" class="addCartInput" id="id_user" required>
+        <input type="submit" value="Create Cart">
+    </div>
+
+    <div class="readCart">
+        <h3>Read</h3>
+        <input type="submit" value="Read">
+        <table class="readCartTable">
+        </table>
+    </div>
+    
+    <div class="updateCart">
+        <h3>Update Cart</h3>
+        <label for="name">id</label><input type="number" class="updateCartInput" id="name" required>
+        <label for="name">id_user</label><input type="number" class="updateCartInput" id="name" required>
+        <input type="submit" value="Update Cart">
+    </div>
+
+    <div class="deleteCart">
+        <h3>Delete</h3>
+        <label for="id">id</label><input type="number" class="deleteCartInput" id="id" required>
+        <input type="submit" value="Delete">
+    </div>
+    
+    </div>
+
+    <!-- Test crud CartItem -->
+    <div class="testCrudCartItem">
+
+        <hr>
+        <h2>Test Crud CartItem</h2>
+        <div class="addCartItem">
+            <h3>Add Cart Item</h3>
+            <label for="name">id_cart</label><input type="text" class="addCartItemInput" id="name" required>
+            <label for="name">id_article</label><input type="text" class="addCartItemInput" id="name" required>
+            <label for="name">quantity</label><input type="email" class="addCartItemInput" id="name" required>
+            <input type="submit" value="Add Cart Item">
+        </div>
+
+        <div class="readCartItem">
+            <h3>Read</h3>
+            <input type="submit" value="Read">
+            <table class="readCartItemTable">
+            </table>
+        </div>
+
+        <div class="updateCartItem">
+            <h3>Update Cart Item</h3>
+            <label for="id">id</label><input type="text" class="updateCartItemInput" id="id" required>
+            <label for="id_cart">id_cart</label><input type="text" class="updateCartItemInput" id="id_cart" required>
+            <label for="id_article">id_article</label><input type="text" class="updateCartItemInput" id="id_article" required>
+            <label for="quantity">quantity</label><input type="email" class="updateCartItemInput" id="quantity" required>
+            <input type="submit" value="Update Cart Item">
+        </div>
+    
+        <div class="deleteCartItem">
+            <h3>Delete</h3>
+            <label for="name">id</label><input type="text" class="deleteCartItemInput" id="name" required>
+            <input type="submit" value="Delete">
+        </div>
+        
+    </div>
+
+    <!-- Test crud Order -->
+    <div class="testCrudOrder">
+
+        <hr>
+        <h2>Test Crud Order</h2>
+        <div class="addOrder">
+            <h3>Add Order</h3>
+            <label for="id_user">id_user</label><input type="text" class="addOrderInput" id="id_user" required>
+            <label for="id_cart">id_cart</label><input type="text" class="addOrderInput" id="id_cart" required>
+            <label for="number">number</label><input type="text" class="addOrderInput" id="number" required>
+            <label for="street">street</label><input type="text" class="addOrderInput" id="street" required>
+            <label for="city">city</label><input type="text" class="addOrderInput" id="city" required>
+            <label for="country">country</label><input type="text" class="addOrderInput" id="country" required>
+            <label for="id_status">id_status</label><input type="text" class="addOrderInput" id="id_status" required>
+            <input type="submit" value="Add Order">
+        </div>
+
+        <div class="readOrder">
+            <h3>Read</h3>
+            <input type="submit" value="Read">
+            <table class="readOrderTable">
+            </table>
+        </div>
+
+        <div class="updateOrder">
+            <h3>Update Cart Item</h3>
+            <label for="id">id</label><input type="text" class="updateOrderInput" id="id" required>
+            <label for="id_user">id_user</label><input type="text" class="updateOrderInput" id="id_user" required>
+            <label for="id_cart">id_cart</label><input type="text" class="updateOrderInput" id="id_cart" required>
+            <label for="number">number</label><input type="text" class="updateOrderInput" id="number" required>
+            <label for="street">street</label><input type="text" class="updateOrderInput" id="street" required>
+            <label for="city">city</label><input type="text" class="updateOrderInput" id="city" required>
+            <label for="country">country</label><input type="text" class="updateOrderInput" id="country" required>
+            <label for="id_status">id_status</label><input type="text" class="updateOrderInput" id="id_status" required>
+            <input type="submit" value="Update Order">
+        </div>
+    
+        <div class="deleteOrder">
+            <h3>Delete</h3>
+            <label for="name">id</label><input type="text" class="deleteOrderInput" id="name" required>
+            <input type="submit" value="Delete">
+        </div>
+        
+    </div>
 
 </body>
 </html>

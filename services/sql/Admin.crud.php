@@ -2,6 +2,7 @@
 
 $db = new PDO("mysql:host=localhost;dbname=projetwebl2","root","root");
 
+
 // ======================= Create Admin =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `admin`(`username`, `password`) VALUES (:username, :password)");
