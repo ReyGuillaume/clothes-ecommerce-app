@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
 
 // ======================= Create Stock =======================
 function create($db) {
@@ -11,6 +11,7 @@ function create($db) {
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
+
 // ======================= Read Stock Data =======================
 function read($db) {
     $stm = $db->prepare("SELECT * FROM `stock` WHERE id = :id");
@@ -18,6 +19,14 @@ function read($db) {
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
+
+// ======================= Read All Stock Id =======================
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `stock` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Update Stock =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `stock` SET `qty_stock`=:qty_stock WHERE id =:id");
@@ -40,6 +49,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
+    case 'readall': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

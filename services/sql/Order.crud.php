@@ -1,8 +1,8 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
 
-// ======================= Create User =======================
+// ======================= Create Order =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `order`(`id_user`, `id_cart`, `number`, `street`, `city`, `country`, `id_status`, `date`) VALUES (:id_user, :id_cart, :number, :street, :city, :country, :id_status, :date)");
 
@@ -19,7 +19,22 @@ function create($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Update User =======================
+// ======================= Read Order Data =======================
+function read($db) {
+    $stm = $db->prepare("SELECT * FROM `order` WHERE id = :id");
+    $stm->bindValue(":id", $_GET["id"]);
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All Order Id =======================
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `order` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Update Order =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `order` SET `id_user`=:id_user, `id_cart`=:id_cart,`number`=:number, `street`=:street, `city`=:city, `country`=:country, `id_status`=:id_status WHERE id =:id");
 
@@ -36,14 +51,7 @@ function update($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Read User Data =======================
-function read($db) {
-    $stm = $db->prepare("SELECT * FROM `order`");
-    $stm->execute();
-    echo json_encode($stm->fetchAll());
-}
-
-// ======================= Delete Article =======================
+// ======================= Delete Order =======================
 function delete($db) {
     $stm = $db->prepare("DELETE FROM `order` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
@@ -54,6 +62,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
+    case 'readall': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;
