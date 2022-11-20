@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/styles/global.css">
+    <title>Article</title>
+</head>
+<body>
+    <main id="app" >
+        
+            <li v-for="article in articles">
+              <!-- <p :style="{backgroundColor: '#'+student.color }"> -->
+                {{ article.name }}
+                <!-- <input v-model="student.color"
+                  @input="update(student)"
+                /> -->
+              </p>
+            </li>
+          
+    </main>
+</body>
+</html>
+<script src="./src/js/main.js" defer></script>
+<script src="./src/js/testcrud.js" defer></script>
+<script src="./src/js/axios.min.js"></script>
+<script src="./src/js/vue.global.js"></script>
