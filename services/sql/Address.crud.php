@@ -1,8 +1,8 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
 
-// ======================= Create User =======================
+// ======================= Create Address =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `address`(`number`, `street`, `city`, `country`, `id_user`) VALUES (:number, :street, :city, :country, :id_user)");
 
@@ -16,7 +16,22 @@ function create($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Update User =======================
+// ======================= Read Address Data =======================
+function read($db) {
+    $stm = $db->prepare("SELECT * FROM `address` WHERE id = :id");
+    $stm->bindValue(":id", $_GET["id"]);
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All Address Id =======================
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `address` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Update Address =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `address` SET `id_user`=:id_user, `number`=:number, `street`=:street, `city`=:city, `country`=:country WHERE id =:id");
 
@@ -31,15 +46,7 @@ function update($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Read User Data =======================
-function read($db) {
-    $stm = $db->prepare("SELECT * FROM `address` WHERE id = :id");
-    $stm->bindValue(":id", $_GET["id"]);
-    $stm->execute();
-    echo json_encode($stm->fetchAll());
-}
-
-// ======================= Delete Article =======================
+// ======================= Delete Address =======================
 function delete($db) {
     $stm = $db->prepare("DELETE FROM `address` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
@@ -50,6 +57,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
+    case 'readall': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

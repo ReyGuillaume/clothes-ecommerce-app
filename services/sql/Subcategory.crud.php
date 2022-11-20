@@ -1,8 +1,8 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
 
-// ======================= Create subcategory =======================
+// ======================= Create Subcategory =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `subcategory`(`name`, `id_category`) VALUES (:name, :id_category)");
 
@@ -13,7 +13,7 @@ function create($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Read subcategory Data =======================
+// ======================= Read Subcategory Data =======================
 function read($db) {
     $stm = $db->prepare("SELECT * FROM `subcategory` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
@@ -21,7 +21,14 @@ function read($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Update subcategory =======================
+// ======================= Read All Subcategory Id =======================
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `subcategory` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Update Subcategory =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `subcategory` SET `name`=:name,`id_category`=:id_category WHERE id =:id");
 
@@ -33,7 +40,7 @@ function update($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Delete subcategory =======================
+// ======================= Delete Subcategory =======================
 function delete($db) {
     $stm = $db->prepare("DELETE FROM `subcategory` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
@@ -44,6 +51,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
+    case 'readall': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

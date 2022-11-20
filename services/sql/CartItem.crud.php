@@ -1,8 +1,8 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
 
-// ======================= Create User =======================
+// ======================= Create CartItem =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `cart_item`(`id_cart`, `id_article`, `quantity`) VALUES (:id_cart, :id_article, :quantity)");
 
@@ -14,7 +14,22 @@ function create($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Update User =======================
+// ======================= Read CartItem Data =======================
+function read($db) {
+    $stm = $db->prepare("SELECT * FROM `cart_item` WHERE id = :id");
+    $stm->bindValue(":id", $_GET["id"]);
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All CartItem Id =======================
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `cart_item` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Update CartItem =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `cart_item` SET `id_cart`=:id_cart, `id_article`=:id_article,`quantity`=:quantity WHERE id =:id");
 
@@ -27,14 +42,7 @@ function update($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Read User Data =======================
-function read($db) {
-    $stm = $db->prepare("SELECT * FROM `cart_item`");
-    $stm->execute();
-    echo json_encode($stm->fetchAll());
-}
-
-// ======================= Delete Article =======================
+// ======================= Delete CartItem =======================
 function delete($db) {
     $stm = $db->prepare("DELETE FROM `cart_item` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
@@ -44,7 +52,7 @@ function delete($db) {
 
 switch($_GET["function"]) {
     case 'create': create($db); break;
-    case 'read': read($db); break;
+    case 'readall': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

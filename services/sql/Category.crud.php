@@ -1,8 +1,8 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
 
-// ======================= Create category =======================
+// ======================= Create Category =======================
 function create($db) {
     $stm = $db->prepare("INSERT INTO `category`(`name`) VALUES (:name)");
 
@@ -12,7 +12,7 @@ function create($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Read category Data =======================
+// ======================= Read Category Data =======================
 function read($db) {
     $stm = $db->prepare("SELECT * FROM `category` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
@@ -20,7 +20,14 @@ function read($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Update category =======================
+// ======================= Read All Category Id =======================
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `category` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Update Category =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `category` SET `name`=:name WHERE id =:id");
 
@@ -31,7 +38,7 @@ function update($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Delete category =======================
+// ======================= Delete Category =======================
 function delete($db) {
     $stm = $db->prepare("DELETE FROM `category` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
@@ -42,6 +49,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
+    case 'readall': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

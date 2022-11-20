@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2".';charset=UTF8',"root","root");
+$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
 
 
 // ======================= Create Admin =======================
@@ -9,15 +9,22 @@ function create($db) {
 
     $stm->bindValue(":username", $_GET["username"]);
     $stm->bindValue(":password", $_GET["password"]);
-    
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
+
 // ======================= Read Admin Data =======================
 function read($db) {
     $stm = $db->prepare("SELECT * FROM `admin` WHERE id = :id");
     $stm->bindValue(":id", $_GET["id"]);
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All Admin Id =======================
+function read($db) {
+    $stm = $db->prepare("SELECT `id` FROM `admin` WHERE 1");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
@@ -29,7 +36,6 @@ function update($db) {
     $stm->bindValue(":id", $_GET["id"]);
     $stm->bindValue(":username", $_GET["username"]);
     $stm->bindValue(":password", $_GET["password"]);
-    
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
@@ -46,6 +52,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
+    case 'readall': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;
