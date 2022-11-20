@@ -45,7 +45,6 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `id_size` int(11) NOT NULL,
   `id_subcategory` int(11) NOT NULL,
   `id_gender` int(11) NOT NULL,
   `id_brand` int(11) NOT NULL,
@@ -79,6 +78,7 @@ CREATE TABLE `cart_item` (
   `id` int(11) NOT NULL,
   `id_cart` int(11) NOT NULL,
   `id_article` int(11) NOT NULL,
+  `id_size` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- --------------------------------------------------------
@@ -172,19 +172,6 @@ VALUES
   (4, 'Annulée');
 
 -- --------------------------------------------------------
---
--- Structure de la table `stock`
---
-
-CREATE TABLE `stock` (
-  `id` int(11) NOT NULL,
-  `qty_stock` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `stock` (`id`, `qty_stock`) VALUES
-(1, '10');
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `size`
@@ -192,13 +179,28 @@ INSERT INTO `stock` (`id`, `qty_stock`) VALUES
 
 CREATE TABLE `size` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `id_stock` int(11) NOT NULL
+  `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `size` (`id`, `name`, `id_stock`) VALUES
-(1, 'L', 1);
+INSERT INTO `size` (`id`, `name`) 
+VALUES
+  (1, 'XS'),
+  (2, 'S'),
+  (3, 'M'),
+  (4, 'L'),
+  (5, 'XL');
 
+-- --------------------------------------------------------
+--
+-- Structure de la table `stock`
+--
+
+CREATE TABLE `stock` (
+  `id` int(11) NOT NULL,
+  `id_article` int(11) NOT NULL,
+  `id_size` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 -- --------------------------------------------------------
@@ -278,7 +280,6 @@ ALTER TABLE `address`
 --
 ALTER TABLE `article`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_size` (`id_size`,`id_subcategory`,`id_gender`,`id_brand`),
   ADD KEY `id_subcategory` (`id_subcategory`),
   ADD KEY `id_brand` (`id_brand`),
   ADD KEY `id_gender` (`id_gender`);
@@ -295,6 +296,7 @@ ALTER TABLE `brand`
 ALTER TABLE `cart_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_article` (`id_article`),
+  ADD KEY `id_size` (`id_size`),
   ADD KEY `id_cart` (`id_cart`);
 
 --
@@ -342,14 +344,16 @@ ALTER TABLE `order_status`
 -- Index pour la table `size`
 --
 ALTER TABLE `size`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_stock` (`id_stock`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `stock`
 --
 ALTER TABLE `stock`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_article` (`id_article`),
+  ADD KEY `id_size` (`id_size`);
+
 
 --
 -- Index pour la table `subcategory`
@@ -452,16 +456,16 @@ ALTER TABLE `user`
 --
 ALTER TABLE `article`
   ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`id_subcategory`) REFERENCES `subcategory` (`id`),
-  ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`id_size`) REFERENCES `size` (`id`),
-  ADD CONSTRAINT `article_ibfk_3` FOREIGN KEY (`id_brand`) REFERENCES `brand` (`id`),
-  ADD CONSTRAINT `article_ibfk_4` FOREIGN KEY (`id_gender`) REFERENCES `gender` (`id`);
+  ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`id_brand`) REFERENCES `brand` (`id`),
+  ADD CONSTRAINT `article_ibfk_3` FOREIGN KEY (`id_gender`) REFERENCES `gender` (`id`);
 
 --
 -- Contraintes pour la table `cart`
 --
 ALTER TABLE `cart_item`
   ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`id`),
-  ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`id_article`) REFERENCES `article` (`id`);
+  ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`id_size`) REFERENCES `size` (`id`),
+  ADD CONSTRAINT `cart_item_ibfk_3` FOREIGN KEY (`id_article`) REFERENCES `article` (`id`);
 --
 -- Contraintes pour la table `cart`
 --
@@ -483,10 +487,11 @@ ALTER TABLE `order`
   ADD CONSTRAINT `order_ibfk_3` FOREIGN KEY (`id_status`) REFERENCES `order_status` (`id`);
 
 --
--- Contraintes pour la table `size`
+-- Contraintes pour la table `stock`
 --
-ALTER TABLE `size`
-  ADD CONSTRAINT `size_ibfk_1` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id`);
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `article` (`id`),
+  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`id_size`) REFERENCES `size` (`id`);
 
 --
 -- Contraintes pour la table `subcategory`
