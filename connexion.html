@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/styles/global.css">
+    <title>Article</title>
+</head>
+<body>
+    <main id="app" >
+        
+        <section>
+            <div class="login">
+                <h1>Log-in</h1>                       
+                <label for="mail">mail</label>
+                <input type="text" id="mail" class ="inputLogin" name="mail" v-model="mail"><br><br>
+                <label for="password">password</label>
+                <input type="password" id="password" class ="inputLogin" name="password" v-model="password"><br><br>
+                <input type="submit" class ="buttonLogin" v-on:click="Login" value="Login">
+            </div>
+        </section>      
+    </main>
+</body>
+</html>
+<script src="./src/js/main.js" defer></script>
+<script src="./src/js/testcrud.js" defer></script>
+<script src="./src/js/axios.min.js"></script>
+<script src="./src/js/vue.global.js"></script>

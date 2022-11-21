@@ -1,84 +1,53 @@
 const { createApp } = Vue
 
 createApp({
- data() {
-  return {
-    displayPages : {
-      articleList : true, 
-      article : false, 
-      cart : false
-    }, 
-    article : {}, subcategory:{}, 
-  }
- },
- methods: {
+  data() {
+    return {
+        mail: "",
+        password: "",
+        articles: {},        
+      }
+  },
+  methods: {
 
-  getAllArticles() {
-    return this.articlesId.forEach(id => {
-      fetch(`./services/sql/Article.crud.php?function=read&id=${id}`)
+    //récupère le nombre de questions
+    Login: function()
+    {
+      if(this.mail == "")
+      {
+        if(this.password == "")
+        {
+          window.alert("Veuillez renseigner l'adresse mail et le mot de passe")
+        }
 
-    })
-    
-    .then(res => res.json())
-    .then(res => {
-        const arr = []
-        res.forEach(element => arr.push(element.id))
-        this.articlesId = arr
-    })
-  }, 
+        else
+        {
+          window.alert("Veuillez renseigner l'adresse mail")
+        }    
+      }
 
-  setArticle(id) {
-    this.currentArticleID = id
-    return fetch(`./services/sql/Article.crud.php?function=read&id=${id}`)
-    .then(res => res.json())
-    .then(res => [this.article] = res)
-  }, 
+      else
+      {
+        if(this.password == "")
+        {
+          window.alert("Veuillez renseigner le mot de passe")
+        }
 
-  setSubcategory(id) {
-    fetch(`./services/sql/Subcategory.crud.php?function=read&id=${id}`)
-    .then(res => res.json())
-    .then(res => [this.subcategory] = res)
-    return
-  }, 
+        else
+        {;
+          axios.get("services/sql/Login.php?mail="+this.mail+"&password="+this.password).then(
+            response => 
+            {
+              window.alert(response.data);
+            }
+          );
+        }
+      }
+    }
 
-  getAllArticleId() {
-    return fetch('./services/sql/Article.crud.php?function=readall')
-    .then(res => res.json())
-    .then(res => {
-        const arr = []
-        res.forEach(element => arr.push(element.id))
-        this.articlesId = arr
-    })
-  }, 
-
-  displayArticleListPage() {
-    this.displayPages.articleList = true
-    this.displayPages.article = false
-    this.displayPages.cart = false
-  }, 
-
-  displayArticlePage(id) {
-    this.displayPages.articleList = false
-    this.displayPages.article = true
-    this.displayPages.cart = false
-    this.setArticle(id)
-    this.setSubcategory(this.article.id_subcategory)
-    console.log(this.subcategory)
-  }, 
-  deleteFromCart(id) {
-    alert("supprimé")
-  }, 
-  addToCart(id) {
-    alert("ajouté")
-  }
-
- },
- computed: {
- },
- mounted() {
-  (async () => {
-    await this.getAllArticleId()
-    await this.getAllArticles()
-  })()
- }
-}).mount('#root')
+  },
+  computed: {
+  },
+  mounted() {
+  },
+}).mount('#app')
