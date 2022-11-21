@@ -29,7 +29,7 @@ function read($db) {
 
 // ======================= Read All Article Id =======================
 function readAll($db) {
-    $stm = $db->prepare("SELECT `id` FROM `article` WHERE 1");
+    $stm = $db->prepare("SELECT * FROM `article`");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
