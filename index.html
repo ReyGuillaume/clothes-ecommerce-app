@@ -15,7 +15,6 @@
         <div class="addArticle">
             <h3>Create</h3>
             <label for="name">name</label><input type="text" class="addArticleInput" id="name" required>
-            <label for="id_size">id_size</label><input type="number" class="addArticleInput" id="id_size" required>
             <label for="id_subcategory">id_subcategory</label><input type="number" class="addArticleInput" id="id_subcategory" required>
             <label for="id_gender">id_gender</label><input type="number" class="addArticleInput" id="id_gender" required>
             <label for="id_brand">id_brand</label><input type="number" class="addArticleInput" id="id_brand" required>
@@ -23,6 +22,10 @@
             <label for="description">description</label><textarea class="addArticleInput" id="description required" cols="30" rows="10"></textarea>
             <label for="image">image</label><input type="text" class="addArticleInput" id="image" required>
             <input type="submit" value="Add">
+        </div>
+        <div class="readAllArticle">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
         </div>
         <div class="readArticle">
             <h3>Read</h3>
@@ -33,7 +36,6 @@
             <h3>Update</h3>
             <label for="id">id</label><input type="number" class="updateArticleInput" id="id" required>
             <label for="name">name</label><input type="text" class="updateArticleInput" id="name" required>
-            <label for="id_size">id_size</label><input type="number" class="updateArticleInput" id="id_size" required>
             <label for="id_subcategory">id_subcategory</label><input type="number" class="updateArticleInput" id="id_subcategory" required>
             <label for="id_gender">id_gender</label><input type="number" class="updateArticleInput" id="id_gender" required>
             <label for="id_brand">id_brand</label><input type="number" class="updateArticleInput" id="id_brand" required>
@@ -59,6 +61,10 @@
             <label for="name">name</label><input type="text" class="addSubcategoryInput" id="name" required>
             <label for="id_category">id_category</label><input type="number" class="addSubcategoryInput" id="id_category" required>
             <input type="submit" value="Add">
+        </div>
+        <div class="readAllSubcategory">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
         </div>
         <div class="readSubcategory">
             <h3>Read</h3>
@@ -89,6 +95,10 @@
             <label for="name">name</label><input type="text" class="addCategoryInput" id="name" required>
             <input type="submit" value="Add">
         </div>
+        <div class="readAllCategory">
+            <h3>Read</h3>
+            <input type="submit" value="Read All">
+        </div>
         <div class="readCategory">
             <h3>Read</h3>
             <label for="id">id</label><input type="number" class="readCategoryInput" id="id" required>
@@ -117,6 +127,10 @@
             <label for="id_admin">id_admin</label><input type="number" class="addLogInput" id="id_admin" required>
             <label for="action">action</label><textarea class="addLogInput" id="action" required></textarea>
             <input type="submit" value="Add">
+        </div>
+        <div class="readAllLog">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
         </div>
         <div class="readLog">
             <h3>Read</h3>
@@ -149,6 +163,10 @@
             <label for="username">username</label><input type="text" class="addAdminInput" id="username" required>
             <label for="password">password</label><input type="password" class="addAdminInput" id="password" required>
             <input type="submit" value="Add">
+        </div>
+        <div class="readAllAdmin">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
         </div>
         <div class="readAdmin">
             <h3>Read</h3>
@@ -184,6 +202,10 @@
             <label for="city">city</label><textarea class="addAddressInput" id="city" required></textarea>
             <label for="country">country</label><textarea class="addAddressInput" id="country" required></textarea>
             <input type="submit" value="Add">
+        </div>
+        <div class="readAllAddress">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
         </div>
         <div class="readAddress">
             <h3>Read</h3>
@@ -222,11 +244,15 @@
         <input type="submit" value="Sign Up">
     </div>
 
+    <div class="readAllUser">
+        <h3>Read All</h3>
+        <input type="submit" value="Read All">
+    </div>
+
     <div class="readUser">
         <h3>Read</h3>
+        <label for="id">id</label><input type="number" class="readUserInput" id="id" required>
         <input type="submit" value="Read">
-        <table class="readUserTable">
-        </table>
     </div>
     
     <div class="updateUser">
@@ -259,11 +285,15 @@
         <input type="submit" value="Create Cart">
     </div>
 
+    <div class="readAllCart">
+        <h3>Read All</h3>
+        <input type="submit" value="Read All">
+    </div>
+
     <div class="readCart">
         <h3>Read</h3>
+        <label for="id">id</label><input type="text" class="readCartInput" id="id" required>
         <input type="submit" value="Read">
-        <table class="readCartTable">
-        </table>
     </div>
     
     <div class="updateCart">
@@ -290,15 +320,20 @@
             <h3>Add Cart Item</h3>
             <label for="id_cart">id_cart</label><input type="text" class="addCartItemInput" id="id_cart" required>
             <label for="id_article">id_article</label><input type="text" class="addCartItemInput" id="id_article" required>
+            <label for="id_size">id_size</label><input type="text" class="addCartItemInput" id="id_size" required>
             <label for="quantity">quantity</label><input type="email" class="addCartItemInput" id="quantity" required>
             <input type="submit" value="Add Cart Item">
         </div>
 
+        <div class="readAllCartItem">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
+        </div>
+
         <div class="readCartItem">
             <h3>Read</h3>
+            <label for="id">id</label><input type="text" class="readCartItemInput" id="id" required>
             <input type="submit" value="Read">
-            <table class="readCartItemTable">
-            </table>
         </div>
 
         <div class="updateCartItem">
@@ -306,6 +341,7 @@
             <label for="id">id</label><input type="text" class="updateCartItemInput" id="id" required>
             <label for="id_cart">id_cart</label><input type="text" class="updateCartItemInput" id="id_cart" required>
             <label for="id_article">id_article</label><input type="text" class="updateCartItemInput" id="id_article" required>
+            <label for="id_size">id_size</label><input type="text" class="updateCartItemInput" id="id_size" required>
             <label for="quantity">quantity</label><input type="email" class="updateCartItemInput" id="quantity" required>
             <input type="submit" value="Update Cart Item">
         </div>
@@ -335,11 +371,15 @@
             <input type="submit" value="Add Order">
         </div>
 
+        <div class="readAllOrder">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
+        </div>
+
         <div class="readOrder">
             <h3>Read</h3>
+            <label for="id">id</label><input type="text" class="readOrderInput" id="id" required>
             <input type="submit" value="Read">
-            <table class="readOrderTable">
-            </table>
         </div>
 
         <div class="updateOrder">
@@ -370,8 +410,14 @@
         <h2>Test Crud Stock</h2>
         <div class="addStock">
             <h3>Create</h3>
-            <label for="qty_stock">qty_stock</label><input type="number" class="addStockInput" id="qty_stock" required>
+            <label for="id_article">id_article</label><input type="number" class="addStockInput" id="id_article" required>
+            <label for="id_size">id_size</label><input type="number" class="addStockInput" id="id_size" required>
+            <label for="quantity">quantity</label><input type="number" class="addStockInput" id="quantity" required>
             <input type="submit" value="Add">
+        </div>
+        <div class="readAllStock">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
         </div>
         <div class="readStock">
             <h3>Read</h3>
@@ -381,7 +427,9 @@
         <div class="updateStock">
             <h3>Update</h3>
             <label for="id">id</label><input type="number" class="updateStockInput" id="id" required>
-            <label for="qty_stock">qty_stock</label><input type="number" class="updateStockInput" id="qty_stock" required>
+            <label for="id_article">id_article</label><input type="number" class="updateStockInput" id="id_article" required>
+            <label for="id_size">id_size</label><input type="number" class="updateStockInput" id="id_size" required>
+            <label for="quantity">quantity</label><input type="number" class="updateStockInput" id="quantity" required>
             <input type="submit" value="Update">
         </div>
         <div class="deleteStock">
@@ -399,8 +447,11 @@
         <div class="addSize">
             <h3>Create</h3>
             <label for="name">Name</label><input type="text" class="addSizeInput" id="name" required>
-            <label for="id_stock">id_stock</label><textarea class="addSizeInput" id="id_stock" required></textarea>
             <input type="submit" value="Add">
+        </div>
+        <div class="readAllSize">
+            <h3>Read All</h3>
+            <input type="submit" value="Read">
         </div>
         <div class="readSize">
             <h3>Read</h3>
@@ -410,9 +461,7 @@
         <div class="updateSize">
             <h3>Update</h3>
             <label for="id">id</label><input type="number" class="updateSizeInput" id="id" required>
-            <label for="name">Name</label><input type="text" class="updateSizeInput" id="name" required>
-            <label for="id_stock">id_stock</label><textarea class="updateSizeInput" id="id_stock" required></textarea>
-            
+            <label for="name">Name</label><input type="text" class="updateSizeInput" id="name" required>            
             <input type="submit" value="Update">
         </div>
         <div class="deleteSize">
@@ -432,10 +481,14 @@
             <label for="status">status</label><input type="text" class="addOrderStatusInput" id="status" required>
             <input type="submit" value="Add">
         </div>
+        <div class="readAllOrderStatus">
+            <h3>Read All</h3>
+            <input type="submit" value="Read All">
+        </div>
         <div class="readOrderStatus">
             <h3>Read</h3>
+            <label for="id">id</label><input type="number" class="readOrderStatusInput" id="id" required>
             <input type="submit" value="Read">
-            <table class="readOrderStatusTable"></table>
         </div>
         <div class="updateOrderStatus">
             <h3>Update</h3>

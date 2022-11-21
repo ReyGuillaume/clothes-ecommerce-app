@@ -4,10 +4,9 @@ $db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","roo
 
 // ======================= Create Article =======================
 function create($db) {
-    $stm = $db->prepare("INSERT INTO `article`(`name`, `id_size`, `id_subcategory`, `id_gender`, `id_brand`, `price`, `description`, `image`) VALUES (:name, :id_size, :id_subcategory, :id_gender, :id_brand, :price, :description, :image)");
+    $stm = $db->prepare("INSERT INTO `article`(`name`, `id_subcategory`, `id_gender`, `id_brand`, `price`, `description`, `image`) VALUES (:name, :id_subcategory, :id_gender, :id_brand, :price, :description, :image)");
 
     $stm->bindValue(":name", $_GET["name"]);
-    $stm->bindValue(":id_size", $_GET["id_size"]);
     $stm->bindValue(":id_subcategory", $_GET["id_subcategory"]);
     $stm->bindValue(":id_gender", $_GET["id_gender"]);
     $stm->bindValue(":id_brand", $_GET["id_brand"]);
@@ -29,18 +28,17 @@ function read($db) {
 
 // ======================= Read All Article Id =======================
 function readAll($db) {
-    $stm = $db->prepare("SELECT `id` FROM `article` WHERE 1");
+    $stm = $db->prepare("SELECT `id` FROM `article`");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
 
 // ======================= Update Article =======================
 function update($db) {
-    $stm = $db->prepare("UPDATE `article` SET `name`=:name,`id_size`=:id_size,`id_subcategory`=:id_subcategory,`id_gender`=:id_gender,`id_brand`=:id_brand,`price`=:price,`description`=:description,`image`=:image WHERE id =:id");
+    $stm = $db->prepare("UPDATE `article` SET `name`=:name,`id_subcategory`=:id_subcategory,`id_gender`=:id_gender,`id_brand`=:id_brand,`price`=:price,`description`=:description,`image`=:image WHERE id =:id");
 
     $stm->bindValue(":id", $_GET["id"]);
     $stm->bindValue(":name", $_GET["name"]);
-    $stm->bindValue(":id_size", $_GET["id_size"]);
     $stm->bindValue(":id_subcategory", $_GET["id_subcategory"]);
     $stm->bindValue(":id_gender", $_GET["id_gender"]);
     $stm->bindValue(":id_brand", $_GET["id_brand"]);
@@ -63,7 +61,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
-    case 'readall': readAll($db); break;
+    case 'readAll': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

@@ -4,9 +4,11 @@ $db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","roo
 
 // ======================= Create Stock =======================
 function create($db) {
-    $stm = $db->prepare("INSERT INTO `stock`(`qty_stock`) VALUES (:qty_stock)");
+    $stm = $db->prepare("INSERT INTO `stock`(`id_article`, `id_size`, `quantity`) VALUES (:id_article, :id_size, :quantity)");
 
-    $stm->bindValue(":qty_stock", $_GET["qty_stock"]);
+    $stm->bindValue(":id_article", $_GET["id_article"]);
+    $stm->bindValue(":id_size", $_GET["id_size"]);
+    $stm->bindValue(":quantity", $_GET["quantity"]);
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
@@ -29,10 +31,13 @@ function readAll($db) {
 
 // ======================= Update Stock =======================
 function update($db) {
-    $stm = $db->prepare("UPDATE `stock` SET `qty_stock`=:qty_stock WHERE id =:id");
+    $stm = $db->prepare("UPDATE `stock` SET `id_article`=:id_article, `id_size`=:id_size, `quantity`=:quantity  WHERE id =:id");
 
     $stm->bindValue(":id", $_GET["id"]);
-    $stm->bindValue(":qty_stock", $_GET["qty_stock"]);
+    $stm->bindValue(":id_article", $_GET["id_article"]);
+    $stm->bindValue(":id_size", $_GET["id_size"]);
+    $stm->bindValue(":quantity", $_GET["quantity"]);
+
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
@@ -49,7 +54,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
-    case 'readall': readAll($db); break;
+    case 'readAll': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

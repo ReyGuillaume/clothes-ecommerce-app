@@ -41,7 +41,7 @@ function read($db) {
 
 // ======================= Read All User Id =======================
 function readAll($db) {
-    $stm = $db->prepare("SELECT `id` FROM `user` WHERE 1");
+    $stm = $db->prepare("SELECT `id` FROM `user`");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
@@ -57,7 +57,7 @@ function delete($db) {
 switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
-    case 'readall': readAll($db); break;
+    case 'readAll': readAll($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

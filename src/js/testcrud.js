@@ -56,17 +56,34 @@ const formCreateArticle = document.querySelector(".addArticle")
 async function addArticle() {
     // Add an Article to article base
     let valuesArr = getFormValues(formCreateArticle, ".addArticleInput")
-    let [name, id_size, id_subcategory, id_gender, id_brand, price, description, image] = [...valuesArr]
+    let [name, id_subcategory, id_gender, id_brand, price, description, image] = [...valuesArr]
     let res = executePhp(formCreateArticle, 
         ".addArticleInput", 
-        [name, id_size, id_subcategory, id_gender, id_brand, price, description, image], 
-        `./services/sql/Article.crud.php?function=create&name=${name}&id_size=${id_size}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}&image=${image}`
+        [name, id_subcategory, id_gender, id_brand, price, description, image], 
+        `./services/sql/Article.crud.php?function=create&name=${name}&id_subcategory=${id_subcategory}&id_gender=${id_gender}&id_brand=${id_brand}&price=${price}&description=${description}&image=${image}`
     )
     return res
 }
 
 formCreateArticle.querySelector("input[type=submit]").addEventListener("click", addArticle)
 
+
+// --------------- Read All Article ---------------
+const formReadAllArticle = document.querySelector(".readAllArticle")
+
+async function readAllArticle() {
+
+    let res = executePhp(formReadAllArticle, 
+        ".readAllArticleInput", 
+        [] ,
+        `./services/sql/Article.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllArticle.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllArticle())
+})
 
 // --------------- Read Article ---------------
 const formReadArticle = document.querySelector(".readArticle")
@@ -148,6 +165,22 @@ formCreateSubcategory.querySelector("input[type=submit]").addEventListener("clic
 
 
 // --------------- Read Subcategory ---------------
+const formReadAllSubcategory = document.querySelector(".readAllSubcategory")
+
+async function readAllSubcategory() {
+    let res = executePhp(formReadAllSubcategory, 
+        ".readAllSubcategoryInput", 
+        [] ,
+        `./services/sql/Subcategory.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllSubcategory.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllSubcategory())
+})
+
+// --------------- Read Subcategory ---------------
 const formReadSubcategory = document.querySelector(".readSubcategory")
 
 async function readSubcategory() {
@@ -225,6 +258,22 @@ async function addCategory() {
 
 formCreateCategory.querySelector("input[type=submit]").addEventListener("click", addCategory)
 
+
+// --------------- Read Category ---------------
+const formReadAllCategory = document.querySelector(".readAllCategory")
+
+async function readAllCategory() {
+    let res = executePhp(formReadAllCategory, 
+        ".readAllCategoryInput", 
+        [] ,
+        `./services/sql/Category.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllCategory.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllCategory())
+})
 
 // --------------- Read Category ---------------
 const formReadCategory = document.querySelector(".readCategory")
@@ -309,6 +358,22 @@ formCreateLog.querySelector("input[type=submit]").addEventListener("click", addL
 
 
 // --------------- Read Log ---------------
+const formReadAllLog = document.querySelector(".readAllLog")
+
+async function readAllLog() {
+    let res = executePhp(formReadAllLog, 
+        ".readAllLogInput", 
+        [] ,
+        `./services/sql/Log.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllLog.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllLog())
+})
+
+// --------------- Read Log ---------------
 const formReadLog = document.querySelector(".readLog")
 
 async function readLog() {
@@ -384,6 +449,24 @@ async function addAdmin() {
 
 formCreateAdmin.querySelector("input[type=submit]").addEventListener("click", addAdmin)
 
+
+// --------------- Read All Admin ---------------
+const formReadAllAdmin = document.querySelector(".readAllAdmin")
+
+async function readAllAdmin() {
+    // Read an Admin to admin base
+
+    let res = executePhp(formReadAllAdmin, 
+        ".readAllAdminInput", 
+        [] ,
+        `./services/sql/Admin.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllAdmin.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllAdmin())
+})
 
 // --------------- Read Admin ---------------
 const formReadAdmin = document.querySelector(".readAdmin")
@@ -497,8 +580,25 @@ async function readAddress() {
 formReadAddress.querySelector("input[type=submit]").addEventListener("click", () => {
     console.log(readAddress())
 })
+// --------------- Read All Address ---------------
+const formReadAllAddress = document.querySelector(".readAllAddress")
 
-// --------------- Delete Cart ---------------
+async function readAllAddress() {
+    // Read an Admin to admin base
+
+    let res = executePhp(formReadAllAddress, 
+        ".readAllAddressInput", 
+        [] ,
+        `./services/sql/Address.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllAddress.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllAddress())
+})
+
+// --------------- Delete Address ---------------
 const formDeleteAddress = document.querySelector(".deleteAddress")
 
 async function deleteAddress() {
@@ -536,38 +636,38 @@ async function addUser() {
 formCreateUser.querySelector("input[type=submit]").addEventListener("click", addUser)
 
 
+// --------------- Read All User ---------------
+const formReadAllUser = document.querySelector(".readAllUser")
+
+async function readAllUser() {
+    let res = executePhp(formReadAllUser, 
+        ".readAllUserInput", 
+        [], 
+        `./services/sql/User.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllUser.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllUser())
+})
+
 // --------------- Read User ---------------
 const formReadUser = document.querySelector(".readUser")
-const readUserTable = document.querySelector(".readUserTable")
 
 async function readUser() {
-    // Read an Admin to admin base
-    let headers = ["id", "firstname", "lastname", "mail", "phone_number", "password"]
-    
-    tr_title = create("tr", readUserTable)
-    for(let header of headers){
-        create("th", tr_title, header)
-    }
-
-    await fetch("./services/sql/User.crud.php?function=read")
-        .then(response => response.json())
-        .then( function(data){
-            if(data.length != 0){
-                for(let user of data){
-                    tr_user = create("tr", readUserTable)
-                    for(let header of headers){
-                        create("td", tr_user, user[header])
-                    }
-                }
-            }
-            else{
-                create("tr", readUserTable, "empty")
-            }
-        })
+    let valuesArr = getFormValues(formReadUser, ".readUserInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadUser, 
+        ".readUserInput", 
+        [id], 
+        `./services/sql/User.crud.php?function=read&id=${id}`
+    )
+    return res
 }
 
 formReadUser.querySelector("input[type=submit]").addEventListener("click", () => {
-    readUser()
+    console.log(readUser())
 })
 
 // --------------- Update User ---------------
@@ -625,39 +725,39 @@ async function addCart() {
 formCreateCart.querySelector("input[type=submit]").addEventListener("click", addCart)
 
 
+// --------------- Read All Cart ---------------
+const formReadAllCart = document.querySelector(".readAllCart")
+
+async function readAllCart() {
+    // Add an Cart to admin base
+    let res = executePhp(formReadAllCart, 
+        ".readAllCartInput", 
+        [], 
+        `./services/sql/Cart.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllCart.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllCart())
+})
+
 // --------------- Read Cart ---------------
 const formReadCart = document.querySelector(".readCart")
-const readCartTable = document.querySelector(".readCartTable")
 
 async function readCart() {
-    // Read an Admin to admin base
-    let headers = ["id", "id_user"]
-    
-    tr_title = create("tr", readCartTable)
-    for(let header of headers){
-        create("th", tr_title, header)
-    }
-
-    await fetch("./services/sql/Cart.crud.php?function=read")
-        .then(response => response.json())
-        .then( function(data){
-            if(data.length != 0){
-                console.log(data)
-                for(let Cart of data){
-                    tr_Cart = create("tr", readCartTable)
-                    for(let header of headers){
-                        create("td", tr_Cart, Cart[header])
-                    }
-                }
-            }
-            else{
-                create("tr", readCartTable, "empty")
-            }
-        })
+    let valuesArr = getFormValues(formUpdateCart, ".readCartInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadCart, 
+        ".readCartInput", 
+        [id], 
+        `./services/sql/Cart.crud.php?function=read&id=${id}`
+    )
+    return res
 }
 
 formReadCart.querySelector("input[type=submit]").addEventListener("click", () => {
-    readCart()
+    console.log(readCart())
 })
 
 // --------------- Update Cart ---------------
@@ -702,11 +802,11 @@ const formCreateCartItem = document.querySelector(".addCartItem")
 async function addCartItem() {
     // Add an CartItem to admin base
     let valuesArr = getFormValues(formCreateCartItem, ".addCartItemInput")
-    let [id_cart, id_article, quantity] = [...valuesArr]
+    let [id_cart, id_article, id_size, quantity] = [...valuesArr]
     let res = executePhp(formCreateCartItem, 
         ".addCartItemInput", 
-        [id_cart, id_article, quantity], 
-        `./services/sql/CartItem.crud.php?function=create&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
+        [id_cart, id_article, id_size, quantity], 
+        `./services/sql/CartItem.crud.php?function=create&id_cart=${id_cart}&id_article=${id_article}&id_size=${id_size}&quantity=${quantity}`
     )
     return res
 }
@@ -714,39 +814,38 @@ async function addCartItem() {
 formCreateCartItem.querySelector("input[type=submit]").addEventListener("click", addCartItem)
 
 
+// --------------- Read All CartItem ---------------
+const formReadAllCartItem = document.querySelector(".readAllCartItem")
+
+async function readAllCartItem() {
+    let res = executePhp(formCreateCartItem, 
+        ".readAllCartItem", 
+        [], 
+        `./services/sql/CartItem.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllCartItem.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllCartItem())
+})
+
 // --------------- Read CartItem ---------------
 const formReadCartItem = document.querySelector(".readCartItem")
-const readCartItemTable = document.querySelector(".readCartItemTable")
 
 async function readCartItem() {
-    // Read an Admin to admin base
-    let headers = ["id", "id_cart", "id_article", "quantity"]
-    
-    tr_title = create("tr", readCartItemTable)
-    for(let header of headers){
-        create("th", tr_title, header)
-    }
-
-    await fetch("./services/sql/CartItem.crud.php?function=read")
-        .then(response => response.json())
-        .then( function(data){
-            if(data.length != 0){
-                console.log(data)
-                for(let CartItem of data){
-                    tr_CartItem = create("tr", readCartItemTable)
-                    for(let header of headers){
-                        create("td", tr_CartItem, CartItem[header])
-                    }
-                }
-            }
-            else{
-                create("tr", readCartItemTable, "empty")
-            }
-        })
+    let valuesArr = getFormValues(formReadCartItem, ".readCartItemInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadCartItem, 
+        ".readAllCartItem", 
+        [id], 
+        `./services/sql/CartItem.crud.php?function=read&id=${id}`
+    )
+    return res
 }
 
 formReadCartItem.querySelector("input[type=submit]").addEventListener("click", () => {
-    readCartItem()
+    console.log(readCartItem())
 })
 
 // --------------- Update CartItem ---------------
@@ -754,11 +853,11 @@ const formUpdateCartItem = document.querySelector(".updateCartItem")
 
 async function updateCartItem() {
     let valuesArr = getFormValues(formUpdateCartItem, ".updateCartItemInput")
-    let [id, id_cart, id_article, quantity] = [...valuesArr]
+    let [id, id_cart, id_article, id_size, quantity] = [...valuesArr]
     let res = executePhp(formUpdateCartItem, 
         ".updateCartItemInput", 
-        [id, id_cart, id_article, quantity], 
-        `./services/sql/CartItem.crud.php?function=update&id=${id}&id_cart=${id_cart}&id_article=${id_article}&quantity=${quantity}`
+        [id, id_cart, id_article, id_size, quantity], 
+        `./services/sql/CartItem.crud.php?function=update&id=${id}&id_cart=${id_cart}&id_article=${id_article}&id_size=${id_size}&quantity=${quantity}`
     )
     return res
 }
@@ -806,39 +905,38 @@ async function addOrder() {
 formCreateOrder.querySelector("input[type=submit]").addEventListener("click", addOrder)
 
 
+// --------------- Read All Order ---------------
+const formReadAllOrder = document.querySelector(".readAllOrder")
+
+async function readAllOrder() {
+    let res = executePhp(formReadAllOrder, 
+        ".readAllOrderInput", 
+        [], 
+        `./services/sql/Order.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllOrder.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllOrder())
+})
+
 // --------------- Read Order ---------------
 const formReadOrder = document.querySelector(".readOrder")
-const readOrderTable = document.querySelector(".readOrderTable")
 
 async function readOrder() {
-    // Read an Admin to admin base
-    let headers = ["id", "id_user", "id_cart", "number", "street", "city", "country", "id_status", "date"]
-    
-    tr_title = create("tr", readOrderTable)
-    for(let header of headers){
-        create("th", tr_title, header)
-    }
-
-    await fetch("./services/sql/Order.crud.php?function=read")
-        .then(response => response.json())
-        .then( function(data){
-            if(data.length != 0){
-                console.log(data)
-                for(let Order of data){
-                    tr_Order = create("tr", readOrderTable)
-                    for(let header of headers){
-                        create("td", tr_Order, Order[header])
-                    }
-                }
-            }
-            else{
-                create("tr", readOrderTable, "empty")
-            }
-        })
+    let valuesArr = getFormValues(formReadOrder, ".readOrderInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadOrder, 
+        ".readOrderInput", 
+        [id], 
+        `./services/sql/Order.crud.php?function=read&id=${id}`
+    )
+    return res
 }
 
 formReadOrder.querySelector("input[type=submit]").addEventListener("click", () => {
-    readOrder()
+    console.log(readOrder())
 })
 
 // --------------- Update Order ---------------
@@ -883,11 +981,11 @@ const formCreateStock = document.querySelector(".addStock")
 async function addStock() {
     // Add an Stock to stock base
     let valuesArr = getFormValues(formCreateStock, ".addStockInput")
-    let [qty_stock] = [...valuesArr]
+    let [id_article, id_size, quantity] = [...valuesArr]
     let res = executePhp(formCreateStock, 
         ".addStockInput", 
-        [qty_stock], 
-        `./services/sql/Stock.crud.php?function=create&qty_stock=${qty_stock}`
+        [id_article, id_size, quantity], 
+        `./services/sql/Stock.crud.php?function=create&id_article=${id_article}&id_size=${id_size}&quantity=${quantity}`
     )
     return res
 }
@@ -895,6 +993,21 @@ async function addStock() {
 formCreateStock.querySelector("input[type=submit]").addEventListener("click", addStock)
 
 
+// --------------- Read All Stock ---------------
+const formReadAllStock = document.querySelector(".readAllStock")
+
+async function readAllStock() {
+    let res = executePhp(formReadAllStock, 
+        ".readAllStockInput", 
+        [] ,
+        `./services/sql/Stock.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllStock.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllStock())
+})
 // --------------- Read Stock ---------------
 const formReadStock = document.querySelector(".readStock")
 
@@ -922,11 +1035,11 @@ async function updateStock() {
     // Update an Stock to stock base
 
     let valuesArr = getFormValues(formUpdateStock, ".updateStockInput")
-    let [id, qty_stock] = [...valuesArr]
+    let [id, id_article, id_size, quantity] = [...valuesArr]
     let res = executePhp(formUpdateStock, 
         ".updateStockInput", 
-        [id, qty_stock] ,
-        `./services/sql/Stock.crud.php?function=update&id=${id}&qty_stock=${qty_stock}`
+        [id, id_article, id_size, quantity] ,
+        `./services/sql/Stock.crud.php?function=update&id=${id}&id_article=${id_article}&id_size=${id_size}&quantity=${quantity}`
     )
     return res
 }
@@ -959,17 +1072,33 @@ const formCreateSize = document.querySelector(".addSize")
 async function addSize() {
     // Add an Size to size base
     let valuesArr = getFormValues(formCreateSize, ".addSizeInput")
-    let [name, id_stock] = [...valuesArr]
+    let [name] = [...valuesArr]
     let res = executePhp(formCreateSize, 
         ".addSizeInput", 
-        [name, id_stock], 
-        `./services/sql/Size.crud.php?function=create&name=${name}&id_stock=${id_stock}`
+        [name], 
+        `./services/sql/Size.crud.php?function=create&name=${name}`
     )
     return res
 }
 
 formCreateSize.querySelector("input[type=submit]").addEventListener("click", addSize)
 
+
+// --------------- Read Size ---------------
+const formReadAllSize = document.querySelector(".readAllSize")
+
+async function readAllSize() {
+    let res = executePhp(formReadAllSize, 
+        ".readAllSizeInput", 
+        [] ,
+        `./services/sql/Size.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllSize.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllSize())
+})
 
 // --------------- Read Size ---------------
 const formReadSize = document.querySelector(".readSize")
@@ -998,11 +1127,11 @@ async function updateSize() {
     // Update an Size to Size base
 
     let valuesArr = getFormValues(formUpdateSize, ".updateSizeInput")
-    let [id, name, id_stock] = [...valuesArr]
+    let [id, name] = [...valuesArr]
     let res = executePhp(formUpdateSize, 
         ".updateSizeInput", 
-        [id, name, id_stock] ,
-        `./services/sql/Size.crud.php?function=update&id=${id}&name=${name}&id_stock=${id_stock}`
+        [id, name] ,
+        `./services/sql/Size.crud.php?function=update&id=${id}&name=${name}`
     )
     return res
 }
@@ -1047,38 +1176,40 @@ async function addOrderStatus() {
 formCreateOrderStatus.querySelector("input[type=submit]").addEventListener("click", addOrderStatus)
 
 
+// --------------- Read All OrderStatus ---------------
+const formReadAllOrderStatus = document.querySelector(".readAllOrderStatus")
+
+async function readAllOrderStatus() {
+    let res = executePhp(formReadAllOrderStatus, 
+        ".readAllOrderStatusInput", 
+        [] ,
+        `./services/sql/OrderStatus.crud.php?function=readAll`
+    )
+    return res
+}
+
+formReadAllOrderStatus.querySelector("input[type=submit]").addEventListener("click", () => {
+    console.log(readAllOrderStatus())
+})
+
 // --------------- Read OrderStatus ---------------
 const formReadOrderStatus = document.querySelector(".readOrderStatus")
-const readOrderStatusTable = document.querySelector(".readOrderStatusTable")
 
 async function readOrderStatus() {
-    // Read an Admin to admin base
-    let headers = ["id","status"]
-    
-    tr_title = create("tr", readOrderStatusTable)
-    for(let header of headers){
-        create("th", tr_title, header)
-    }
+    // Read an Size to size base
 
-    await fetch("./services/sql/OrderStatus.crud.php?function=read")
-        .then(response => response.json())
-        .then( function(data){
-            if(data.length != 0){
-                for(let OrderStatus of data){
-                    tr_OrderStatus = create("tr", readOrderStatusTable)
-                    for(let header of headers){
-                        create("td", tr_OrderStatus, OrderStatus[header])
-                    }
-                }
-            }
-            else{
-                create("tr", readOrderStatusTable, "empty")
-            }
-        })
+    let valuesArr = getFormValues(formReadOrderStatus, ".readOrderStatusInput")
+    let [id] = [...valuesArr]
+    let res = executePhp(formReadOrderStatus, 
+        ".readOrderStatusInput", 
+        [id] ,
+        `./services/sql/OrderStatus.crud.php?function=read&id=${id}`
+    )
+    return res
 }
 
 formReadOrderStatus.querySelector("input[type=submit]").addEventListener("click", () => {
-    readOrderStatus()
+    console.log(readOrderStatus())
 })
 
 // --------------- Update OrderStatus ---------------
