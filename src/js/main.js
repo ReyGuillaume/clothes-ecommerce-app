@@ -51,7 +51,7 @@ createApp({
   // ================ Page Liste article ================
 
   getAllArticleId() {
-    return fetch('./services/sql/Article.crud.php?function=readall')
+    return fetch('./services/sql/Article.crud.php?function=readAll')
     .then(res => res.json())
     .then(res => {
         const arr = []
@@ -61,7 +61,7 @@ createApp({
   }, 
 
   getAllArticles() {
-    return fetch('./services/sql/Article.crud.php?function=readalldata')
+    return fetch('./services/sql/Article.crud.php?function=readAllData')
     .then(res => res.json())
     .then(res => this.articleList = res)
   }, 
