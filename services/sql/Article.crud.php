@@ -34,6 +34,13 @@ function readAll($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All Article Id =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `article` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Update Article =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `article` SET `name`=:name,`id_size`=:id_size,`id_subcategory`=:id_subcategory,`id_gender`=:id_gender,`id_brand`=:id_brand,`price`=:price,`description`=:description,`image`=:image WHERE id =:id");
@@ -64,6 +71,7 @@ switch($_GET["function"]) {
     case 'create': create($db); break;
     case 'read': read($db); break;
     case 'readall': readAll($db); break;
+    case 'readalldata': readAllData($db); break;
     case 'update': update($db); break;
     case 'delete': delete($db); break;
     default: echo "Not found!"; break;

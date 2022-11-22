@@ -2,3 +2,21 @@ img {
     width: 100px;
     height: 100px;
 }
+
+.articleList {
+    display: grid;
+	grid-template-columns: repeat(auto-fill,minmax(min(20rem,80vw), 1fr));
+    gap: 1.5rem;
+}
+.articleCard {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    border: #BBB 1px solid;
+    padding: 8px;
+    cursor: pointer;
+}
+.articleCard img {
+    width: 100%;
+    object-fit: cover;
+}

@@ -9,18 +9,38 @@
 </head>
 <body id="root">
 
+    <header>
+        <h1>Nom de site</h1>
+    </header>
+
+    <main v-if="displayPages.appLaunching">
+        <h2>Loading</h2>
+    </main>
+
+    <main v-if="displayPages.accueil">
+        <h2>Acceuil</h2>
+        <p>Ceci est l'accueil</p>
+        <button  @click="displayArticleListPage">Voir la liste des articles</button>
+    </main>
+
     <main v-if="displayPages.articleList">
-        <button  @click="displayArticlePage(1)">Voir l'article n°1</button>
-        <button  @click="displayArticlePage(2)">Voir l'article n°2</button>
+        <button  @click="displayAccueil">Retour a l'accueil</button>
+        <div class="articleList">
+            <div class="articleCard" v-for="art in articleList" @click="displayArticlePage(art.id)">
+                <h2>{{art.name}}</h2>
+                <img :src="'./src/image/' + art.image + '.jpg'" :alt="art.name">
+                <p>{{art.price}}$</p>
+            </div>
+        </div>
     </main>
 
     <main v-if="displayPages.article">
         <button  @click="displayArticleListPage">Voir tous les articles</button>
-        <h2>{{article.name}}</h2>
-        <p>{{article.description}}</p>
-        <p>{{article}}</p>
-        <img :src="'./src/image/' + article.image + '.jpg'" :alt="article.name">
-        <p>{{subcategory}}</p>
+        <h2>{{currentArticle.name}}</h2>
+        <p>{{currentCategory.name}} > {{currentSubcategory.name}}</p>
+        <p>{{currentArticle.description}}</p>
+        <p>{{currentBrand.name}}</p>
+        <img :src="'./src/image/' + currentArticle.image + '.jpg'" :alt="currentArticle.name">
         <button  @click="addToCart(currentArticleID)">Ajouter au panier</button>
         <button  @click="deleteFromCart(currentArticleID)">Supprimer du panier</button>
     </main>
