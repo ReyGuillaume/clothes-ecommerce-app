@@ -21,6 +21,11 @@ createApp({
 
     // ----- Page liste d'article -----
     articleList:[], 
+    showSearchDiv: false, 
+    categoryList: [], 
+    subcategoryList: [], 
+    searchedCategoryID : 0, 
+    searchedSubcategoryID : 0, 
 
   }
  },
@@ -33,9 +38,13 @@ createApp({
     this.displayPages.accueil = true
   }, 
 
-  displayArticleListPage() {
+  async displayArticleListPage() {
     Object.keys(this.displayPages).forEach(key => this.displayPages[key] = false)
     this.displayPages.articleList = true
+
+    await this.fetchArticleList()
+    await this.fetchCategoryList()
+    await this.fetchSubcategoryList()
   }, 
 
   async displayArticlePage(idArticle) {
@@ -45,25 +54,33 @@ createApp({
     await this.setCurrentArticle(idArticle)
     this.setCurrentBrand(this.currentArticle.id_brand)
     await this.setCurrentSubcategory(this.currentArticle.id_subcategory)
-    await this.setCurrentCategory(this.currentSubcategory.id_category)
+    this.setCurrentCategory(this.currentSubcategory.id_category)
   }, 
 
   // ================ Page Liste article ================
 
-  getAllArticleId() {
-    return fetch('./services/sql/Article.crud.php?function=readAll')
-    .then(res => res.json())
-    .then(res => {
-        const arr = []
-        res.forEach(element => arr.push(element.id))
-        this.articlesId = arr
-    })
-  }, 
-
-  getAllArticles() {
+  fetchArticleList() {
     return fetch('./services/sql/Article.crud.php?function=readAllData')
     .then(res => res.json())
     .then(res => this.articleList = res)
+  }, 
+  
+  fetchCategoryList() {
+    return fetch('./services/sql/Category.crud.php?function=readAllData')
+    .then(res => res.json())
+    .then(res => this.categoryList = res)
+  }, 
+  
+  fetchSubcategoryList() {
+    return fetch('./services/sql/Subcategory.crud.php?function=readAllData')
+    .then(res => res.json())
+    .then(res => this.subcategoryList = res)
+  }, 
+
+    // ------- Recherche -------
+
+  toggleSearchDiv() {
+    this.showSearchDiv = !this.showSearchDiv
   }, 
 
   // ================ Page Article ================
@@ -113,9 +130,7 @@ createApp({
       article : false, 
       cart : false
     }
-    await this.getAllArticleId()
-    await this.getAllArticles()
-    await setTimeout(() => this.displayAccueil(), 1000)
+    setTimeout(() => this.displayAccueil(), 1000)
   })()
  }
 }).mount('#root')

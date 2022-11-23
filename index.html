@@ -25,11 +25,33 @@
 
     <main v-if="displayPages.articleList">
         <button  @click="displayAccueil">Retour a l'accueil</button>
+
+        <button  @click="toggleSearchDiv">Rechercher selon certains critaires</button>
+
+        <div v-if="showSearchDiv" class="overlay">
+            <div class="searchDiv">
+                <h3>Module de recherche</h3>
+
+                <label for="subcategory">Subcategory : </label>
+                <select name="subcategory" id="subcategory" v-model="searchedSubcategoryID">
+                    <option value=0>Voir tout</option>
+                    <option v-for="subcat in subcategoryList" :value="subcat.id">{{subcat.name}}</option>
+                </select>
+
+            </div>
+        </div>
+        
         <div class="articleList">
-            <div class="articleCard" v-for="art in articleList" @click="displayArticlePage(art.id)">
-                <h2>{{art.name}}</h2>
-                <img :src="'./src/image/' + art.image + '.jpg'" :alt="art.name">
-                <p>{{art.price}}$</p>
+            <div v-for="art in articleList">
+                <div 
+                    class="articleCard" 
+                    v-if="searchedSubcategoryID == 0 || searchedSubcategoryID === art.id_subcategory" 
+                    @click="displayArticlePage(art.id)" 
+                >
+                    <h2>{{art.name}}</h2>
+                    <img :src="'./src/image/' + art.image + '.jpg'" :alt="art.name">
+                    <p>{{art.price}}$</p>
+                </div>
             </div>
         </div>
     </main>
