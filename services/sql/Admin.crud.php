@@ -29,6 +29,13 @@ function readAll($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All Admin Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `admin`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Update Admin =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `admin` SET `username`=:username,`password`=:password WHERE id =:id");

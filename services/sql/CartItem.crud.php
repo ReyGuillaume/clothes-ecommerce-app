@@ -29,6 +29,13 @@ function readAllData($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All CartItem ID =======================
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `cart_item`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Read CartItem Data =======================
 function read($db) {
     $stm = $db->prepare("SELECT * FROM `cart_item` WHERE id = :id");
@@ -39,11 +46,12 @@ function read($db) {
 
 // ======================= Update CartItem =======================
 function update($db) {
-    $stm = $db->prepare("UPDATE `cart_item` SET `id_cart`=:id_cart, `id_article`=:id_article,`id_size`=:id_size, `quantity`=:quantity WHERE id =:id");
+    $stm = $db->prepare("UPDATE `cart_item` SET `id_cart`=:id_cart, `id_article`=:id_article,`id_size`=:id_size, `id_size`=:id_size, `quantity`=:quantity WHERE id =:id");
 
     $stm->bindValue(":id", $_GET["id"]);
     $stm->bindValue(":id_cart", $_GET["id_cart"]);
     $stm->bindValue(":id_article", $_GET["id_article"]);
+    $stm->bindValue(":id_size", $_GET["id_size"]);
     $stm->bindValue(":id_size", $_GET["id_size"]);
     $stm->bindValue(":quantity", $_GET["quantity"]);
 

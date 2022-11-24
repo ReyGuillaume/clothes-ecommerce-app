@@ -27,6 +27,13 @@ function readAll($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All Gender Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `gender`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Update Gender =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `gender` SET `name`=:name WHERE id =:id");

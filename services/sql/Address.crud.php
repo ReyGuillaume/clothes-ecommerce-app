@@ -26,14 +26,14 @@ function read($db) {
 
 // ======================= Read All Address Id =======================
 function readAll($db) {
-    $stm = $db->prepare("SELECT `id` FROM `address`");
+    $stm = $db->prepare("SELECT `id` FROM `address` WHERE 1");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
 
 // ======================= Read All Address Data =======================
 function readAllData($db) {
-    $stm = $db->prepare("SELECT * FROM `address`");
+    $stm = $db->prepare("SELECT * FROM `address` WHERE 1");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }

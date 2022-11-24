@@ -23,7 +23,14 @@ function read($db) {
 
 // ======================= Read All Log Id =======================
 function readAll($db) {
-    $stm = $db->prepare("SELECT `id` FROM `log`");
+    $stm = $db->prepare("SELECT `id` FROM `log` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All Log Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `log` WHERE 1");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }

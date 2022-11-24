@@ -34,6 +34,13 @@ function readAll($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All Order Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `order`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Update Order =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `order` SET `id_user`=:id_user, `id_cart`=:id_cart,`number`=:number, `street`=:street, `city`=:city, `country`=:country, `id_status`=:id_status WHERE id =:id");
