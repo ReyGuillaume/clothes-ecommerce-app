@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
+include "./connexion.php";
 
 // ======================= Create CartItem =======================
 function create($db) {
@@ -15,9 +15,16 @@ function create($db) {
     echo json_encode($stm->fetchAll());
 }
 
-// ======================= Read CartItem Data =======================
+// ======================= Read All CartItem ID =======================
 function readAll($db) {
     $stm = $db->prepare("SELECT `id` FROM `cart_item`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All CartItem Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `cart_item`");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
@@ -52,11 +59,4 @@ function delete($db) {
     echo json_encode($stm->fetchAll());
 }
 
-switch($_GET["function"]) {
-    case 'create': create($db); break;
-    case 'readAll': readAll($db); break;
-    case 'read': read($db); break;
-    case 'update': update($db); break;
-    case 'delete': delete($db); break;
-    default: echo "Not found!"; break;
-}
+include "./switch.php";

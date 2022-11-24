@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
+include "./connexion.php";
 
 // ======================= Create User =======================
 function create($db) {
@@ -46,6 +46,13 @@ function readAll($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All User Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `user`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Delete Article =======================
 function delete($db) {
     $stm = $db->prepare("DELETE FROM `user` WHERE id = :id");
@@ -54,11 +61,4 @@ function delete($db) {
     echo json_encode($stm->fetchAll());
 }
 
-switch($_GET["function"]) {
-    case 'create': create($db); break;
-    case 'read': read($db); break;
-    case 'readAll': readAll($db); break;
-    case 'update': update($db); break;
-    case 'delete': delete($db); break;
-    default: echo "Not found!"; break;
-}
+include "./switch.php";

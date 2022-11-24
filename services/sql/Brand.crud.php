@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
+include "./connexion.php";
 
 // ======================= Create Brand =======================
 function create($db) {
@@ -27,6 +27,13 @@ function readAll($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All Brand Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `brand`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Update Brand =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `brand` SET `name`=:name WHERE id =:id");
@@ -46,11 +53,4 @@ function delete($db) {
     echo json_encode($stm->fetchAll());
 }
 
-switch($_GET["function"]) {
-    case 'create': create($db); break;
-    case 'read': read($db); break;
-    case 'readAll': readAll($db); break;
-    case 'update': update($db); break;
-    case 'delete': delete($db); break;
-    default: echo "Not found!"; break;
-}
+include "./switch.php";

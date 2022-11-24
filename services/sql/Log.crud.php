@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
+include "./connexion.php";
 
 // ======================= Create Log =======================
 function create($db) {
@@ -48,11 +48,4 @@ function delete($db) {
     echo json_encode($stm->fetchAll());
 }
 
-switch($_GET["function"]) {
-    case 'create': create($db); break;
-    case 'read': read($db); break;
-    case 'readAll': readAll($db); break;
-    case 'update': update($db); break;
-    case 'delete': delete($db); break;
-    default: echo "Not found!"; break;
-}
+include "./switch.php";
