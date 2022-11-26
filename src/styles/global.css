@@ -8,6 +8,7 @@ img {
 	grid-template-columns: repeat(auto-fill,minmax(min(20rem,80vw), 1fr));
     gap: 1.5rem;
 }
+
 .articleCard {
     display: flex;
     flex-direction: column;
@@ -16,6 +17,7 @@ img {
     padding: 8px;
     cursor: pointer;
 }
+
 .articleCard img {
     width: 100%;
     object-fit: cover;
