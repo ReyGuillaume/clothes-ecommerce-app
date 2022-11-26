@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
+include "./connexion.php";
 
 
 // ======================= Create Admin =======================
@@ -23,8 +23,15 @@ function read($db) {
 }
 
 // ======================= Read All Admin Id =======================
-function read($db) {
-    $stm = $db->prepare("SELECT `id` FROM `admin` WHERE 1");
+function readAll($db) {
+    $stm = $db->prepare("SELECT `id` FROM `admin`");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All Admin Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `admin`");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
@@ -49,11 +56,4 @@ function delete($db) {
     echo json_encode($stm->fetchAll());
 }
 
-switch($_GET["function"]) {
-    case 'create': create($db); break;
-    case 'read': read($db); break;
-    case 'readall': readAll($db); break;
-    case 'update': update($db); break;
-    case 'delete': delete($db); break;
-    default: echo "Not found!"; break;
-}
+include "./switch.php";

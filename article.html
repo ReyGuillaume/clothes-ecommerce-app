@@ -10,15 +10,10 @@
 <body>
     <main id="app" >
       
-      <div id="article" v-for="article in articles" >
-        <h2>{{article.name}}</h2>
-        <p>Size : {{article.id_size}}</p>
-        <p>Subcatergory : {{article.id_subcategory}}</p>
-        <p>Gender : {{article.id_gender}}</p>
-        <p>Brand  :{{article.id_brand}}</p>
-        <p>Price  :{{article.price}}</p>
-        <p>Description :{{article.description}}</p>
-        <p>{{article.image}}</p>
+      <div class="articles-container">
+        <div class="articles-card" v-for="article in articles">
+          
+        </div>
       </div>
         
           

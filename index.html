@@ -7,451 +7,67 @@
     <link rel="stylesheet" href="./src/styles/global.css">
     <title>Projet web</title>
 </head>
-<body>
-    <div class="testCrudArticle">
+<body id="root">
 
-        <!-- Test crud Article -->
-        <h2>Test Crud Article</h2>
-        <div class="addArticle">
-            <h3>Create</h3>
-            <label for="name">name</label><input type="text" class="addArticleInput" id="name" required>
-            <label for="id_size">id_size</label><input type="number" class="addArticleInput" id="id_size" required>
-            <label for="id_subcategory">id_subcategory</label><input type="number" class="addArticleInput" id="id_subcategory" required>
-            <label for="id_gender">id_gender</label><input type="number" class="addArticleInput" id="id_gender" required>
-            <label for="id_brand">id_brand</label><input type="number" class="addArticleInput" id="id_brand" required>
-            <label for="price">price</label><input type="number" class="addArticleInput" id="price" required>
-            <label for="description">description</label><textarea class="addArticleInput" id="description required" cols="30" rows="10"></textarea>
-            <label for="image">image</label><input type="text" class="addArticleInput" id="image" required>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readArticle">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readArticleInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateArticle">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateArticleInput" id="id" required>
-            <label for="name">name</label><input type="text" class="updateArticleInput" id="name" required>
-            <label for="id_size">id_size</label><input type="number" class="updateArticleInput" id="id_size" required>
-            <label for="id_subcategory">id_subcategory</label><input type="number" class="updateArticleInput" id="id_subcategory" required>
-            <label for="id_gender">id_gender</label><input type="number" class="updateArticleInput" id="id_gender" required>
-            <label for="id_brand">id_brand</label><input type="number" class="updateArticleInput" id="id_brand" required>
-            <label for="price">price</label><input type="number" class="updateArticleInput" id="price" required>
-            <label for="description">description</label><textarea class="updateArticleInput" id="description required" cols="30" rows="10"></textarea>
-            <label for="image">image</label><input type="text" class="addArticleInput" id="image" required>
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteArticle">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteArticleInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
+    <header>
+        <h1>Nom de site</h1>
+    </header>
 
-    <div class="testCrudSubcategory">
+    <main v-if="displayPages.appLaunching">
+        <h2>Loading</h2>
+    </main>
 
-        <!-- Test crud Subcategory -->
-        <hr>
-        <h2>Test Crud Subcategory</h2>
-        <div class="addSubcategory">
-            <h3>Create</h3>
-            <label for="name">name</label><input type="text" class="addSubcategoryInput" id="name" required>
-            <label for="id_category">id_category</label><input type="number" class="addSubcategoryInput" id="id_category" required>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readSubcategory">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readSubcategoryInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateSubcategory">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateSubcategoryInput" id="id" required>
-            <label for="name">name</label><input type="text" class="updateSubcategoryInput" id="name" required>
-            <label for="id_subcategory">id_category</label><input type="number" class="updateSubcategoryInput" id="id_subcategory" required>
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteSubcategory">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteSubcategoryInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
+    <main v-if="displayPages.accueil">
+        <h2>Acceuil</h2>
+        <p>Ceci est l'accueil</p>
+        <button  @click="displayArticleListPage">Voir la liste des articles</button>
+    </main>
 
-    <div class="testCrudCategory">
+    <main v-if="displayPages.articleList">
+        <button  @click="displayAccueil">Retour a l'accueil</button>
 
-        <!-- Test crud Category -->
-        <hr>
-        <h2>Test Crud Category</h2>
-        <div class="addCategory">
-            <h3>Create</h3>
-            <label for="name">name</label><input type="text" class="addCategoryInput" id="name" required>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readCategory">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readCategoryInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateCategory">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateCategoryInput" id="id" required>
-            <label for="name">name</label><input type="text" class="updateCategoryInput" id="name" required>
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteCategory">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteCategoryInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
+        <button  @click="toggleSearchDiv">Rechercher selon certains critaires</button>
 
-    <div class="testCrudLog">
+        <div v-if="showSearchDiv" class="overlay">
+            <div class="searchDiv">
+                <h3>Module de recherche</h3>
 
-        <!-- Test crud Log -->
-        <hr>
-        <h2>Test Crud Log</h2>
-        <div class="addLog">
-            <h3>Create</h3>
-            <label for="id_admin">id_admin</label><input type="number" class="addLogInput" id="id_admin" required>
-            <label for="action">action</label><textarea class="addLogInput" id="action" required></textarea>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readLog">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readLogInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateLog">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateLogInput" id="id" required>
-            <label for="id_admin">id_admin</label><input type="number" class="updateLogInput" id="id_admin" required>
-            <label for="action">action</label><textarea class="updateLogInput" id="action" required></textarea>
-            
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteLog">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteLogInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
+                <label for="subcategory">Subcategory : </label>
+                <select name="subcategory" id="subcategory" v-model="searchedSubcategoryID">
+                    <option value=0>Voir tout</option>
+                    <option v-for="subcat in subcategoryList" :value="subcat.id">{{subcat.name}}</option>
+                </select>
 
-    <div class="testCrudAdmin">
-
-        <!-- Test crud Admin -->
-
-        <hr>
-        <h2>Test Crud Admin</h2>
-        <div class="addAdmin">
-            <h3>Create</h3>
-            <label for="username">username</label><input type="text" class="addAdminInput" id="username" required>
-            <label for="password">password</label><input type="password" class="addAdminInput" id="password" required>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readAdmin">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readAdminInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateAdmin">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateAdminInput" id="id" required>
-            <label for="username">Username</label><input type="text" class="updateAdminInput" id="username" required>
-            <label for="password">password</label><textarea class="updateAdminInput" id="password" required></textarea>
-            
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteAdmin">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteAdminInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
-
-    <div class="testCrudAddress">
-
-        <!-- Test crud Address -->
-
-        <hr>
-        <h2>Test Crud Address</h2>
-        <div class="addAddress">
-            <h3>Create</h3>
-            <label for="id_user">id_user</label><input type="number" class="addAddressInput" id="id_user" required>
-            <label for="number">number</label><input type="number" class="addAddressInput" id="number" required>
-            <label for="street">street</label><textarea class="addAddressInput" id="street" required></textarea>
-            <label for="city">city</label><textarea class="addAddressInput" id="city" required></textarea>
-            <label for="country">country</label><textarea class="addAddressInput" id="country" required></textarea>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readAddress">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readAddressInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateAddress">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateAddressInput" id="id" required>
-            <label for="id_user">id_user</label><input type="number" class="updateAddressInput" id="id_user" required>
-            <label for="number">number</label><input type="number" class="updateAddressInput" id="number" required>
-            <label for="street">street</label><textarea class="updateAddressInput" id="street" required></textarea>
-            <label for="city">city</label><textarea class="updateAddressInput" id="city" required></textarea>
-            <label for="country">country</label><textarea class="updateAddressInput" id="country" required></textarea>
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteAddress">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteAddressInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>  
-
-    <!-- Test crud User -->
-    <div class="testCrudUser">
-
-    <hr>
-    <h2>Test Crud User</h2>
-    <div class="addUser">
-        <h3>Sign Up</h3>
-        <label for="firstname">firstname</label><input type="text" class="addUserInput" id="firstname" required>
-        <label for="lastname">lastname</label><input type="text" class="addUserInput" id="lastname" required>
-        <label for="mail">mail</label><input type="email" class="addUserInput" id="mail" required>
-        <label for="phone_number">phone_number</label><input type="number" class="addUserInput" id="phone_number" required>
-        <label for="password">password</label><input type="password" class="addUserInput" id="password" required>
-        <input type="submit" value="Sign Up">
-    </div>
-
-    <div class="readUser">
-        <h3>Read</h3>
-        <input type="submit" value="Read">
-        <table class="readUserTable">
-        </table>
-    </div>
-    
-    <div class="updateUser">
-        <h3>Update User</h3>
-        <label for="id">id</label><input type="number" class="updateUserInput" id="id" required>
-        <label for="firstname">firstname</label><input type="text" class="updateUserInput" id="firstname" required>
-        <label for="lastname">lastname</label><input type="text" class="updateUserInput" id="lastname" required>
-        <label for="mail">mail</label><input type="email" class="updateUserInput" id="mail" required>
-        <label for="phone_number">phone_number</label><input type="number" class="updateUserInput" id="phone_number" required>
-        <label for="password">password</label><input type="password" class="updateUserInput" id="password" required>
-        <input type="submit" value="Update User">
-    </div>
-
-    <div class="deleteUser">
-        <h3>Delete</h3>
-        <label for="id">id</label><input type="number" class="deleteUserInput" id="id" required>
-        <input type="submit" value="Delete">
-    </div>
-    
-    </div>
-
-    <!-- Test crud Cart -->
-    <div class="testCrudCart">
-
-    <hr>
-    <h2>Test Crud Cart</h2>
-    <div class="addCart">
-        <h3>Sign Up</h3>
-        <label for="id_user">id_user</label><input type="text" class="addCartInput" id="id_user" required>
-        <input type="submit" value="Create Cart">
-    </div>
-
-    <div class="readCart">
-        <h3>Read</h3>
-        <input type="submit" value="Read">
-        <table class="readCartTable">
-        </table>
-    </div>
-    
-    <div class="updateCart">
-        <h3>Update Cart</h3>
-        <label for="id">id</label><input type="number" class="updateCartInput" id="id" required>
-        <label for="id_user">id_user</label><input type="number" class="updateCartInput" id="id_user" required>
-        <input type="submit" value="Update Cart">
-    </div>
-
-    <div class="deleteCart">
-        <h3>Delete</h3>
-        <label for="id">id</label><input type="number" class="deleteCartInput" id="id" required>
-        <input type="submit" value="Delete">
-    </div>
-    
-    </div>
-
-    <!-- Test crud CartItem -->
-    <div class="testCrudCartItem">
-
-        <hr>
-        <h2>Test Crud CartItem</h2>
-        <div class="addCartItem">
-            <h3>Add Cart Item</h3>
-            <label for="id_cart">id_cart</label><input type="text" class="addCartItemInput" id="id_cart" required>
-            <label for="id_article">id_article</label><input type="text" class="addCartItemInput" id="id_article" required>
-            <label for="quantity">quantity</label><input type="email" class="addCartItemInput" id="quantity" required>
-            <input type="submit" value="Add Cart Item">
-        </div>
-
-        <div class="readCartItem">
-            <h3>Read</h3>
-            <input type="submit" value="Read">
-            <table class="readCartItemTable">
-            </table>
-        </div>
-
-        <div class="updateCartItem">
-            <h3>Update Cart Item</h3>
-            <label for="id">id</label><input type="text" class="updateCartItemInput" id="id" required>
-            <label for="id_cart">id_cart</label><input type="text" class="updateCartItemInput" id="id_cart" required>
-            <label for="id_article">id_article</label><input type="text" class="updateCartItemInput" id="id_article" required>
-            <label for="quantity">quantity</label><input type="email" class="updateCartItemInput" id="quantity" required>
-            <input type="submit" value="Update Cart Item">
-        </div>
-    
-        <div class="deleteCartItem">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="text" class="deleteCartItemInput" id="id" required>
-            <input type="submit" value="Delete">
+            </div>
         </div>
         
-    </div>
+        <div class="articleList">
+            <div v-for="art in articleList">
+                <div 
+                    class="articleCard" 
+                    v-if="searchedSubcategoryID == 0 || searchedSubcategoryID === art.id_subcategory" 
+                    @click="displayArticlePage(art.id)" 
+                >
+                    <h2>{{art.name}}</h2>
+                    <img :src="'./src/image/' + art.image + '.jpg'" :alt="art.name">
+                    <p>{{art.price}}$</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <!-- Test crud Order -->
-    <div class="testCrudOrder">
-
-        <hr>
-        <h2>Test Crud Order</h2>
-        <div class="addOrder">
-            <h3>Add Order</h3>
-            <label for="id_user">id_user</label><input type="text" class="addOrderInput" id="id_user" required>
-            <label for="id_cart">id_cart</label><input type="text" class="addOrderInput" id="id_cart" required>
-            <label for="number">number</label><input type="text" class="addOrderInput" id="number" required>
-            <label for="street">street</label><input type="text" class="addOrderInput" id="street" required>
-            <label for="city">city</label><input type="text" class="addOrderInput" id="city" required>
-            <label for="country">country</label><input type="text" class="addOrderInput" id="country" required>
-            <label for="id_status">id_status</label><input type="text" class="addOrderInput" id="id_status" required>
-            <input type="submit" value="Add Order">
-        </div>
-
-        <div class="readOrder">
-            <h3>Read</h3>
-            <input type="submit" value="Read">
-            <table class="readOrderTable">
-            </table>
-        </div>
-
-        <div class="updateOrder">
-            <h3>Update Cart Item</h3>
-            <label for="id">id</label><input type="text" class="updateOrderInput" id="id" required>
-            <label for="id_user">id_user</label><input type="text" class="updateOrderInput" id="id_user" required>
-            <label for="id_cart">id_cart</label><input type="text" class="updateOrderInput" id="id_cart" required>
-            <label for="number">number</label><input type="text" class="updateOrderInput" id="number" required>
-            <label for="street">street</label><input type="text" class="updateOrderInput" id="street" required>
-            <label for="city">city</label><input type="text" class="updateOrderInput" id="city" required>
-            <label for="country">country</label><input type="text" class="updateOrderInput" id="country" required>
-            <label for="id_status">id_status</label><input type="text" class="updateOrderInput" id="id_status" required>
-            <input type="submit" value="Update Order">
-        </div>
-    
-        <div class="deleteOrder">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="text" class="deleteOrderInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-        
-    </div>
-
-    <div class="testCrudStock">
-
-        <!-- Test crud Stock -->
-        <hr>
-        <h2>Test Crud Stock</h2>
-        <div class="addStock">
-            <h3>Create</h3>
-            <label for="qty_stock">qty_stock</label><input type="number" class="addStockInput" id="qty_stock" required>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readStock">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readStockInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateStock">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateStockInput" id="id" required>
-            <label for="qty_stock">qty_stock</label><input type="number" class="updateStockInput" id="qty_stock" required>
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteStock">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteStockInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
-
-    <div class="testCrudSize">
-
-        <!-- Test crud Size -->
-        <hr>
-        <h2>Test Crud Size</h2>
-        <div class="addSize">
-            <h3>Create</h3>
-            <label for="name">Name</label><input type="text" class="addSizeInput" id="name" required>
-            <label for="id_stock">id_stock</label><textarea class="addSizeInput" id="id_stock" required></textarea>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readSize">
-            <h3>Read</h3>
-            <label for="id">id</label><input type="number" class="readSizeInput" id="id" required>
-            <input type="submit" value="Read">
-        </div>
-        <div class="updateSize">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateSizeInput" id="id" required>
-            <label for="name">Name</label><input type="text" class="updateSizeInput" id="name" required>
-            <label for="id_stock">id_stock</label><textarea class="updateSizeInput" id="id_stock" required></textarea>
-            
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteSize">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteSizeInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
-    
-    <div class="testCrudOrderStatus">
-
-        <!-- Test crud OrderStatus -->
-        <hr>
-        <h2>Test Crud OrderStatus</h2>
-        <div class="addOrderStatus">
-            <h3>Create</h3>
-            <label for="status">status</label><input type="text" class="addOrderStatusInput" id="status" required>
-            <input type="submit" value="Add">
-        </div>
-        <div class="readOrderStatus">
-            <h3>Read</h3>
-            <input type="submit" value="Read">
-            <table class="readOrderStatusTable"></table>
-        </div>
-        <div class="updateOrderStatus">
-            <h3>Update</h3>
-            <label for="id">id</label><input type="number" class="updateOrderStatusInput" id="id" required>
-            <label for="status">status</label><input type="text" class="updateOrderStatusInput" id="status" required>            
-            <input type="submit" value="Update">
-        </div>
-        <div class="deleteOrderStatus">
-            <h3>Delete</h3>
-            <label for="id">id</label><input type="number" class="deleteOrderStatusInput" id="id" required>
-            <input type="submit" value="Delete">
-        </div>
-    </div>
+    <main v-if="displayPages.article">
+        <button  @click="displayArticleListPage">Voir tous les articles</button>
+        <h2>{{currentArticle.name}}</h2>
+        <p>{{currentCategory.name}} > {{currentSubcategory.name}}</p>
+        <p>{{currentArticle.description}}</p>
+        <p>{{currentBrand.name}}</p>
+        <img :src="'./src/image/' + currentArticle.image + '.jpg'" :alt="currentArticle.name">
+        <button  @click="addToCart(currentArticleID)">Ajouter au panier</button>
+        <button  @click="deleteFromCart(currentArticleID)">Supprimer du panier</button>
+    </main>
 </body>
 </html>
 
-
+<script src="./src/js/vue.global.js" defer></script>
 <script src="./src/js/main.js" defer></script>
-<script src="./src/js/testcrud.js" defer></script>

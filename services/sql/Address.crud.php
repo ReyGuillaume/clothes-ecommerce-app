@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
+include "./connexion.php";
 
 // ======================= Create Address =======================
 function create($db) {
@@ -31,6 +31,13 @@ function readAll($db) {
     echo json_encode($stm->fetchAll());
 }
 
+// ======================= Read All Address Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `address` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 // ======================= Update Address =======================
 function update($db) {
     $stm = $db->prepare("UPDATE `address` SET `id_user`=:id_user, `number`=:number, `street`=:street, `city`=:city, `country`=:country WHERE id =:id");
@@ -54,11 +61,4 @@ function delete($db) {
     echo json_encode($stm->fetchAll());
 }
 
-switch($_GET["function"]) {
-    case 'create': create($db); break;
-    case 'read': read($db); break;
-    case 'readall': readAll($db); break;
-    case 'update': update($db); break;
-    case 'delete': delete($db); break;
-    default: echo "Not found!"; break;
-}
+include "./switch.php";

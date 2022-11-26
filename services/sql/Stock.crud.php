@@ -1,12 +1,14 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","root","root");
+include "./connexion.php";
 
 // ======================= Create Stock =======================
 function create($db) {
-    $stm = $db->prepare("INSERT INTO `stock`(`qty_stock`) VALUES (:qty_stock)");
+    $stm = $db->prepare("INSERT INTO `stock`(`id_article`, `id_size`, `quantity`) VALUES (:id_article, :id_size, :quantity)");
 
-    $stm->bindValue(":qty_stock", $_GET["qty_stock"]);
+    $stm->bindValue(":id_article", $_GET["id_article"]);
+    $stm->bindValue(":id_size", $_GET["id_size"]);
+    $stm->bindValue(":quantity", $_GET["quantity"]);
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
@@ -22,17 +24,27 @@ function read($db) {
 
 // ======================= Read All Stock Id =======================
 function readAll($db) {
-    $stm = $db->prepare("SELECT `id` FROM `stock` WHERE 1");
+    $stm = $db->prepare("SELECT `id` FROM `Stock` WHERE 1");
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
+// ======================= Read All Stock Data =======================
+function readAllData($db) {
+    $stm = $db->prepare("SELECT * FROM `stock`");
     $stm->execute();
     echo json_encode($stm->fetchAll());
 }
 
 // ======================= Update Stock =======================
 function update($db) {
-    $stm = $db->prepare("UPDATE `stock` SET `qty_stock`=:qty_stock WHERE id =:id");
+    $stm = $db->prepare("UPDATE `stock` SET `id_article`=:id_article, `id_size`=:id_size, `quantity`=:quantity  WHERE id =:id");
 
     $stm->bindValue(":id", $_GET["id"]);
-    $stm->bindValue(":qty_stock", $_GET["qty_stock"]);
+    $stm->bindValue(":id_article", $_GET["id_article"]);
+    $stm->bindValue(":id_size", $_GET["id_size"]);
+    $stm->bindValue(":quantity", $_GET["quantity"]);
+
 
     $stm->execute();
     echo json_encode($stm->fetchAll());
@@ -46,11 +58,4 @@ function delete($db) {
     echo json_encode($stm->fetchAll());
 }
 
-switch($_GET["function"]) {
-    case 'create': create($db); break;
-    case 'read': read($db); break;
-    case 'readall': readAll($db); break;
-    case 'update': update($db); break;
-    case 'delete': delete($db); break;
-    default: echo "Not found!"; break;
-}
+include "./switch.php";
