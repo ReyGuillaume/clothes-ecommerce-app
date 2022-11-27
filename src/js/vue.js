@@ -113,7 +113,7 @@ const SearchArticle = {
       await this.fetchAllSubCategories();
     })();
 
-    setTimeout(() => (this.loaded = true), 1000);
+    this.loaded = true
   }
 }
 
