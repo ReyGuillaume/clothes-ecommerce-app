@@ -32,10 +32,6 @@ CREATE TABLE `admin` (
   `password` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
-INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'admin', 'admin');
-
 -- --------------------------------------------------------
 
 --
@@ -50,7 +46,7 @@ CREATE TABLE `article` (
   `id_brand` int(11) NOT NULL,
   `price` float NOT NULL,
   `description` varchar(300) NOT NULL,
-  `image` varchar(50) NOT NULL
+  `image` varchar(700) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -63,10 +59,6 @@ CREATE TABLE `brand` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-INSERT INTO `brand` (`id`, `name`) VALUES
-(1, 'Nike');
 
 -- --------------------------------------------------------
 
@@ -103,13 +95,6 @@ CREATE TABLE `category` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Contenu de la table `category`
---
-
-INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'coucou');
-
 -- --------------------------------------------------------
 
 --
@@ -121,8 +106,6 @@ CREATE TABLE `gender` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `gender` (`id`, `name`) VALUES
-(1, 'Homme');
 
 -- --------------------------------------------------------
 
@@ -153,6 +136,7 @@ CREATE TABLE `order` (
   `country` varchar(45) NOT NULL,
   `id_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- --------------------------------------------------------
 
 --
@@ -164,13 +148,6 @@ CREATE TABLE `order_status` (
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `order_status` (`id`, `status`) 
-VALUES
-  (1, 'En cours de préparation'),
-  (2, 'En cours de livraison'),
-  (3, 'Livrée'),
-  (4, 'Annulée');
-
 -- --------------------------------------------------------
 
 --
@@ -181,14 +158,6 @@ CREATE TABLE `size` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `size` (`id`, `name`) 
-VALUES
-  (1, 'XS'),
-  (2, 'S'),
-  (3, 'M'),
-  (4, 'L'),
-  (5, 'XL');
 
 -- --------------------------------------------------------
 --
@@ -202,7 +171,6 @@ CREATE TABLE `stock` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 -- --------------------------------------------------------
 
 --
@@ -214,13 +182,6 @@ CREATE TABLE `subcategory` (
   `name` varchar(45) NOT NULL,
   `id_category` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `subcategory`
---
-
-INSERT INTO `subcategory` (`id`, `name`, `id_category`) VALUES
-(1, 'sous-couccou', 1);
 
 -- --------------------------------------------------------
 
@@ -237,9 +198,6 @@ CREATE TABLE `user` (
   `password` char(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `mail`, `phone_number`, `password`) VALUES
-(1, 'Eric', 'DUPONT', 'ericdupont@gmail.com', '0666783421', 'edupont');
-
 -- --------------------------------------------------------
 
 --
@@ -255,8 +213,6 @@ CREATE TABLE `address` (
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `address` (`id`, `number`, `street`, `city`, `country`, `id_user`) VALUES
-(1, '126', 'Rue de la Raclette', 'Chambéry', 'France', 1);
 
 --
 -- Index pour les tables exportées
@@ -406,7 +362,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT pour la table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `gender`
 --
@@ -441,7 +397,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT pour la table `subcategory`
 --
 ALTER TABLE `subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
