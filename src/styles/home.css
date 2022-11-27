@@ -1,0 +1,7 @@
+.home-container{
+    display: flex;
+    justify-content: center;
+}
+.home-container h1{
+    font-size: 3rem;
+}

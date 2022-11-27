@@ -117,6 +117,32 @@ const SearchArticle = {
   }
 }
 
+const ArticlePage = {
+  template:'#article',
+  name : 'ArticlePage',
+  data() {
+    return {
+      id_article : this.$route.params.id,
+      article : [],
+    };
+  },
+  methods: {
+    async fetchArticle(){
+      await axios.get("services/article_page/article.php?function=retrieveArticle&id=" + this.id_article)
+        .then((response) => {
+          console.log(response.data)
+          this.article = response.data;
+        });
+    }
+  },
+  mounted() {
+    (async () => {
+      await this.fetchArticle();
+      console.log(this.article)
+    })();
+  }
+}
+
 const UserProfile = {
   template:'<h1>User Profile</h1>',
   name : 'UserProfile'
@@ -128,6 +154,7 @@ const router = new VueRouter.createRouter({
   routes : [
     { path: '/', component: Home, name : 'Home' },
     { path: '/search-article', component: SearchArticle, name : 'SearchArticle'},
+    { path: '/article/:id', component: ArticlePage, name : 'ArticlePage'},
     { path: '/user-profile', component: UserProfile, name : 'UserProfile' },
   ]
 })

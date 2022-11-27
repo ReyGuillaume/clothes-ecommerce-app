@@ -35,7 +35,7 @@ INSERT INTO `article` (`name`, `id_subcategory`, `id_gender`, `id_brand`, `price
 
 ("Veste beige", 3, 2, 5, 50, "Veste beige", "https://t.ly/ZkvA"),
 
-("Stan smith blanche", 5, 3, 2, 60, "Stan Smith adidas, chaussure de ville", "https://cutt.ly/J1l015E"),
+("Stan smith blanche", 5, 3, 3, 60, "Stan Smith adidas, chaussure de ville", "https://cutt.ly/J1l015E"),
 
 ("Rolex Oyster Perpetual", 7, 1, 4, 10000, "Rolex Oyster Perpetual, montre haute horlogerie United Kingdom", "https://cutt.ly/M1l2rnq");
 

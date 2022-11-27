@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/styles/global.css">
+    <link rel="stylesheet" href="./src/styles/home.css">
     <link rel="stylesheet" href="./src/styles/search_article.css">
-    <title>Home</title>
+    <link rel="stylesheet" href="./src/styles/article.css">
+    <title>Sapes.com</title>
 </head>
 
 <body>
@@ -23,8 +25,9 @@
                 <router-link to="/search-article">
                     <div>Catalogue</div>
                 </router-link>
+                <i class="fa-solid fa-cart-shopping"></i>
                 <router-link to="/user-profile">
-                    <div>Profil</div>
+                    <i class="fa-solid fa-user"></i>
                 </router-link>
             </div>
         </nav>
@@ -34,6 +37,7 @@
 
     <script type="text/x-template" id="home">
         <div class="home-container">
+            <h1>Bienvenue sur Sapes.com</h1>
         </div>
     </script>
 
@@ -65,17 +69,38 @@
       
             <div class="articles-container">
               <div class="article-card" v-for="article in filtered_articles" v-bind:id="article.id">
-                <img v-bind:src="article.image" class="article-img" alt="">
-                <h4 class="name">{{ article.name }}</h4>
-                <h3 class="price">{{ article.price }} €</h3>
+                <router-link :to="{name : 'ArticlePage', params: { id: article.id }}">
+                    <img v-bind:src="article.image" class="article-img" alt="">
+                    <h4 class="name">{{ article.name }}</h4>
+                    <h3 class="price">{{ article.price }} €</h3>
+                </router-link>
               </div>
             </div>
           </div>
+    </script>
+
+    <script type="text/x-template" id="article">
+        <div class="article-container">
+            <div class="main-container">
+                <img v-bind:src="article.image" class="article-img" alt="">
+
+                <div class="infos-container">
+                    <h2>{{ article.name }}</h2>
+                    <h2>{{ article.price }}€</h2>
+                    <button>Ajouter au panier</button>
+                </div>
+            </div>
+
+            <div class="details-container">
+                <p>{{ article.description }}</p>
+            </div>
+        </div>
     </script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
     <script src="./src/js/vue.js" defer></script>
+    <script src="https://kit.fontawesome.com/008612b1fd.js" crossorigin="anonymous"></script>
 </body>
 </html>
