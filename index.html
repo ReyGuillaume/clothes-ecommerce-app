@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/styles/global.css">
+    <link rel="stylesheet" href="./src/styles/search_article.css">
     <title>Home</title>
 </head>
 
@@ -33,10 +34,46 @@
 
     <script type="text/x-template" id="home">
         <div class="home-container">
-            
         </div>
     </script>
 
+    <script type="text/x-template" id="search-page">
+        <div class="search-page-container"  v-if="loaded">
+            <div class="filters-container">
+              <select name="gender" id="gender-select" @change="handleFilterChange()" v-model="gender_key">
+                <option :value="0" selected>Universel</option>
+                <option v-for="gender in genders" :value="gender.id">{{ gender.name }}</option>
+              </select>
+      
+              <select name="brand" id="brand-key" @change="handleFilterChange()" v-model="brand_key">
+                <option :value="0" selected>Toutes Marques</option>
+                <option v-for="brand in brands" :value="brand.id">{{ brand.name }}</option>
+              </select>
+      
+              <select name="category" id="category_select" @change="handleCategoryChange()" v-model="category_key">
+                <option :value="0" selected>Toutes Catégories</option>
+                <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+              </select>
+      
+              <select name="sub-category" id="sub-category-select" @change="handleFilterChange()" v-model="sub_category_key" v-if="category_key != 0">
+                <option :value="0" selected>Toutes Sous Catégories</option>
+                <option v-for="sub_category in displayed_sub_categories" :value="sub_category.id">{{ sub_category.name }}</option>
+              </select>
+      
+              <button class="reset-filters" v-on:click="handleResetFilters">Reset</button>
+            </div>
+      
+            <div class="articles-container">
+              <div class="article-card" v-for="article in filtered_articles" v-bind:id="article.id">
+                <img v-bind:src="article.image" class="article-img" alt="">
+                <h4 class="name">{{ article.name }}</h4>
+                <h3 class="price">{{ article.price }} €</h3>
+              </div>
+            </div>
+          </div>
+    </script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
     <script src="./src/js/vue.js" defer></script>
