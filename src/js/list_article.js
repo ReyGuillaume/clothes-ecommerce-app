@@ -65,9 +65,8 @@ createApp({
       console.log(filters)
 
       for(article of this.articles){
-        id(article.id_brand != 0){
-          
-        }
+        // id(article.id_brand != 0){
+        // }
 
         if(article.id_brand == this.brand_key){
             temp_filtered_articles.push(article)
