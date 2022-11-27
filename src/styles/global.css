@@ -1,22 +1,16 @@
-img {
-    width: 100px;
-    height: 100px;
+body{
+    margin: 0;
 }
 
-.articleList {
-    display: grid;
-	grid-template-columns: repeat(auto-fill,minmax(min(20rem,80vw), 1fr));
-    gap: 1.5rem;
-}
-.articleCard {
+nav{
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0px 50px;
     display: flex;
-    flex-direction: column;
-    border-radius: 16px;
-    border: #BBB 1px solid;
-    padding: 8px;
-    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
 }
-.articleCard img {
-    width: 100%;
-    object-fit: cover;
+
+nav .links-container{
+    display: flex;
+    gap: 40px;
 }
