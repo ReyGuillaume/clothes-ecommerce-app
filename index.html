@@ -69,10 +69,10 @@
       
             <div class="articles-container">
               <div class="article-card" v-for="article in filtered_articles" v-bind:id="article.id">
-                <router-link :to="{name : 'ArticlePage', params: { id: article.id }}">
+                <router-link  :to="{name : 'ArticlePage', params: { id: article.id }}">
                     <img v-bind:src="article.image" class="article-img" alt="">
                     <h4 class="name">{{ article.name }}</h4>
-                    <h3 class="price">{{ article.price }} €</h3>
+                    <h4 class="price">{{ article.price }} €</h4>
                 </router-link>
               </div>
             </div>
@@ -87,7 +87,7 @@
                 <div class="infos-container">
                     <h2>{{ article.name }}</h2>
                     <h2>{{ article.price }}€</h2>
-                    <button>Ajouter au panier</button>
+                    <button><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
                 </div>
             </div>
 
