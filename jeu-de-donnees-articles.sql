@@ -53,10 +53,10 @@ INSERT INTO `size` (`id`, `name`) VALUES
 (NULL, 'XL');
 
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(NULL, 'admin', 'admin');
+(NULL, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918');
 
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `mail`, `phone_number`, `password`) VALUES
-(NULL, 'Eric', 'DUPONT', 'ericdupont@gmail.com', '0666783421', 'edupont');
+(NULL, 'Eric', 'DUPONT', 'ericdupont@gmail.com', '0666783421', 'a2476239974b18c23f5f22068db4233c88e8f046039e1db723e1546cc36d39e7');
 
 INSERT INTO `address` (`id`, `number`, `street`, `city`, `country`, `id_user`) VALUES
 (1, '126', 'Rue de la Raclette', 'Chambéry', 'France', 1);

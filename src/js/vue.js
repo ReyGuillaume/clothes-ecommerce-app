@@ -81,6 +81,7 @@ const SearchArticle = {
       await axios.get(url)
       .then((response) => {
         this.filtered_articles = response.data;
+        console.log(response.data)
       });
     },
 
@@ -130,7 +131,6 @@ const ArticlePage = {
     async fetchArticle(){
       await axios.get("services/article_page/article.php?function=retrieveArticle&id=" + this.id_article)
         .then((response) => {
-          console.log(response.data)
           this.article = response.data;
         });
     }
