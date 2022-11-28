@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./src/styles/home.css">
     <link rel="stylesheet" href="./src/styles/search_article.css">
     <link rel="stylesheet" href="./src/styles/article.css">
+    <link rel="stylesheet" href="./src/styles/user_profile.css">
     <title>Sapes.com</title>
 </head>
 
@@ -93,6 +94,21 @@
 
             <div class="details-container">
                 <p>{{ article.description }}</p>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="user-profile">
+        <div class="login-container">   
+            <div class="login-content">
+                <h1 class="login-title">Sign in</h1>
+                <div class="login-form">                       
+                    <label for="mail"></label>
+                    <input type="text" id="mail" class ="input-login" name="mail" placeholder="Email" v-model="mail"><br><br>
+                    <label for="password"></label>
+                    <input type="password" id="password" class ="input-login" name="password" placeholder="Password" v-model="password"><br><br>
+                    <input type="submit" class ="button-login" v-on:click="Login" value="Sign up">
+                </div>
             </div>
         </div>
     </script>

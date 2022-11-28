@@ -144,8 +144,54 @@ const ArticlePage = {
 }
 
 const UserProfile = {
-  template:'<h1>User Profile</h1>',
-  name : 'UserProfile'
+  template:'#user-profile',
+  name : 'UserProfile',
+  data() {
+    return {
+      mail: "",
+      password: "",
+      id_article : this.$route.params.id,
+      article : [],
+    };
+  },
+  methods: {
+    Login: function()
+    {
+      if(this.mail == "")
+      {
+        if(this.password == "")
+        {
+          window.alert("Veuillez renseigner l'adresse mail et le mot de passe")
+        }
+
+        else
+        {
+          window.alert("Veuillez renseigner l'adresse mail")
+        }    
+      }
+
+      else
+      {
+        if(this.password == "")
+        {
+          window.alert("Veuillez renseigner le mot de passe")
+        }
+
+        else
+        {;
+          axios.get("services/login/Login.php?mail="+this.mail+"&password="+this.password).then(
+            response => 
+            {
+              window.alert(response.data);
+            }
+          );
+        }
+      }
+    }
+  },
+  mounted() {
+
+  }
 }
 
 const router = new VueRouter.createRouter({
