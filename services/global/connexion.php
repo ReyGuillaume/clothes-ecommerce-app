@@ -1,7 +1,7 @@
 <?php
 
 $dsn = "mysql:host=localhost;dbname=projetwebl2;charset=UTF8";
-$user = 'nico';
-$password = '131169';
+$user = 'user';
+$password = 'user';
 
 $db = new PDO($dsn, $user, $password);
