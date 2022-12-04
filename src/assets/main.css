@@ -1,0 +1,32 @@
+@import './base.css';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+body{
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+}
+
+a{
+  cursor: pointer;
+}
+
+nav{
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .links-container{
+    display: flex;
+    gap: 40px;
+}
