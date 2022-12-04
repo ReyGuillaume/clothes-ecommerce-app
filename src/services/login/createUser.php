@@ -1,6 +1,6 @@
 <?php
 
-$db = new PDO("mysql:host=localhost;dbname=projetwebl2;charset=UTF8","nico","131169");
+include "../global/connexion.php";
 
 if(empty($_GET["firstname"]) || empty($_GET["lastname"]) || empty($_GET["mail"]) || empty($_GET["phone_number"]) || empty($_GET["password"])){
     echo "An input is empty";
