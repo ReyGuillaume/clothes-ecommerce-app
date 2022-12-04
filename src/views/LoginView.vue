@@ -47,21 +47,28 @@ export default {
 </script>
 
 <template>
-    <div class="login-container">   
+    <div class="login-container sign-in" v-if="(model = 'sign-in')">
         <h1 class="login-title">Sign in</h1>
         <div class="login-form">
-            <input type="text" id="mail" class="input-login" name="mail" placeholder="E-mail" v-model="mail">
-            <input type="text" placeholder="Firstname" v-if="model == 'sign-up'">
-            <input type="text" placeholder="Lastname" v-if="model == 'sign-up'">
-            <input type="text" placeholder="Phone Number" v-if="model == 'sign-up'">
+            <label for="mail">Adresse e-mail</label><input type="text" id="mail" class="input-login" placeholder="E-mail" v-model="mail">
+            <label for="password">password</label><input type="password" id="password" class="input-login" placeholder="Password" v-model="password">
 
-            <input type="password" id="password" class="input-login" name="password" placeholder="Password" v-model="password">
-            <input type="submit" value="Login" v-if="model == 'login'">
-            <input type="submit"  value="Sign up" v-if="model == 'sign-up'">
+            <input type="submit" value="Sign-in">
         </div>
-        <p v-if="model == 'login'">Vous n'avez pas de compte <a v-on:click="model = 'sign-up'">inscrivez-vous</a></p>
-        <p v-if="model == 'sign-up'">Vous avez un compte <a v-on:click="model = 'login'">connectez-vous</a></p>
     </div>
+    
+    <div class="login-container sign-up" v-if="(model = 'sign-up')">
+      <h1 class="login-title">Sign up</h1>
+      <label for="mail">Adresse e-mail</label><input type="text" id="mail" class="input-login" placeholder="E-mail" v-model="mail">
+
+      <label for="Firstname">Firstname</label><input type="text" id="Firstname" placeholder="Firstname">
+      <label for="Lastname">Lastname</label><input type="text" id="Lastname" placeholder="Lastname">
+      <label for="Phone-Number">Phone Number</label><input type="text" id="Phone-Number" placeholder="Phone Number">
+
+      <input type="submit"  value="Sign up">
+    </div>
+    <p v-if="model == 'login'">Vous n'avez pas de compte <a v-on:click="model = 'sign-up'">inscrivez-vous</a></p>
+    <p v-if="model == 'sign-up'">Vous avez un compte <a v-on:click="model = 'sign-in'">connectez-vous</a></p>
 </template>
 
 <style>

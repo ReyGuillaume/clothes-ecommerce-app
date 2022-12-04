@@ -2,6 +2,17 @@
 
 include "../global/connexion.php";
 
+function checkAdminLogin($connexionPDO, $login) {
+    $reqPrep = $connexionPDO->prepare('SELECT count(password) FROM `admin` WHERE `username`=:login');
+    $bvc = $reqPrep->bindValue(':login', $login);
+    $exe = $reqPrep->execute();
+    $unLogin = $reqPrep->fetch();
+    if($unLogin[0] != 0) {
+        return true;
+    }
+    return false;
+}
+
 function CheckLogin($connexionPDO, $login) 
 {
     $reqPrep = $connexionPDO->prepare('SELECT count(mail) FROM user WHERE mail=:login');
@@ -45,20 +56,28 @@ function CheckUser($connexionPDO, $login, $pwd) {
         $pwdBDD = $unLogin[5];
         $checkPWD = CheckPWD($pwd, $pwdBDD);
 
-        if($checkPWD == true) 
+        if($checkPWD) 
         {
-            echo 'Connexion réussie !';
+            echo json_encode(array("message"=>'userOK', "id"=>$unLogin['id']));
         }
 
         else 
         {
-            echo 'Mot de passe incorrect';
+            echo json_encode(array("message"=>'userNOKpwd', "id"=>null));
+        }
+    } elseif (checkAdminLogin($connexionPDO, $login)) {
+        $reqPrep = $connexionPDO->prepare('SELECT * FROM `admin` WHERE `username`=:login');
+        $bvc = $reqPrep->bindValue(':login', $login);
+        $exe = $reqPrep->execute();
+        $unLogin = $reqPrep->fetch();
+        $pwdBDD = $unLogin['password'];
+        if(hash('sha256', $pwd) == $pwdBDD){
+            echo json_encode(array("message"=>'adminOK', "id"=>$unLogin['id']));
         }
     }
-
     else 
     {
-        echo 'Adresse mail incorrecte';
+        echo json_encode(array("message"=>'userNOKaddress', "id"=>null));
     }
 }
 ?>
