@@ -1,4 +1,12 @@
+@import './base.css';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
 
 body{
     margin: 0;
@@ -7,8 +15,7 @@ body{
 }
 
 a{
-    text-decoration: none;
-    color: black;
+  cursor: pointer;
 }
 
 nav{

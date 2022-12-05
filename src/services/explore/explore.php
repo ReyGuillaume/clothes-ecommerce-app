@@ -78,3 +78,5 @@ switch($_GET["function"]) {
     case 'retrieveArticlesFiltered': retrieveArticlesFiltered($db); break;
     default: echo "Not found!"; break;
 }
+
+?>
