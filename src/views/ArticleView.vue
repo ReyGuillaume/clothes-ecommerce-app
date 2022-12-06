@@ -8,20 +8,47 @@ export default{
     data() {
     return {
       article: [],
+      stock: [],
+      sizes: [],
     };
   },
   methods: {
     async fetchArticle() {
-      await axios
+      axios
         .get("article/article.php?function=retrieveArticle&id=" + this.articleId)
         .then((response) => {
           this.article = response.data;
-        });
+        }
+      )
+    },
+    fetchStocks() {
+      return axios
+        .get("article/article.php?function=retrieveStock&id_article=" + this.articleId)
+        .then((response) => {
+          this.stock = response.data;
+        }
+      )
+    },
+    fetchSizes() {
+      this.stock.forEach(elt => this.fetchSize(elt.id_size))
+    }, 
+    fetchSize(id) {
+      axios
+        .get("article/article.php?function=retrieveSizes&id=" + id)
+        .then((response) => {
+          const arr = [...this.sizes]
+          arr.push(response.data)
+          this.sizes = arr
+        }
+      )
     },
   },
   mounted() {
     (async () => {
-      await this.fetchArticle();
+      await this.fetchArticle()
+      await this.fetchStocks()
+      await this.fetchSizes()           //TODO
+      console.log(this.sizes)
     })();
   },
 }
@@ -35,6 +62,16 @@ export default{
         <div class="infos-container">
             <h2>{{ article.name }}</h2>
             <h2>{{ article.price }}€</h2>
+
+            <div class="sizes">
+              <h3>Tailles disponibles en stock :</h3>
+              <div>
+                <input type="radio" id="huey" name="drone" value="huey" >
+                <label for="huey">Huey</label>
+              </div>
+
+            </div>
+
             <button><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
         </div>
     </div>
