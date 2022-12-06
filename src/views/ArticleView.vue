@@ -119,9 +119,10 @@ export default{
   position: relative;
 }
 
-.article-container img{
+.article-container .article-img{
   width: 50%;
   max-width: 300px;
+  object-fit: cover;
 }
 
 .details-container{
