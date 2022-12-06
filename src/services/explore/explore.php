@@ -39,12 +39,7 @@ function retrieveArticlesFiltered($db) {
     $category_key = $_GET['category_key'];
     $subcategory_key = $_GET['subcategory_key'];
 
-    
-    if($subcategory_key == 0){
-        $stm = $db->prepare("");
-    }
-
-    $query = "SELECT * FROM article 
+    $query = "SELECT article.*, subcategory.name, category.name FROM article 
     JOIN subcategory ON id_subcategory = subcategory.id
     JOIN category ON subcategory.id_category = category.id";
 
@@ -83,3 +78,5 @@ switch($_GET["function"]) {
     case 'retrieveArticlesFiltered': retrieveArticlesFiltered($db); break;
     default: echo "Not found!"; break;
 }
+
+?>
