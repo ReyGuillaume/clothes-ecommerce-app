@@ -14,6 +14,7 @@ library.add(faUser)
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/explore">Explore</RouterLink>
+        <RouterLink to="/cart"><font-awesome-icon icon="fa-regular fa-cart-shopping" />Cart</RouterLink>
         <RouterLink to="/login"><font-awesome-icon icon="fa-solid fa-user" />Login</RouterLink>
       </nav>
     </div>

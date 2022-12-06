@@ -10,6 +10,9 @@ export default{
       article: [],
       stock: [],
       sizes: [],
+      idCart: null,
+      selectedSize: null,
+      quantity: null,
     };
   },
   methods: {
@@ -42,12 +45,27 @@ export default{
         }
       )
     },
+    fetchCartID(id) {
+      return axios.get(`article/article.php?function=retrieveCartID&id_user=${id}`)
+        .then(res => this.idCart = res.data[res.data.length -1].id)
+    },
+    handleAddToCart() {
+      if (this.quantity && this.selectedSize && this.idCart && this.articleId) {
+        axios
+        .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
+        .then(() => alert("Article ajouté au panier"))
+      } else {
+        alert("Choisir une taille et une quantité")
+      }
+    }
   },
   mounted() {
     (async () => {
       await this.fetchArticle()
       await this.fetchStocks()
       this.fetchSizes()
+      if (this.idUser)
+        this.fetchCartID(this.idUser)
     })();
   },
 }
@@ -65,13 +83,19 @@ export default{
             <div class="sizes">
               <h3>Tailles disponibles en stock :</h3>
               <div v-for="size in sizes">
-                <input type="radio" :id="size.name" name="size" :value="size.id" >
+                <input type="radio" :id="size.name" name="size" :value="size.id" v-model="selectedSize" >
                 <label :for="size.name">{{size.name}}</label>
               </div>
 
-            </div>
+              <div v-if="selectedSize">
+                <label for="quantity">Combien en voulez-vous ?</label>
+                <input type="number" id="quantity" v-model="quantity" >
+              </div>
 
-            <button><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
+            </div>
+            <button @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
+            <RouterLink to="/login" v-if="!this.idUser">Se connecter pour ajouter cet article au Panier</RouterLink>
+            <p v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stoque</p>
         </div>
     </div>
 
