@@ -47,8 +47,7 @@ export default{
     (async () => {
       await this.fetchArticle()
       await this.fetchStocks()
-      await this.fetchSizes()           //TODO
-      console.log(this.sizes)
+      this.fetchSizes()
     })();
   },
 }
@@ -65,9 +64,9 @@ export default{
 
             <div class="sizes">
               <h3>Tailles disponibles en stock :</h3>
-              <div>
-                <input type="radio" id="huey" name="drone" value="huey" >
-                <label for="huey">Huey</label>
+              <div v-for="size in sizes">
+                <input type="radio" :id="size.name" name="size" :value="size.id" >
+                <label :for="size.name">{{size.name}}</label>
               </div>
 
             </div>
