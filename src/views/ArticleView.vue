@@ -77,6 +77,9 @@ export default{
         <img v-bind:src="article.image" class="article-img" alt="">
 
         <div class="infos-container">
+              <RouterLink to="/explore">
+                <button>Retour</button>
+              </RouterLink>
             <h2>{{ article.name }}</h2>
             <h2>{{ article.price }}€</h2>
 
