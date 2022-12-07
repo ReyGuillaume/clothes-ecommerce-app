@@ -6,6 +6,7 @@ export default {
     return {
       articles: [],
       filtered_articles: [],
+      nItem : 20,
       brands: [],
       genders: [],
       categories: [],
@@ -95,7 +96,6 @@ export default {
       this.displayed_sub_categories = temp_displayed_sub_category;
       this.handleFilterChange();
     },
-
     handleResetFilters() {
       this.gender_key = 0;
       this.brand_key = 0;
@@ -103,6 +103,9 @@ export default {
       this.sub_category_key = 0;
       this.filtered_articles = this.articles;
     },
+    showMore() {
+      this.nItem += 20
+    }
   },
   mounted() {
     (async () => {
@@ -146,14 +149,16 @@ export default {
         </div>
   
         <div class="articles-container">
-          <div class="article-card" v-for="article in filtered_articles" v-bind:id="article.id">
+          <div class="article-card" v-for="article in filtered_articles.slice(0, nItem)" v-bind:id="article.id">
             <router-link  :to="{name : 'Article', params: { articleId: article.id }}">
                 <img v-bind:src="article.image" class="article-img" alt="">
                 <h4 class="name">{{ article.name }}</h4>
                 <h4 class="price">{{ article.price }} €</h4>
             </router-link>
           </div>
+          <button @click="showMore">Voir plus</button>
         </div>
+
       </div>
 </template>
 
