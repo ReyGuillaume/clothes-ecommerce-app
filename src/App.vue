@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -18,8 +17,18 @@ library.add(faUser)
       </nav>
     </div>
   </header>
-
+  
   <RouterView />
+  <footer>
+    <div id="container-lien">
+  <div id="lien"><RouterLink to ="/">Home</RouterLink></div> 
+  <div id="lien"><RouterLink to ="/explore">Exploire</RouterLink></div>
+  <div id="lien"><RouterLink to ="/login">Se connecter</RouterLink></div>
+  </div> 
+  <div id="info-text">
+  © Sapes2022
+  </div>
+  </footer>
 </template>
 
 <style scoped>

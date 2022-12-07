@@ -30,3 +30,28 @@ nav .links-container{
     display: flex;
     gap: 40px;
 }
+
+
+footer{
+display: flex;
+background-color: #ebebeb; 
+flex-direction: column;
+text-align: center;
+}
+
+#lien{
+  /* border : solid 1px blue; */
+  display: inline;
+  margin: 2%;
+  padding-left: 3%;
+  padding-right: 3%;
+  /* background-color: rgb(243, 243, 243); */
+  border-radius: 30% 50% 30% 25%;
+  box-shadow: 10px 10px 15px rgb(180, 181, 182), 10px 10px 15px rgb(248, 238, 238);
+
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
