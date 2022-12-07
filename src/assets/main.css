@@ -2,12 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
 
 body{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 16px;
+  background: #fffbf8;
+}
+
+#app {
+  overflow: hidden;
 }
 
 a{
   cursor: pointer;
+  color: crimson;
 }
 
 header {
