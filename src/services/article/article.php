@@ -43,3 +43,12 @@ function createCartItem($db) {
     $stm->bindValue(":quantity", $_GET["quantity"]);
     $stm->execute();
 }
+
+switch($_GET["function"]) {
+    case 'retrieveArticle': retrieveArticle($db); break;
+    case 'retrieveStock': retrieveStock($db); break;
+    case 'retrieveSizes': retrieveSizes($db); break;
+    case 'retrieveCartID': retrieveCartID($db); break;
+    case 'createCartItem': createCartItem($db); break;
+    default: echo "Not found!"; break;
+}
