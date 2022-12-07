@@ -25,13 +25,11 @@ library.add(faUser)
   <RouterView />
   <footer>
     <div id="container-lien">
-  <div id="lien"><RouterLink to ="/">Home</RouterLink></div> 
-  <div id="lien"><RouterLink to ="/explore">Exploire</RouterLink></div>
-  <div id="lien"><RouterLink to ="/login">Se connecter</RouterLink></div>
-  </div> 
-  <div id="info-text">
-  © Sapes2022
-  </div>
+      <div id="lien"><RouterLink to ="/">Home</RouterLink></div> 
+      <div id="lien"><RouterLink to ="/explore">Exploire</RouterLink></div>
+      <div id="lien"><RouterLink to ="/login">Se connecter</RouterLink></div>
+    </div> 
+    <div id="info-text">© Sapes2022</div>
   </footer>
 </template>
 
