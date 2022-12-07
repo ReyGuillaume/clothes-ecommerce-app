@@ -3,20 +3,23 @@ import { RouterLink, RouterView } from 'vue-router'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faCartShopping, faBagShopping, faHouse } from '@fortawesome/free-solid-svg-icons'
 
+library.add(faCartShopping)
+library.add(faBagShopping)
+library.add(faHouse)
 library.add(faUser)
 </script>
 
 <template>
   <header>
-    <div class="wrapper">
+    <h1>Sapes.com</h1>
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/explore">Explore</RouterLink>
-        <RouterLink to="/login"><font-awesome-icon icon="fa-solid fa-user" />Login</RouterLink>
+        <RouterLink class="nav-link" to="/"><font-awesome-icon icon="fa-solid fa-house" />Home</RouterLink>
+        <RouterLink class="nav-link" to="/explore"><font-awesome-icon icon="fa-solid fa-bag-shopping" />Explore</RouterLink>
+        <RouterLink class="nav-link" to="/cart"><font-awesome-icon icon="fa-solid fa-cart-shopping" />Cart</RouterLink>
+        <RouterLink class="nav-link" to="/login"><font-awesome-icon icon="fa-solid fa-user" />Login</RouterLink>
       </nav>
-    </div>
   </header>
 
   <RouterView />

@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue';
 import ArticleView from '@/views/ArticleView.vue';
 import LoginView from '@/views/LoginView.vue';
 import ExploreView from '@/views/ExploreView.vue';
+import CartView from '@/views/CartView.vue';
 
 const routes = [
     {
@@ -22,7 +23,11 @@ const routes = [
       name : 'Explore',
       path : '/explore',
       component : ExploreView,
-    }
+    }, {
+        name : 'Cart',
+        path : '/cart',
+        component : CartView,
+      }
 ];
 
 const router = createRouter({

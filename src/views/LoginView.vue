@@ -158,8 +158,4 @@ export default {
     p{
       font-size: 1rem;
     }
-    
-    a{
-      color: crimson;
-    }
 </style>
