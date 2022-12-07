@@ -62,7 +62,21 @@ export default {
     },
 
     handleSignUp : function(){
-
+      if(this.password != this.password_confirmation ){
+        showAlert
+        return;
+      }
+      axios.get("login/signup.php?", { 
+        params: { 
+          firstname : this.firstname, 
+          lastname : this.lastname,
+          mail : this.mail,
+          password : this.password,
+          phone_number : this.phone_number
+        }
+      }).then(response => {
+        console.log(response)
+      })
     }
   },
   mounted() {
@@ -89,22 +103,24 @@ export default {
     <div class="login-container sign-up" v-else-if="(model == 'sign-up')">
       <h1 class="login-title">Sign up</h1>
       <div class="form-elt">
-        <label for="mail">Adresse e-mail</label>
-        <input type="text" id="mail" class="input-login" placeholder="E-mail" v-model="mail">
-      </div>
-      <div class="form-elt">
-        <label for="Firstname">Firstname</label>
         <input type="text" id="Firstname" placeholder="Firstname">
       </div>
       <div class="form-elt">
-        <label for="Lastname">Lastname</label>
         <input type="text" id="Lastname" placeholder="Lastname">
       </div>
       <div class="form-elt">
-        <label for="Phone-Number">Phone Number</label>
+        <input type="text" id="mail" class="input-login" placeholder="E-mail" v-model="mail">
+      </div>
+      <div class="form-elt">
+        <input type="password" id="password" class="input-login" placeholder="Password" v-model="password">
+      </div>
+      <div class="form-elt">
+        <input type="password" id="password_confirmation" class="input-login" placeholder="Password Confirmation" v-model="password_confirmation">
+      </div>
+      <div class="form-elt">
         <input type="text" id="Phone-Number" placeholder="Phone Number">
       </div>
-      <input type="submit"  value="Sign up">
+      <input type="submit"  value="Sign up" @click="handleSignUp">
     </div>
 
     <p v-if="model == 'sign-in'">Vous n'avez pas de compte <a v-on:click="model = 'sign-up'">inscrivez-vous</a></p>
