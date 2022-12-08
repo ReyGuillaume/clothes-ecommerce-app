@@ -94,7 +94,7 @@ export default {
       }
 
       axios
-        .get("login/signup.php?", {
+        .get("login/signup.php", {
           params: {
             firstname: this.firstname,
             lastname: this.lastname,

@@ -50,12 +50,34 @@ export default{
         .then(res => this.idCart = res.data[res.data.length -1].id)
     },
     handleAddToCart() {
-      if (this.quantity && this.selectedSize && this.idCart && this.articleId) {
-        axios
-        .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
-        .then(() => alert("Article ajouté au panier"))
-      } else {
-        alert("Choisir une taille et une quantité")
+      if(this.idUser){
+        if (this.quantity && this.selectedSize && this.idCart && this.articleId) {
+          axios
+          .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
+          .then(() => alert("Article ajouté au panier"))
+        } else {
+          alert("Choisir une taille et une quantité")
+        }
+      }
+      else{
+        //Si l'user n'est pas connecté on stocke le produit dans le local storage du browser.
+        let cart_items = [];
+        if(!(localStorage.getItem("cart_items") === null)){
+          cart_items = JSON.parse(localStorage.getItem("cart_items"));
+
+          for(let index in cart_items){
+            if(cart_items[index][0] == this.articleId){
+              //Si l'article est déjà dans le panier on incrémente simplement la quantité
+              
+              cart_items[index][2] += this.quantity;
+              localStorage.setItem("cart_items", JSON.stringify(cart_items))
+              return;
+            }
+          }
+        }
+        cart_items.push([this.articleId, this.selectedSize, this.quantity])
+        console.log(cart_items)
+        localStorage.setItem("cart_items", JSON.stringify(cart_items))
       }
     }
   },
@@ -77,9 +99,7 @@ export default{
         <img v-bind:src="article.image" class="article-img" alt="">
 
         <div class="infos-container">
-              <RouterLink to="/explore">
-                <button>Retour</button>
-              </RouterLink>
+            <RouterLink to="/explore">Retour</RouterLink>
             <h2>{{ article.name }}</h2>
             <h2>{{ article.price }}€</h2>
 
@@ -96,9 +116,8 @@ export default{
               </div>
 
             </div>
-            <button @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
-            <RouterLink to="/login" v-if="!this.idUser">Se connecter pour ajouter cet article au Panier</RouterLink>
-            <p v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stoque</p>
+            <button @click="handleAddToCart" v-if="(this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
+            <p v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stock.</p>
         </div>
     </div>
 

@@ -18,16 +18,27 @@ export default {
         .get(`cart/cart.php?function=retrieveCartContent&id_cart=${id_cart}`)
         .then(res => this.articles = res.data)
     },
+    fetchCartContentLocal() {
+      let params = [];
+      JSON.parse(localStorage.getItem("cart_items")).forEach(article => {
+        params.push(article[0])
+      })
+      console.log(params.join(','))
+      return axios
+        .get(`cart/cart.php?function=retrieveArticles&article_list=${article_list}`)
+        .then(res => console.log(res))
+    },
     fetchCartID(id) {
       return axios.get(`article/article.php?function=retrieveCartID&id_user=${id}`)
         .then(res => this.idCart = res.data[res.data.length -1].id)
     },
+
     createOrder() {
       const d = new Date()
       const day = d.getDate()
-      const mounth = d.getMonth()
+      const month = d.getMonth()
       const year = d.getFullYear()
-      const date = `${year}-${mounth}-${day}`
+      const date = `${year}-${month}-${day}`
       
       if(![this.street, this.city, this.country].includes("")) {
         axios.get(`sql/Order.crud.php?function=create&id_user=${this.idUser}&id_cart=${this.idCart}&number=${this.number}&street=${this.street}&city=${this.city}&country=${this.country}&id_status=1&date=${date}`)
@@ -37,19 +48,25 @@ export default {
     }
   },
   mounted() {
-    (async () => {
-      if (this.idUser){
+    if(this.idUser){
+      (async () => {
         await this.fetchCartID(this.idUser)
         await this.fetchCartContent(this.idCart)
-      }
-    })();
+      })();
+    }
+    else{
+      (async () => {
+        console.log("bouuh il a pas de compte")
+        await this.fetchCartContentLocal()
+      })();
+    }
   },
 }
 </script>
 
 <template>
   <h2 v-if="!this.idUser">Connectez-vous pour pouvoir faire vos achats en ligne</h2>
-  <div v-if="this.idUser">
+  <div>
     <h2>Contenu de votre panier</h2>
 
     <table>

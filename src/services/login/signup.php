@@ -14,20 +14,19 @@ if(empty($firstname) || empty($lastname) || empty($mail) || empty($phone_number)
     return;
 }
 
-$password = hash('sha256', $password)
+$password = hash('sha256', $password);
 
-if(!filter_var($_GET["mail"], FILTER_VALIDATE_EMAIL)) {
+if(!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
     return;
 }
 
-if(emailExists($db)){
+if(emailExists($db, $mail)){
     echo "EAU";
     return;
 }
 
-create($db);
-
-function create($db) {
+createAccount($db, $firstname, $lastname, $mail, $phone_number, $password) {
+    #Création du compte
     $stm = $db->prepare("INSERT INTO `user`(`firstname`, `lastname`, `mail`, `phone_number`, `password`) VALUES (:firstname, :lastname, :mail, :phone_number, :password)");
 
     $stm->bindValue(":firstname", $firstname);
@@ -35,12 +34,20 @@ function create($db) {
     $stm->bindValue(":mail", $mail);
     $stm->bindValue(":phone_number", $phone_number);
     $stm->bindValue(":password", $password);
-
     $stm->execute();
-    echo json_encode($stm->fetchAll());
+    
+    #Création du cart associé au compte.
+    $last_insert_id = $db->lastInsertId();
+    createCart($db, $last_insert_id)
 }
 
-function emailExists($db) {
+function createCart($db, $id_user) {
+    $stm = $db->prepare("INSERT INTO `cart`(`id_user`) VALUES (:id_user)");
+    $stm->bindValue(":id_user", $id_user);
+    $stm->execute();
+}
+
+function emailExists($db, $mail) {
     $stm = $db->prepare("SELECT * FROM `user` WHERE mail = :mail");
     $stm->bindValue(":mail", $mail);
     $stm->execute();
