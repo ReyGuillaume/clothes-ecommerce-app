@@ -23,8 +23,25 @@ function retrieveAddress($db){
     echo json_encode($stm->fetchAll());
 }
 
+function create($db) {
+    $stm = $db->prepare("INSERT INTO `order`(`id_user`, `id_cart`, `number`, `street`, `city`, `country`, `id_status`, `date`) VALUES (:id_user, :id_cart, :number, :street, :city, :country, :id_status, :date)");
+
+    $stm->bindValue(":id_user", $_GET["id_user"]);
+    $stm->bindValue(":id_cart", $_GET["id_cart"]);
+    $stm->bindValue(":number", $_GET["number"]);
+    $stm->bindValue(":street", $_GET["street"]);
+    $stm->bindValue(":city", $_GET["city"]);
+    $stm->bindValue(":country", $_GET["country"]);
+    $stm->bindValue(":id_status", $_GET["id_status"]);
+    $stm->bindValue(":date", $_GET["date"]);
+
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
+}
+
 switch($_GET["function"]) {
     case 'retrieveCartContent': retrieveCartContent($db); break;
     case 'retrieveAddress': retrieveAddress($db); break;
+    case 'create': create($db); break;
     default: echo "Not found!"; break;
 }

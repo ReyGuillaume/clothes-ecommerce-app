@@ -38,19 +38,19 @@ export default {
             }
         },
 
-        // createOrder() {
-        //   const d = new Date()
-        //   const day = d.getDate()
-        //   const month = d.getMonth()
-        //   const year = d.getFullYear()
-        //   const date = `${year}-${month}-${day}`
+        createOrder() {
+          const d = new Date()
+          const day = d.getDate()
+          const month = d.getMonth()
+          const year = d.getFullYear()
+          const date = `${year}-${month}-${day}`
 
-        //   if(![this.street, this.city, this.country].includes("")) {
-        //     axios.get(`sql/Order.crud.php?function=create&id_user=${this.idUser}&id_cart=${this.idCart}&number=${this.number}&street=${this.street}&city=${this.city}&country=${this.country}&id_status=1&date=${date}`)
-        //     .then(() => axios.get(`sql/Cart.crud.php?function=create&id_user=${this.idUser}`))
-        //     .then(() => alert("Redirection vers un système de paiement"))
-        //   }
-        // }
+          if(![this.street, this.city, this.country].includes("")) {
+            axios.get(`order/order.php?function=create&id_user=${this.idUser}&id_cart=${this.idCart}&number=${this.number}&street=${this.street}&city=${this.city}&country=${this.country}&id_status=1&date=${date}`)
+            .then(() => axios.get(`sql/Cart.crud.php?function=create&id_user=${this.idUser}`))
+            .then(() => alert("Redirection vers un système de paiement"))
+          }
+        }
     },
 
     mounted() {
@@ -69,10 +69,10 @@ export default {
 <template>
     <main>
         <div class="order-container">
-            <h2>Validation Commande</h2>
-            <div class="address-container">
+            <div class="data-container">
+                <h1 class="container-title">Adresse</h1>
                 <form>
-                    <div class="address-card" v-for="address in addresses">
+                    <div class="address-card" v-for="address in addresses" @click="(selectedAddress = address.id)" :class="{'focus': selectedAddress === address.id}">
                         <input type="radio" name="address" :value="address.id" v-model="selectedAddress"/>
                         <div>
                             <div class="bold">
@@ -83,9 +83,9 @@ export default {
                         </div>
                     </div>
 
-                    <div class="address-card">
+                    <div class="address-card" @click="selectedAddress = 0" :class="{'focus': selectedAddress === 0}">
                         <input type="radio" name="address" value="0" v-model="selectedAddress"/>
-                        <div>
+                        <div class="address-custom-container">
                             <input type="text" id="address_number" class="input-address" placeholder="N°"
                                 v-model="address_number" :disabled="!(selectedAddress == 0)"/>
                             <input type="text" id="address_street" class="input-address" placeholder="Rue"
@@ -107,8 +107,9 @@ export default {
                 <div class="article-infos">
                     <h3 class="name">{{ article.article_name }}</h3>
                     <h4 class="brand">{{ article.brand_name }}</h4>
+                    <h4 class="size"> Taille : {{ article.size_name }}</h4>
                     <h4 class="quantity">Quantité : {{ article.quantity }}</h4>
-                    <h3 class="price">{{ article.price * article.quantity }} €</h3>
+                    <h3 class="price bold">{{ article.price * article.quantity }} €</h3>
                 </div>
             </div>
             <div class="order-details">
@@ -132,50 +133,62 @@ export default {
 main {
     width: 50%;
     margin: auto;
+    padding: 40px 0px;
     display: flex;
-    flex-grow: 1;
+    justify-content: center;
     position: relative;
+    min-height: 80vh;
 }
 
 .order-container {
     display: flex;
+    width: 60%;
     flex-direction: column;
-    flex-grow: 1;
+    gap: 30px;
 }
 
+.container-title{
+    font-weight: bold;
+    margin: 20px 0px;
+}
 
-.address-container {
+.data-container {
     display: flex;
+    padding: 20px 20px;
     justify-content: center;
-    width: 100%;
+    gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.address-card:first-of-type {
-    margin-top: 20px;
-}
-
-.address-card {
-    padding: 20px;
+form{
     display: flex;
-    gap: 15px;
-    width: 400px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 30px;
 }
 
-.address-card {
-    border-radius: 10px;
-    background-color: rgba(198, 198, 198, 0.35);
+.address-card{
+    display: flex;
+    padding: 10px 20px;
+    gap: 20px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.input-address{
+.focus{
+    background-color: rgba(216, 216, 216, 0.245);
+}
+
+.address-custom-container{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.address-custom-container input{
     padding: 10px 15px;
     border-radius: 5px;
-    width: 100%;
 }
 
-.input-address:not(:first-of-type){
-    margin-top: 10px;
-}
 
 .cart-container {
     display: flex;
@@ -185,7 +198,7 @@ main {
     width: 400px;
     position: fixed;
     right: 20px;
-   margin-top: 20px;
+    margin-top: 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
