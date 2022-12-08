@@ -37,12 +37,11 @@ function createAccount($db, $firstname, $lastname, $mail, $phone_number, $passwo
     $stm->bindValue(":phone_number", $phone_number);
     $stm->bindValue(":password", $password);
     $stm->execute();
-
-    echo json_encode($stm->fetchAll());
     
     #Création du cart associé au compte.
     $last_insert_id = $db->lastInsertId();
-    echo $last_insert_id;
+    echo json_encode($last_insert_id);
+
     createCart($db, $last_insert_id);
 }
 

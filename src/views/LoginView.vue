@@ -107,7 +107,9 @@ export default {
           if(response.data == "EAU"){
             alert("E-mail already used.");
             this.$forceUpdate();
+            return;
           }
+          app.config.globalProperties.idUser = response.data;
         });
     },
   },

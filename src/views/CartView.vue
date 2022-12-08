@@ -18,16 +18,28 @@ export default {
         .get(`cart/cart.php?function=retrieveCartContent&id_cart=${id_cart}`)
         .then(res => this.articles = res.data)
     },
-    fetchCartContentLocal() {
-      let params = [];
-      JSON.parse(localStorage.getItem("cart_items")).forEach(article => {
-        params.push(article[0])
-      })
-      console.log(params.join(','))
-      return axios
-        .get(`cart/cart.php?function=retrieveArticles&article_list=${article_list}`)
-        .then(res => console.log(res))
+
+    fetchCartContentLocal(){
+      for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
+        let item = []
+        item["id_article"] = cart_item[0]
+        item["id_size"] = cart_item[1]
+        item["quantity"] = cart_item[2]
+        this.articles.push(item)
+      }
+      console.log(this.articles)
     },
+
+    // fetchCartArticles() {
+    //   let articles_id = [];
+    //   JSON.parse(localStorage.getItem("cart_items")).forEach(article => {
+    //     articles_id.push(article[0])
+    //   })
+    //   return axios
+    //     .get(`cart/cart.php?function=retrieveArticles&articles_list=${articles_id.join(',')}`)
+    //     .then(res => this.articles = res.data)
+    // },
+
     fetchCartID(id) {
       return axios.get(`article/article.php?function=retrieveCartID&id_user=${id}`)
         .then(res => this.idCart = res.data[res.data.length -1].id)
@@ -54,9 +66,8 @@ export default {
         await this.fetchCartContent(this.idCart)
       })();
     }
-    else{
+    else if(!(localStorage.getItem("cart_items") === null)){
       (async () => {
-        console.log("bouuh il a pas de compte")
         await this.fetchCartContentLocal()
       })();
     }

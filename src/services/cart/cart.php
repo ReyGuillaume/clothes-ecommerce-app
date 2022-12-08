@@ -3,9 +3,13 @@
 include "../global/connexion.php";
 
 function retrieveArticles($db){
+   
+    $request = "SELECT * FROM `article` WHERE id IN (" . $_GET['articles_list'] . ")";
+    $stm = $db->prepare($request);
+    $stm->execute();
+    echo json_encode($stm->fetchAll());
     
-    $request = "SELECT * FROM `articles` WHERE id IN" . implode("," , $_GET["article_list"]);
-    echo $request;
+    // echo $request;
     // $stm = $db->prepare("");
     // $stm->execute();
     // echo json_encode($stm->fetchAll());
