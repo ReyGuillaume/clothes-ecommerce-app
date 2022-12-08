@@ -3,6 +3,7 @@
 include "../global/connexion.php";
 
 function retrieveArticles($db){
+    
     $request = "SELECT * FROM `articles` WHERE id IN" . implode("," , $_GET["article_list"]);
     echo $request;
     // $stm = $db->prepare("");

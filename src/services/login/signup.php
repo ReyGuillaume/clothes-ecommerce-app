@@ -25,7 +25,9 @@ if(emailExists($db, $mail)){
     return;
 }
 
-createAccount($db, $firstname, $lastname, $mail, $phone_number, $password) {
+createAccount($db, $firstname, $lastname, $mail, $phone_number, $password);
+
+function createAccount($db, $firstname, $lastname, $mail, $phone_number, $password) {
     #Création du compte
     $stm = $db->prepare("INSERT INTO `user`(`firstname`, `lastname`, `mail`, `phone_number`, `password`) VALUES (:firstname, :lastname, :mail, :phone_number, :password)");
 
@@ -35,10 +37,12 @@ createAccount($db, $firstname, $lastname, $mail, $phone_number, $password) {
     $stm->bindValue(":phone_number", $phone_number);
     $stm->bindValue(":password", $password);
     $stm->execute();
+
+    echo json_encode($stm->fetchAll());
     
-    #Création du cart associé au compte.
-    $last_insert_id = $db->lastInsertId();
-    createCart($db, $last_insert_id)
+    // #Création du cart associé au compte.
+    // $last_insert_id = $db->lastInsertId();
+    // createCart($db, $last_insert_id)
 }
 
 function createCart($db, $id_user) {
@@ -55,6 +59,6 @@ function emailExists($db, $mail) {
     if( $stm->rowCount() > 0 ) { # If rows are found for query
         return (int)True;
     } else {
-            return (int)False;
+        return (int)False;
     }
 }
