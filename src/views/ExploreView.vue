@@ -123,7 +123,7 @@ export default {
 
 
 <template>
-    <div class="explore-container"  v-if="loaded">
+    <div class="explore-container container"  v-if="loaded">
         <div class="filters-container">
           <select name="gender" id="gender-select" @change="handleFilterChange()" v-model="gender_key">
             <option :value="0" selected>Universel</option>

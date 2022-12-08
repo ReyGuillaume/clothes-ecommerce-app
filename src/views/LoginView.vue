@@ -72,8 +72,8 @@ export default {
 </script>
 
 <template>
-  <div v-if="(!this.idUser && !this.idAdmin)">
-    <div class="login-container sign-in" v-if="(model == 'sign-in')">
+  <div class="login-container container" v-if="(!this.idUser && !this.idAdmin)">
+    <div class="sign-in" v-if="(model == 'sign-in')">
         <h1 class="login-title">Sign in</h1>
         <div class="form-elt">
           <label for="mail">Adresse e-mail</label>
@@ -86,7 +86,7 @@ export default {
         <input type="submit" value="Sign-in" @click="login">
     </div>
     
-    <div class="login-container sign-up" v-else-if="(model == 'sign-up')">
+    <div class="sign-up" v-else-if="(model == 'sign-up')">
       <h1 class="login-title">Sign up</h1>
       <div class="form-elt">
         <label for="mail">Adresse e-mail</label>

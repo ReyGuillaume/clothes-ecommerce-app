@@ -1,44 +1,86 @@
-@import './base.css';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
 
-body{
-  background: #fffbf8;
+*, 
+::after, 
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 #app {
-  overflow: hidden;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.container {
+  flex-grow: 1;
 }
 
-a{
+a {
   cursor: pointer;
   color: crimson;
 }
 
-header {
-  background-color: #0000002e;
-}
 header > h1 {
   padding: 0 1rem 0;
+  color: #5e5e5e;
+  -webkit-box-reflect: below 0rem linear-gradient(transparent, #00000045);
 }
-
 header > nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
   align-items: center;
   padding: 0.5rem;
+  padding-top: 2rem;
 }
-
-header > nav > .nav-link{
+header > nav > .nav-link {
   display: flex;
   gap: .75rem;
   align-items: center;
+  color: #5e5e5e;
+  transition: .5s;
 }
+header > nav > .nav-link:hover {
+  transform: translateY(-.35rem) scale(1.3);
+}
+
+img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+
+footer {
+  display: flex;
+  gap: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+}
+footer > .container-lien {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+footer > .container-lien > .lien {
+  text-align: center;
+}
+
+
 
 @media screen and (min-width: 720px) {
   header > nav {
     flex-direction: row;
     justify-content: center;
     gap: 5rem;
+    padding-top: none;
   }
 }

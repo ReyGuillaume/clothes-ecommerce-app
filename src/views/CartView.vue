@@ -48,44 +48,46 @@ export default {
 </script>
 
 <template>
-  <h2 v-if="!this.idUser">Connectez-vous pour pouvoir faire vos achats en ligne</h2>
-  <div v-if="this.idUser">
-    <h2>Contenu de votre panier</h2>
+  <div class="cart-container container">
+    <h2 v-if="!this.idUser">Connectez-vous pour pouvoir faire vos achats en ligne</h2>
+    <div v-if="this.idUser">
+      <h2>Contenu de votre panier</h2>
 
-    <table>
-      <tr>
-        <th>id_article</th>
-        <th>id_size</th>
-        <th>quantity</th>
-      </tr>
-      <tr v-for="art in articles">
-        <td>{{art.id_article}}</td>
-        <td>{{art.id_size}}</td>
-        <td>{{art.quantity}}</td>
-      </tr>
-    </table>
+      <table>
+        <tr>
+          <th>id_article</th>
+          <th>id_size</th>
+          <th>quantity</th>
+        </tr>
+        <tr v-for="art in articles">
+          <td>{{art.id_article}}</td>
+          <td>{{art.id_size}}</td>
+          <td>{{art.quantity}}</td>
+        </tr>
+      </table>
 
-    <h2>A quelle adresse est déstinée cette commande ?</h2>
-    <div class="address-form">
-      <div>
-        <label for="number">Numéro :</label>
-        <input type="number" id="number" v-model="number" >
+      <h2>A quelle adresse est déstinée cette commande ?</h2>
+      <div class="address-form">
+        <div>
+          <label for="number">Numéro :</label>
+          <input type="number" id="number" v-model="number" >
+        </div>
+        <div>
+          <label for="street">Rue :</label>
+          <input type="text" id="street" v-model="street" >
+        </div>
+        <div>
+          <label for="city">Ville :</label>
+          <input type="text" id="city" v-model="city" >
+        </div>
+        <div>
+          <label for="country">Pays :</label>
+          <input type="text" id="country" v-model="country" >
+        </div>
       </div>
-      <div>
-        <label for="street">Rue :</label>
-        <input type="text" id="street" v-model="street" >
-      </div>
-      <div>
-        <label for="city">Ville :</label>
-        <input type="text" id="city" v-model="city" >
-      </div>
-      <div>
-        <label for="country">Pays :</label>
-        <input type="text" id="country" v-model="country" >
-      </div>
+
+      <button @click="createOrder">Finaliser votre commande</button>
     </div>
-
-    <button @click="createOrder">Finaliser votre commande</button>
   </div>
 </template>
 

@@ -72,7 +72,7 @@ export default{
 </script>
 
 <template>
-  <div class="article-container">
+  <div class="article-container container">
     <div class="main-container">
         <img v-bind:src="article.image" class="article-img" alt="">
 
