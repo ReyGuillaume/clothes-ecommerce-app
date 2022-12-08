@@ -27,7 +27,7 @@ library.add(faUser)
   <footer>
     <div class="container-lien">
       <div class="lien"><RouterLink to ="/">Home</RouterLink></div> 
-      <div class="lien"><RouterLink to ="/explore">Exploire</RouterLink></div>
+      <div class="lien"><RouterLink to ="/explore">Explore</RouterLink></div>
       <div class="lien"><RouterLink to ="/login">Se connecter</RouterLink></div>
       <div class="lien"><RouterLink to ="/">Mentions légales</RouterLink></div> 
     </div> 

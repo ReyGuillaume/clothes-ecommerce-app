@@ -57,6 +57,34 @@ img {
   object-fit: cover;
 }
 
+.main-button,
+.second-button {
+    color: #5e5e5e;
+    background: none;
+    text-decoration: none;
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: flex;
+    gap: 1rem;
+    cursor: pointer;
+}
+.main-button {
+    border: #5e5e5e 1px solid;
+    padding: .5rem 1rem;
+    margin-right: auto;
+}
+.main-button:hover {
+    animation: snake 2s;
+}
+@keyframes snake {
+  10% {transform: scale(1.05) rotate(5deg);}
+  20% {transform: scale(1.05) rotate(-5deg);}
+  30% {transform: scale(1.05) rotate(5deg);}
+  40% {transform: none;}
+}
+
+
 
 footer {
   display: flex;

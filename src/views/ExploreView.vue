@@ -114,16 +114,17 @@ export default {
       await this.fetchAllGenders();
       await this.fetchAllCategories();
       await this.fetchAllSubCategories();
+      this.loaded = true;
     })();
 
-    this.loaded = true;
   },
 }
 </script>
 
 
 <template>
-    <div class="explore-container container"  v-if="loaded">
+    <div class="explore-container container" >
+      <div v-if="!loaded">Loading...</div>
         <div class="filters-container">
           <select name="gender" id="gender-select" @change="handleFilterChange()" v-model="gender_key">
             <option :value="0" selected>Universel</option>
@@ -149,28 +150,74 @@ export default {
         </div>
   
         <div class="articles-container">
-          <div class="article-card" v-for="article in filtered_articles.slice(0, nItem)" v-bind:id="article.id">
-            <router-link  :to="{name : 'Article', params: { articleId: article.id }}">
-                <img v-bind:src="article.image" class="article-img" alt="">
-                <h4 class="name">{{ article.name }}</h4>
-                <h4 class="price">{{ article.price }} €</h4>
+          <div class="card" v-for="article in filtered_articles.slice(0, nItem)" v-bind:id="article.id">
+            <router-link class="article-card" :to="{name : 'Article', params: { articleId: article.id }}">
+              <img v-bind:src="article.image" class="article-img" alt="">
+              <div class="article-info">
+                <p class="name">{{ article.name }}</p>
+                <p class="price">{{ article.price }} €</p>
+              </div>
             </router-link>
           </div>
-          <button @click="showMore">Voir plus</button>
         </div>
-
-      </div>
+        <div class="button-container">
+          <button class="main-button" @click="showMore">Voir plus d'articles</button>
+        </div>
+    </div>
 </template>
 
 <style>
 .articles-container{
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+	grid-template-columns: repeat(auto-fill,minmax(min(20rem,80vw), 1fr));
+  gap: 2.5rem;
+  padding: 1.5rem
+}
+.card {
+  height: 45vh;
+  overflow: hidden;
+  border-radius: 5%;
+  transition: .25s ease-in;
+  box-shadow: #5e5e5e 1px 1px 1px ;
+}
+.card:hover {
+  transform: translateY(-.86rem) scale(1.025);
+  z-index: 1;
+}
+.article-card{
+  box-shadow: 0 0 5px 5px #fff;
+  cursor: pointer;
+  position: relative;
+  color: #5e5e5e;
+}
+
+.article-card .article-img{
+  width: 100%;
+  height: 85%;
+  margin-bottom: 2rem;
+}
+
+.article-card .article-info{
+    font-size: .9rem;
+    position: absolute;
+    bottom: 0;
+    padding: 2rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    width: 100%;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
+}
+.article-card .article-info > p {
+    padding-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.article-card .article-info > p:nth-child(2) {
+  text-align: right;
+}
+.button-container > button {
+  margin: 2rem auto;
 }
 
 .filters-container{
@@ -180,18 +227,6 @@ export default {
   margin: 30px 0px;
   gap: 20px;
 }
-
-.article-card{
-  border: 1px solid black;
-  padding: 20px;
-}
-
-.article-card .article-img{
-  display: block;
-  width: 200px;
-  height: 200px;
-}
-
 .reset-filters{
   background-color: red;
   color: white;

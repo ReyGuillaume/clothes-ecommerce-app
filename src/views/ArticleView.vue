@@ -74,36 +74,36 @@ export default{
 <template>
   <div class="article-container container">
     <div class="main-container">
-        <img v-bind:src="article.image" class="article-img" alt="">
+      <img v-bind:src="article.image" class="article-img" alt="">
 
-        <div class="infos-container">
-              <RouterLink to="/explore">
-                <button>Retour</button>
-              </RouterLink>
-            <h2>{{ article.name }}</h2>
-            <h2>{{ article.price }}€</h2>
+      <div class="infos-container">
+        <RouterLink to="/explore">
+          <button>Retour</button>
+        </RouterLink>
+        <h2>{{ article.name }}</h2>
+        <h2>{{ article.price }}€</h2>
+        
+        <div class="sizes">
+          <h3>Tailles disponibles en stock :</h3>
+          <div v-for="size in sizes">
+            <input type="radio" :id="size.name" name="size" :value="size.id" v-model="selectedSize" >
+            <label :for="size.name">{{size.name}}</label>
+          </div>
 
-            <div class="sizes">
-              <h3>Tailles disponibles en stock :</h3>
-              <div v-for="size in sizes">
-                <input type="radio" :id="size.name" name="size" :value="size.id" v-model="selectedSize" >
-                <label :for="size.name">{{size.name}}</label>
-              </div>
-
-              <div v-if="selectedSize">
-                <label for="quantity">Combien en voulez-vous ?</label>
-                <input type="number" id="quantity" v-model="quantity" >
-              </div>
-
-            </div>
-            <button @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
-            <RouterLink to="/login" v-if="!this.idUser">Se connecter pour ajouter cet article au Panier</RouterLink>
-            <p v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stoque</p>
+          <div v-if="selectedSize">
+            <label for="quantity">Combien en voulez-vous ?</label>
+            <input type="number" id="quantity" v-model="quantity" >
+          </div>
         </div>
+
+        <button @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
+        <RouterLink to="/login" v-if="!this.idUser">Se connecter pour ajouter cet article au Panier</RouterLink>
+        <p v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stoque</p>
+      </div>
     </div>
 
     <div class="details-container">
-        <p>{{ article.description }}</p>
+      <p>{{ article.description }}</p>
     </div>
   </div>
 </template>

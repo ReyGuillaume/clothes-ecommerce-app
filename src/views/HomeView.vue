@@ -7,28 +7,28 @@
     <div class="presentation">
       <div class="image">
         <img src="../assets/images/accueil1.jpg" alt="accueil">
-        <h3>Comme un air de chef d'oeuvre</h3>
-        <p>Un article en particlulier</p>
+        <h3>Comme un air de déjà vu</h3>
+        <p>La mode dans votre poche</p>
       </div>
       <div class="void">
-        <h3>Sisi, c'est moi</h3>
+        <h3>Sapes</h3>
         <p>Qween of shoes</p>
       </div>
       <div class="image">
         <img src="../assets/images/accueil2.jpg" alt="accueil">
-        <h3>We rock instagram</h3>
-        <p>Follow us</p>
+        <h3>Sapes 'risti !</h3>
+        <p>Quelle sacrée ristourne</p>
       </div>
       <div class="void">
-        <h3>Sensible</h3>
-        <p>Au grand coeur</p>
+        <h3>Sapes 'ar exemple</h3>
+        <p>Quelle beauté !</p>
       </div>
       <div class="image">
         <img src="../assets/images/accueil3.jpg" alt="accueil">
       </div>
       <div class="void">
-        <h3>L'intemporel mojito est de retour</h3>
-        <p>Santé !</p>
+        <h3>Sensible</h3>
+        <p>Au grand coeur</p>
       </div>
     </div>
   </div>
