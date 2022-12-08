@@ -127,7 +127,7 @@ export default{
   </div>
 </template>
 
-<style>
+<style scoped>
 .article-container{
   display: flex;
   flex-direction: column;

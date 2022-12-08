@@ -162,7 +162,7 @@ export default {
       </div>
 </template>
 
-<style>
+<style scoped>
 .articles-container{
   width: 80%;
   margin: 0 auto;

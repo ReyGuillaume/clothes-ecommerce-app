@@ -218,7 +218,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .login-container {
   width: 400px;
   margin: 40px auto;

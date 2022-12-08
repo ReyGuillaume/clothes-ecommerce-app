@@ -4,6 +4,7 @@ import ArticleView from '@/views/ArticleView.vue';
 import LoginView from '@/views/LoginView.vue';
 import ExploreView from '@/views/ExploreView.vue';
 import CartView from '@/views/CartView.vue';
+import OrderView from '@/views/OrderView.vue';
 
 const routes = [
     {
@@ -27,7 +28,11 @@ const routes = [
         name : 'Cart',
         path : '/cart',
         component : CartView,
-      }
+    }, {
+        name : 'Order',
+        path : '/order',
+        component : OrderView,
+    }
 ];
 
 const router = createRouter({
