@@ -40,9 +40,10 @@ function createAccount($db, $firstname, $lastname, $mail, $phone_number, $passwo
 
     echo json_encode($stm->fetchAll());
     
-    // #Création du cart associé au compte.
-    // $last_insert_id = $db->lastInsertId();
-    // createCart($db, $last_insert_id)
+    #Création du cart associé au compte.
+    $last_insert_id = $db->lastInsertId();
+    echo $last_insert_id;
+    createCart($db, $last_insert_id);
 }
 
 function createCart($db, $id_user) {
