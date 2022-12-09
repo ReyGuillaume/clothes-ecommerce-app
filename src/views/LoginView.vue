@@ -129,7 +129,7 @@ export default {
         </div>
       </div>
       <input type="submit" class="full-button" value="Sign-in" @click="login">
-      <p v-if="model == 'sign-up'">Vous avez déjà un compte ? <a v-on:click="model = 'sign-in'">Connectez-vous ici</a></p>
+      <p>Vous n'avez pas de compte ? <a v-on:click="model = 'sign-up'">Inscrivez-vous ici</a></p>
     </div>
     
     <div class="sign-up login-form" v-else-if="(model == 'sign-up')">
@@ -194,7 +194,7 @@ export default {
         </div>
         <input type="submit" class="full-button" value="Sign up" @click="handleSignUp" />
       </div>
-      <p>Vous n'avez pas de compte ? <a v-on:click="model = 'sign-up'">Inscrivez-vous ici</a></p>
+      <p>Vous avez déjà un compte ? <a v-on:click="model = 'sign-in'">Connectez-vous ici</a></p>
     </div>
   </div>
 
