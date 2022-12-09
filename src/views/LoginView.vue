@@ -110,6 +110,7 @@ export default {
             return;
           }
           app.config.globalProperties.idUser = response.data;
+          this.$router.push('Home')
         });
     },
   },
