@@ -1,0 +1,44 @@
+@import './base.css';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+
+body{
+  background: #fffbf8;
+}
+
+#app {
+  overflow: hidden;
+}
+
+a{
+  cursor: pointer;
+  color: crimson;
+}
+
+header {
+  background-color: #0000002e;
+}
+header > h1 {
+  padding: 0 1rem 0;
+}
+
+header > nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+header > nav > .nav-link{
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+}
+
+@media screen and (min-width: 720px) {
+  header > nav {
+    flex-direction: row;
+    justify-content: center;
+    gap: 5rem;
+  }
+}
