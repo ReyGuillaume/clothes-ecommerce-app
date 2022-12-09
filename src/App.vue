@@ -18,7 +18,8 @@ library.add(faUser)
       <RouterLink class="nav-link" to="/"><font-awesome-icon icon="fa-solid fa-house" />Home</RouterLink>
       <RouterLink class="nav-link" to="/explore"><font-awesome-icon icon="fa-solid fa-bag-shopping" />Explore</RouterLink>
       <RouterLink class="nav-link" to="/cart"><font-awesome-icon icon="fa-solid fa-cart-shopping" />Cart</RouterLink>
-      <RouterLink class="nav-link" to="/login"><font-awesome-icon icon="fa-solid fa-user" />Login</RouterLink>
+      <RouterLink class="nav-link" to="/login" v-if="!idUser"><font-awesome-icon icon="fa-solid fa-user" />Login</RouterLink>
+      <RouterLink class="nav-link" to="/user" v-if="idUser"><font-awesome-icon icon="fa-solid fa-user" />Account</RouterLink>
     </nav>
   </header>
 
