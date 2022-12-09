@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+
+*, 
+::after, 
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.container {
+  flex-grow: 1;
+}
+
+a {
+  cursor: pointer;
+  color: crimson;
+}
+
+header > h1 {
+  padding: 0 1rem 0;
+  color: #5e5e5e;
+  -webkit-box-reflect: below 0rem linear-gradient(transparent, #00000045);
+}
+header > nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.5rem;
+  padding-top: 2rem;
+}
+header > nav > .nav-link {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  color: #5e5e5e;
+  transition: .5s;
+}
+header > nav > .nav-link:hover {
+  transform: translateY(-.35rem) scale(1.3);
+}
+
+img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.main-button,
+.full-button,
+.second-button {
+  color: #5e5e5e;
+  background: none;
+  text-decoration: none;
+  border: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+}
+.full-button {
+  border: #5e5e5e 1px solid;
+  color: #f2f2f2;
+  background: #5e5e5e;
+  padding: .5rem 1rem;
+  margin: auto;
+  border-radius: 4px;
+}
+.main-button {
+  border: #5e5e5e 1px solid;
+  padding: .5rem 1rem;
+  margin: auto;
+}
+.main-button:hover {
+  animation: snake 2s;
+}
+@keyframes snake {
+  10% {transform: scale(1.05) rotate(5deg);}
+  20% {transform: scale(1.05) rotate(-5deg);}
+  30% {transform: scale(1.05) rotate(5deg);}
+  40% {transform: none;}
+}
+
+
+
+footer {
+  display: flex;
+  gap: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+}
+footer > .container-lien {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+footer > .container-lien > .lien {
+  text-align: center;
+}
+
+
+
+@media screen and (min-width: 720px) {
+  header > nav {
+    flex-direction: row;
+    justify-content: center;
+    gap: 5rem;
+    padding-top: none;
+  }
+}
