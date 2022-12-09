@@ -1,4 +1,4 @@
-<script>
+<script  lang="js">
 import axios from 'axios';
 
 export default {
@@ -6,7 +6,7 @@ export default {
     return {
       articles: [],
       filtered_articles: [],
-      nItem : 20,
+      nItem : 16,
       brands: [],
       genders: [],
       categories: [],
@@ -104,7 +104,7 @@ export default {
       this.filtered_articles = this.articles;
     },
     showMore() {
-      this.nItem += 20
+      this.nItem += 16
     }
   },
   mounted() {

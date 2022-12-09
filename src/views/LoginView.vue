@@ -1,4 +1,4 @@
-<script>
+<script lang="js">
 import app from '../main.js'
 import axios from 'axios'
 
@@ -111,12 +111,12 @@ export default {
     <p v-if="model == 'sign-up'">Vous avez un compte <a v-on:click="model = 'sign-in'">connectez-vous</a></p>
   </div>
 
-  <div v-if="idAdmin">
+  <div  class="admin-container container"  v-if="idAdmin">
     <h1>Partie admin</h1>
     <p>admin id : {{this.idAdmin}}</p>
   </div>
 
-  <div v-else-if="idUser && !idAdmin">
+  <div  class="user-container container"  v-else-if="idUser && !idAdmin">
     <h1>Partie user</h1>
     <p>user id : {{this.idUser}}</p>
   </div>

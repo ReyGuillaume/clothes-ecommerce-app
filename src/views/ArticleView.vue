@@ -1,4 +1,9 @@
-<script>
+<script lang="js">
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faChevronLeft)
+
 import axios from 'axios';
 
 export default{
@@ -74,13 +79,14 @@ export default{
 <template>
   <div class="article-container container">
     <div class="main-container">
-      <img v-bind:src="article.image" class="article-img" alt="">
-
+      
       <div class="infos-container">
-        <RouterLink to="/explore">
-          <button>Retour</button>
-        </RouterLink>
-        <h2>{{ article.name }}</h2>
+        <h2>
+          <RouterLink class="back-button" to="/explore">
+            <font-awesome-icon icon="fa-solid fa-chevron-left" />
+          </RouterLink>
+          {{ article.name }}
+        </h2>
         <h2>{{ article.price }}€</h2>
         
         <div class="sizes">
@@ -100,8 +106,9 @@ export default{
         <RouterLink to="/login" v-if="!this.idUser">Se connecter pour ajouter cet article au Panier</RouterLink>
         <p v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stoque</p>
       </div>
+      <img v-bind:src="article.image" class="article-img" alt="">
     </div>
-
+    
     <div class="details-container">
       <p>{{ article.description }}</p>
     </div>
@@ -110,28 +117,15 @@ export default{
 
 <style>
 .article-container{
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  margin: 40px auto;
-  padding: 20px;
 }
 
-.article-container .main-container{
-  display: flex;
-  position: relative;
+.article-container > .main-container{
+  padding: 0 ;
 }
 
 .article-container .article-img{
-  width: 50%;
-  max-width: 300px;
-  object-fit: cover;
 }
 
 .details-container{
-  margin-top: 50px;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
 }
 </style>
