@@ -192,11 +192,13 @@ form{
 
 
 .cart-container {
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 20px;
     width: 30%;
+    height: 75%;
     position: fixed;
     right: 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
