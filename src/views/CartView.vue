@@ -6,10 +6,6 @@ export default {
     return {
       articles : [],
       idCart: null,
-      number: 0,
-      street: "",
-      city: "",
-      country: "",
     }
   },
   methods: {
@@ -21,6 +17,15 @@ export default {
     fetchCartID(id) {
       return axios.get(`article/article.php?function=retrieveCartID&id_user=${id}`)
         .then(res => this.idCart = res.data[res.data.length -1].id)
+    },
+    fetchCartContentLocal(){
+      for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
+        let item = []
+        item["id_article"] = cart_item[0]
+        item["id_size"] = cart_item[1]
+        item["quantity"] = cart_item[2]
+        this.articles.push(item)
+      }
     },
     createOrder() {
       const d = new Date()
@@ -37,12 +42,17 @@ export default {
     }
   },
   mounted() {
-    (async () => {
-      if (this.idUser){
+    if(this.idUser){
+      (async () => {
         await this.fetchCartID(this.idUser)
         await this.fetchCartContent(this.idCart)
-      }
-    })();
+      })();
+    }
+    else if(!(localStorage.getItem("cart_items") === null)){
+      (async () => {
+        await this.fetchCartContentLocal()
+      })();
+    }
   },
 }
 </script>
@@ -66,27 +76,8 @@ export default {
         </tr>
       </table>
 
-      <h2>A quelle adresse est déstinée cette commande ?</h2>
-      <div class="address-form">
-        <div>
-          <label for="number">Numéro :</label>
-          <input type="number" id="number" v-model="number" >
-        </div>
-        <div>
-          <label for="street">Rue :</label>
-          <input type="text" id="street" v-model="street" >
-        </div>
-        <div>
-          <label for="city">Ville :</label>
-          <input type="text" id="city" v-model="city" >
-        </div>
-        <div>
-          <label for="country">Pays :</label>
-          <input type="text" id="country" v-model="country" >
-        </div>
-      </div>
-
-      <button @click="createOrder">Finaliser votre commande</button>
+    <router-link to="/order">Passer commande</router-link>
+    <!-- <button @click="createOrder">Finaliser votre commande</button> -->
     </div>
   </div>
 </template>

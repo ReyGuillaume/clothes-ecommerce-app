@@ -8,6 +8,7 @@ export default {
       model: "sign-in",
       mail: "",
       password: "",
+      password_confirmation: "",
       firstname : "",
       lastname : "",
       phone_number : "",
@@ -56,17 +57,59 @@ export default {
       if(res)
         alert(res)
       this.$forceUpdate()
-    }, 
-    forceUpdate() {
-      this.$forceUpdate();
+    },
+    validateEmail(email) {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    },
+    validatePhoneNumber(phone_number) {
+      return String(phone_number).match(/\d+/g) && phone_number.length == 10;
     },
 
-    handleSignUp : function(){
+    handleSignUp() {
+      if (!this.validateEmail(this.mail)) {
+        console.log("Invalid e-mail format.");
+        return;
+      }
 
-    }
+      if (!this.validatePhoneNumber(this.phone_number)) {
+        console.log("Invalid phone number.");
+        return;
+      }
+
+      if (this.password != this.password_confirmation) {
+        this.password = "";
+        this.password_confirmation = "";
+        console.log("Passwords don't match.");
+        return;
+      }
+
+      axios
+        .get("login/signup.php", {
+          params: {
+            firstname: this.firstname,
+            lastname: this.lastname,
+            mail: this.mail,
+            password: this.password,
+            phone_number: this.phone_number,
+          },
+        })
+        .then((response) => {
+          if(response.data == "EAU"){
+            alert("E-mail already used.");
+            this.$forceUpdate();
+            return;
+          }
+          app.config.globalProperties.idUser = response.data;
+        }
+      )
+    },
   },
   mounted() {
-
+    
   },
 }
 </script>
@@ -74,45 +117,85 @@ export default {
 <template>
   <div class="login-container container" v-if="(!this.idUser && !this.idAdmin)">
     <div class="sign-in login-form" v-if="(model == 'sign-in')">
-        <h1 class="login-title">Sign in</h1>
-        <div class="form">
-          <div class="form-elt">
-            <label for="mail">Adresse e-mail</label>
-            <input type="text" id="mail" class="input-login" placeholder="E-mail" v-model="mail">
-          </div>
-          <div class="form-elt">
-            <label for="password">password</label>
-            <input type="password" id="password" class="input-login" placeholder="Password" v-model="password">
-          </div>
-        </div>
-        <input type="submit" class="full-button" value="Sign-in" @click="login">
-    </div>
-    
-    <div class="sign-up login-form" v-else-if="(model == 'sign-up')">
-      <h1 class="login-title">Sign up</h1>
+      <h1 class="login-title">Sign in</h1>
       <div class="form">
         <div class="form-elt">
           <label for="mail">Adresse e-mail</label>
           <input type="text" id="mail" class="input-login" placeholder="E-mail" v-model="mail">
         </div>
         <div class="form-elt">
+          <label for="password">password</label>
+          <input type="password" id="password" class="input-login" placeholder="Password" v-model="password">
+        </div>
+      </div>
+      <input type="submit" class="full-button" value="Sign-in" @click="login">
+      <p v-if="model == 'sign-up'">Vous avez déjà un compte ? <a v-on:click="model = 'sign-in'">Connectez-vous ici</a></p>
+    </div>
+    
+    <div class="sign-up login-form" v-else-if="(model == 'sign-up')">
+      <h1 class="login-title">Sign up</h1>
+      <div class="form">
+        <div class="form-elt">
           <label for="Firstname">Firstname</label>
-          <input type="text" id="Firstname" placeholder="Firstname">
+          <input
+            type="text"
+            id="Firstname"
+            placeholder="Firstname"
+            v-model="firstname"
+          />
         </div>
         <div class="form-elt">
           <label for="Lastname">Lastname</label>
-          <input type="text" id="Lastname" placeholder="Lastname">
+          <input
+            type="text"
+            id="Lastname"
+            placeholder="Lastname"
+            v-model="lastname"
+          />
         </div>
         <div class="form-elt">
-          <label for="Phone-Number">Phone Number</label>
-          <input type="text" id="Phone-Number" placeholder="Phone Number">
+          <label for="mail">mail</label>
+          <input
+            type="text"
+            id="mail"
+            class="input-login"
+            placeholder="E-mail"
+            v-model="mail"
+          />
         </div>
+        <div class="form-elt">
+          <label for="password">password</label>
+          <input
+            type="password"
+            id="password"
+            class="input-login"
+            placeholder="Password"
+            v-model="password"
+          />
+        </div>
+        <div class="form-elt">
+          <label for="password_confirmation">Confirm your password</label>
+          <input
+            type="password"
+            id="password_confirmation"
+            class="input-login"
+            placeholder="Password Confirmation"
+            v-model="password_confirmation"
+          />
+        </div>
+        <div class="form-elt">
+          <label for="Phone-Number">Phone number</label>
+          <input
+            type="text"
+            id="Phone-Number"
+            placeholder="Phone Number"
+            v-model="phone_number"
+          />
+        </div>
+        <input type="submit" class="full-button" value="Sign up" @click="handleSignUp" />
       </div>
-      <input type="submit" class="full-button" value="Sign up">
+      <p>Vous n'avez pas de compte ? <a v-on:click="model = 'sign-up'">Inscrivez-vous ici</a></p>
     </div>
-
-    <p v-if="model == 'sign-in'">Vous n'avez pas de compte ? <a v-on:click="model = 'sign-up'">Inscrivez-vous ici</a></p>
-    <p v-if="model == 'sign-up'">Vous avez déjà un compte ? <a v-on:click="model = 'sign-in'">Connectez-vous ici</a></p>
   </div>
 
   <div  class="admin-container container"  v-if="idAdmin">
