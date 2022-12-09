@@ -57,7 +57,9 @@
 .presentation h3,
 .presentation p {
   text-align: center;
-  font-weight: bold;
+}
+.presentation p {
+  font-size: .85em;
 }
 .presentation > .image > img {
   position: absolute;
