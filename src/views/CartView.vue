@@ -77,7 +77,9 @@ export default {
       </table>
 
     <router-link to="/order">Passer commande</router-link>
-    <!-- <button @click="createOrder">Finaliser votre commande</button> -->
+     <!-- <button @click="createOrder">Finaliser votre commande</button>  -->
+     <RouterLink to ="/payement" @click="createOrder">Passer au payement</RouterLink>
+    
     </div>
   </div>
 </template>
