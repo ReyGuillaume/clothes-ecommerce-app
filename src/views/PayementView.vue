@@ -3,12 +3,12 @@
     
     <form method="POST" action="href">
         <h3>Formulaire de Payement</h3>
-        <input type="text" name="Name" value="Name" />
-        <input type="email" name="mail" value="Email" />
-        <input type="text" name="credit-card" value="Number_card" />
-        <input type="date" name="date" />
-        <input type="text" name="ccv" value="CCV"/>
-        <input type="submit" name="payer" value="Payer" id="bouton"/>
+        <label><input type="text" name="Name" placeholder="Name" /></label>
+        <label><input type="email" name="mail" placeholder="Email" /></label>
+        <label><input type="text" name="credit-card" placeholder="Number_card"/></label>
+        <label><input type="date" name="date" /></label>
+        <label><input type="text" name="ccv" placeholder="CCV"/></label>
+        <label><input type="submit" name="payer" value="Payer" id="bouton"/></label>
     </form>
 </div>
 </template>
