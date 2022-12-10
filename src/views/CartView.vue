@@ -13,8 +13,10 @@ export default {
   methods: {
     fetchCartContentOfUser(id_user) {
       return axios
-        .get(`order/order.php?function=retrieveCartContent&id_user=${id_user}`)
-        .then((res) => (this.articles = res.data));
+        .get(`cart/cart.php?function=retrieveCartContent&id_user=${id_user}`)
+        .then((res) => {
+          this.articles = res.data
+        });
     },
 
     updateData() {
@@ -22,6 +24,31 @@ export default {
           this.total_price += article.price * article.quantity;
           this.total_quantity += article.quantity;
       }
+    },
+
+    async handleArticleRemove(id_cart, id_article, index){
+      await axios
+        .get(`cart/cart.php`, {
+          params: {
+            function: "removeArticleFromCart",
+            id_cart: id_cart,
+            id_article: id_article
+          },
+        })
+        .then(this.articles.splice(index, 1));
+    },
+
+    async handleQuantityVariation(id_cart, id_article, id_size, quantity){
+      await axios
+        .get(`cart/cart.php`, {
+          params: {
+            function: "modifyQuantityOfCartArticle",
+            id_cart: id_cart,
+            id_article: id_article,
+            id_size: id_size,
+            quantity: quantity
+          },
+        })
     }
 
     // fetchCartContentLocal(){
@@ -47,7 +74,6 @@ export default {
         await this.fetchCartContentLocal();
       })();
     }
-    console.log(this.articles.length);
   },
 };
 </script>
@@ -63,23 +89,30 @@ export default {
       </router-link>
     </div>
 
-    <div class="cart-container" v-else>
+    <div class="cart-container" v-if="articles.length">
       <div class="left-container">
         <h1>Panier</h1>
 
-        <div class="article-card" v-for="article in articles">
-          <img v-bind:src="article.image" class="article-img" alt="" />
+        <div class="article-card" v-for="(article, index) in articles">
+          <router-link :to="{name : 'Article', params: { articleId: article.id_article }}">
+            <img v-bind:src="article.image" class="article-img" alt="" />
+          </router-link> 
 
           <div class="article-data">
             <h3 class="name">{{ article.article_name }}</h3>
             <div class="brand">{{ article.brand_name }}</div>
             <div class="size"> Taille : {{ article.size_name }}</div>
-            <div class="quantity">Quantité : {{ article.quantity }}</div>
+            <div class="quantity">
+              Quantité : <input type="number" onkeydown="return false" v-on:change="handleQuantityVariation(article.id_cart, article.id_article, article.id_size, article.quantity)" name="quantity" v-bind:min="1" v-bind:max="article.max_quantity" v-model="article.quantity" v-bind:disabled="article.max_quantity == 1">
+            </div>
+
+            <div class="article-panel">
+              <font-awesome-icon icon="fa-solid fa-trash" v-on:click="handleArticleRemove(article.id_cart, article.id_article, index)"/>
+            </div>
           </div>
 
-          <div class="article-end">
-            <h3 class="price bold">{{ article.price * article.quantity }} €</h3>
-            <font-awesome-icon icon="fa-solid fa-trash" />
+          <div class="article-price">
+            {{ article.price * article.quantity }} €
           </div>
         </div>
       </div>
@@ -90,7 +123,7 @@ export default {
           <table>
             <tbody>
               <tr v-for="article in articles">
-                <td>{{ article.article_name }}</td>
+                <td>{{ article.article_name }} <span class="bold">x{{article.quantity}}</span></td>
                 <td>{{ article.price * article.quantity }} €</td>
               </tr>
             </tbody>
@@ -166,10 +199,31 @@ h1, h2{
 .article-card{
   border-bottom: 1px solid black;
   display: flex;
+  padding: 10px 0px;
+  gap: 20px;
+}
+
+.article-price{
+  margin-left: auto;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.article-data{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.article-panel{
+  margin-top: auto;
+  font-size: 1.2rem;
 }
 
 .article-img{
   width: 150px;
+  height: 150px;
 }
 
 .cart-redirect{
@@ -197,6 +251,10 @@ table{
 }
 
 tfoot tr td{
+  font-weight: bold;
+}
+
+.bold{
   font-weight: bold;
 }
 </style>
