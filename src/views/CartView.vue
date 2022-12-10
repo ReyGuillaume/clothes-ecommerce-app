@@ -20,6 +20,8 @@ export default {
     },
 
     updateData() {
+      this.total_price = 0
+      this.total_quantity = 0
       for (let article of this.articles) {
           this.total_price += article.price * article.quantity;
           this.total_quantity += article.quantity;
@@ -48,7 +50,9 @@ export default {
             id_size: id_size,
             quantity: quantity
           },
-        })
+        }).then(
+          this.updateData()
+        )
     }
 
     // fetchCartContentLocal(){
