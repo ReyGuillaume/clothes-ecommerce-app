@@ -54,9 +54,9 @@ export default {
 
 <template>
   <main>
-    <h1>Panier</h1>
 
     <div v-if="articles.length == 0" class="empty-cart">
+      <h1>Panier</h1>
       <h2>Oh noooon.. Votre panier est vide.</h2>
       <router-link to="/explore">
         <button class="cart-redirect">Explorer notre catalogue</button>
@@ -65,6 +65,8 @@ export default {
 
     <div class="cart-container" v-else>
       <div class="left-container">
+        <h1>Panier</h1>
+
         <div class="article-card" v-for="article in articles">
           <img v-bind:src="article.image" class="article-img" alt="" />
 
