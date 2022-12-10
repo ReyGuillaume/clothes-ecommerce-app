@@ -1,5 +1,4 @@
 <script lang="js">
-
 </script>
 
 <template>

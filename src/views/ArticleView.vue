@@ -1,8 +1,4 @@
 <script lang="js">
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faChevronLeft)
 
 import axios from 'axios';
 
@@ -104,7 +100,10 @@ export default{
             </div>
           </div>
 
-          <button class="full-button" @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
+          <button class="full-button" @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)">
+            <font-awesome-icon icon="fa-solid fa-plus" />
+            Ajouter au panier
+          </button>
           <RouterLink class="second-button" to="/login" v-if="(!this.idUser && this.sizes.length > 0)">Se connecter pour ajouter cet article au Panier</RouterLink>
           <p class="no-stock" v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stock</p>
         </div>
