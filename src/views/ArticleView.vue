@@ -116,6 +116,7 @@ export default{
 
 <style>
 .article-container{
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -137,13 +138,14 @@ export default{
 }
 .article-container > div {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 2.5rem;
   height: 80%;
 }
 .article-container > div > * {
   width: 45%;
-  min-width: 25rem;
+  min-width: 23rem;
   box-shadow: #5e5e5e 1px -1px 1px ;
   border-radius: .4rem;
   height: 100%;
@@ -195,5 +197,10 @@ export default{
   text-align: left;
   font-style: italic;
   height: 20%;
+}
+@media screen and (min-width: 820px) {
+  .article-container > div {
+    flex-direction: row;
+  }
 }
 </style>

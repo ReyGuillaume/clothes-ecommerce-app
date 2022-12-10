@@ -59,8 +59,8 @@ export default {
 
 <template>
   <div class="cart-container container">
-    <h2 v-if="!this.idUser">Connectez-vous pour pouvoir faire vos achats en ligne</h2>
-    <div v-if="this.idUser">
+    <h2 v-if="!this.idUser && !this.idAdmin">Connectez-vous pour pouvoir faire vos achats en ligne</h2>
+    <div v-if="this.idUser || this.idAdmin">
       <h2>Contenu de votre panier</h2>
 
       <table>
