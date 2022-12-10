@@ -14,7 +14,7 @@ export default {
   methods: {
     fetchUserInfos() {
       axios
-        .get("user/user.php?function=retrieveUserInfos&id="+1)
+        .get("user/user.php?function=retrieveUserInfos&id="+this.idUser)
         .then((response) => {
           this.userInfos = response.data;
         });
@@ -22,7 +22,7 @@ export default {
 
     fetchAllAddresses() {
       axios
-        .get("user/user.php?function=retrieveAllAddresses&id="+1)
+        .get("user/user.php?function=retrieveAllAddresses&id="+this.idUser)
         .then((response) => {
           this.addresses = response.data;
         });
