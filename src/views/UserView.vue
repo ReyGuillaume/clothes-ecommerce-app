@@ -122,7 +122,7 @@ export default {
         display: flex;
         flex-direction: column;
         background-color: #eee;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        box-shadow: rgba(0, 0, 0, 0.23) 0px 3px 8px;
         width: 70%;
         min-height: 200px;
         padding: 20px;
