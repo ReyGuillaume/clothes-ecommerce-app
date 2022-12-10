@@ -1,5 +1,6 @@
 <script lang="js">
 
+import app from '../main.js'
 import axios from 'axios'
 
 export default {
@@ -26,6 +27,10 @@ export default {
           this.addresses = response.data;
         });
     },
+    disconnectUser() {
+        app.config.globalProperties.idUser = null
+        this.$router.push('/login')
+    }
   },
   mounted() {
     if (!this.idUser) {
@@ -44,6 +49,7 @@ export default {
   <div class="userPage-container">
     
     <div class="user-container">
+        <button @click="disconnectUser" class="main-button">Deconnexion</button>
         <div class="userInfo" v-for="user in userInfos">
             <h3>{{user.firstname}} {{user.lastname}}</h3>
             <div>

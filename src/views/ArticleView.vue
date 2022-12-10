@@ -106,7 +106,7 @@ export default{
 
           <button class="full-button" @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
           <RouterLink class="second-button" to="/login" v-if="(!this.idUser && this.sizes.length > 0)">Se connecter pour ajouter cet article au Panier</RouterLink>
-          <p class="no-stock" v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stoque</p>
+          <p class="no-stock" v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stock</p>
         </div>
         <p>{{ article.description }}</p>
       </div>

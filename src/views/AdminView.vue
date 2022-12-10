@@ -1,5 +1,6 @@
 <script lang="js">
 
+import app from '../main.js'
 import axios from 'axios'
 
 export default {
@@ -9,7 +10,10 @@ export default {
   }
   },
   methods: {
-
+    disconnectAdmin() {
+        app.config.globalProperties.idAdmin = null
+        this.$router.push('/login')
+    },
   },
   mounted() {
   if (!this.idAdmin) {
@@ -22,7 +26,8 @@ export default {
 </script>
 
 <template>
-<h2>admin</h2>
+  <button @click="disconnectAdmin" class="main-button">Deconnexion</button>
+  <h2>admin</h2>
 </template>
 
 <style>
