@@ -56,20 +56,24 @@ export default {
     },
 
     async fetchCartContentLocal(){
-      // for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
-      //   await axios
-      //   .get(`cart/cart.php`, {
-      //     params: {
-      //       function: "fetchArticlesForCart",
-      //       id_article: cart_item[0],
-      //       id_size: cart_item[1]
-      //     },
-      //   }).then(response => {
-      //     this.articles.push(response.data)
-      //     console.log(response.data)
-      //   })
-      // }
-      // console.log(this.articles)
+      for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
+        await axios
+        .get(`cart/cart.php`, {
+          params: {
+            function: "fetchArticlesForCart",
+            id_article: cart_item[0],
+            id_size: cart_item[1]
+          },
+        }).then(response => {
+          if(this.articles == 0){
+            this.articles = response.data
+          }
+          else{
+            this.articles.push(response.data)
+          }
+          console.log(response.data)
+        })
+      }
     },
   },
 
