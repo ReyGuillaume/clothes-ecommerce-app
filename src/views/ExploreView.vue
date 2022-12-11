@@ -80,13 +80,11 @@ export default {
 
       await axios.get(url).then((response) => {
         this.filtered_articles = response.data;
-        console.log(response.data);
       });
     },
 
     handleCategoryChange() {
       let temp_displayed_sub_category = [];
-      console.log(temp_displayed_sub_category)
       this.sub_category_key = 0;
       for(let sub_category of this.sub_categories) {
         if (sub_category.id_category == this.category_key) {
@@ -148,8 +146,8 @@ export default {
   
           <button class="reset-filters" v-on:click="handleResetFilters">Reset</button>
         </div>
-  
         <div class="articles-container">
+          <div v-if="filtered_articles.length === 0">Aucun article ne correspond à votre recherche</div>
           <div class="card" v-for="article in filtered_articles.slice(0, nItem)" v-bind:id="article.id">
             <router-link class="article-card" :to="{name : 'Article', params: { articleId: article.id }}">
               <img v-bind:src="article.image" class="article-img" alt="">

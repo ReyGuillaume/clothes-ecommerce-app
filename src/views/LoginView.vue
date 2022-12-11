@@ -1,4 +1,5 @@
 <script lang="js">
+
 import app from '../main.js'
 import axios from 'axios'
 
@@ -18,13 +19,13 @@ export default {
     login: function () {
       if (this.mail == "") {
         if (this.password == "") {
-          window.alert("Veuillez renseigner l'adresse mail et le mot de passe");
+          alert("Veuillez renseigner l'adresse mail et le mot de passe");
         } else {
-          window.alert("Veuillez renseigner l'adresse mail");
+          alert("Veuillez renseigner l'adresse mail");
         }
       } else {
         if (this.password == "") {
-          window.alert("Veuillez renseigner le mot de passe");
+          alert("Veuillez renseigner le mot de passe");
         } else {
           axios.get("login/Login.php?mail="+this.mail+"&password="+this.password).then(
             response => 
@@ -41,6 +42,7 @@ export default {
       switch (message) {
         case "userOK":
           app.config.globalProperties.idUser = id
+          this.$router.push('/user')
           break;
         case "userNOKaddress":
           res = "Adresse incorrecte"
@@ -50,13 +52,14 @@ export default {
           break;
         case "adminOK":
           app.config.globalProperties.idAdmin = id
+          this.$router.push('/admin')
           break;
         default:
           break;
       }
       if(res)
         alert(res)
-      this.$forceUpdate()
+
     },
     validateEmail(email) {
       return String(email)
@@ -71,19 +74,19 @@ export default {
 
     handleSignUp() {
       if (!this.validateEmail(this.mail)) {
-        console.log("Invalid e-mail format.");
+        alert("Invalid e-mail format.");
         return;
       }
 
       if (!this.validatePhoneNumber(this.phone_number)) {
-        console.log("Invalid phone number.");
+        alert("Invalid phone number.");
         return;
       }
 
       if (this.password != this.password_confirmation) {
         this.password = "";
         this.password_confirmation = "";
-        console.log("Passwords don't match.");
+        alert("Passwords don't match.");
         return;
       }
 
@@ -104,12 +107,17 @@ export default {
             return;
           }
           app.config.globalProperties.idUser = response.data;
+          this.$router.push('/user')
         }
       )
     },
   },
   mounted() {
-    
+    if (this.idUser) {
+      this.$router.push('/user')
+    } else if(this.idAdmin) {
+      this.$router.push('/admin')
+    }
   },
 }
 </script>
@@ -196,16 +204,6 @@ export default {
       </div>
       <p>Vous avez déjà un compte ? <a v-on:click="model = 'sign-in'">Connectez-vous ici</a></p>
     </div>
-  </div>
-
-  <div  class="admin-container container"  v-if="idAdmin">
-    <h1>Partie admin</h1>
-    <p>admin id : {{this.idAdmin}}</p>
-  </div>
-
-  <div  class="user-container container"  v-else-if="idUser && !idAdmin">
-    <h1>Partie user</h1>
-    <p>user id : {{this.idUser}}</p>
   </div>
 </template>
 

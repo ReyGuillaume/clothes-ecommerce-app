@@ -1,4 +1,5 @@
 <script lang="js">
+
 import axios from "axios";
 
 export default {
@@ -59,7 +60,6 @@ export default {
                 await this.fetchCartContentOfUser(this.idUser);
                 await this.fetchAddresses(this.idUser);
                 this.initializeData();
-                console.log(this.addresses);
             })();
         }
     },
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <template>
-    <main class="order-container container">
+    <main class="order-container">
         <div class="main-container">
             <div class="data-container">
                 <h1 class="container-title">Adresse</h1>

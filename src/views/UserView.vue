@@ -1,4 +1,5 @@
 <script lang="js">
+
 import app from '../main.js'
 import axios from 'axios'
 
@@ -7,13 +8,14 @@ export default {
     return {
         userInfos: "",
         addresses: "",
+        orders: "",
         loaded: false,
     };
   },
   methods: {
     fetchUserInfos() {
       axios
-        .get("user/user.php?function=retrieveUserInfos&id="+1)
+        .get("user/user.php?function=retrieveUserInfos&id="+this.idUser)
         .then((response) => {
           this.userInfos = response.data;
         });
@@ -21,16 +23,34 @@ export default {
 
     fetchAllAddresses() {
       axios
-        .get("user/user.php?function=retrieveAllAddresses&id="+1)
+        .get("user/user.php?function=retrieveAllAddresses&id="+this.idUser)
         .then((response) => {
           this.addresses = response.data;
         });
     },
+
+    fetchAllOrders() {
+      axios
+        .get("user/user.php?function=retrieveAllOrders&id="+this.idUser)
+        .then((response) => {
+          this.orders = response.data;
+          window.alert(order);
+        });
+    },
+
+    disconnectUser() {
+        app.config.globalProperties.idUser = null
+        this.$router.push('/login')
+    }
   },
   mounted() {
+    if (!this.idUser) {
+        this.$router.push('/login')
+    }
     (async () => {
       await this.fetchUserInfos();
       await this.fetchAllAddresses();
+      await this.fetchAllOrders();
       this.loaded = true;
     })();
   },
@@ -54,42 +74,25 @@ export default {
         </div>
         <div class="address">
             <h3>ADRESSES</h3>
-            <p v-for="address in addresses">{{address.number}} {{address.street}} {{address.city}} {{address.country}}</p>
+            <p v-for="address in addresses">{{address.number}} {{address.street}} {{address.city}} en {{address.country}}</p>
         </div>
     </div>
 
     <div class="order-container">
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
+        <div class="order" v-for="order in orders">
+            <div class="order-img">
+                <img v-bind:src="order.image" class="article-img" alt="">
+            </div>
+
+            <div class="order-infos">
+                <h3>{{order.articleName}} - {{order.sizeName}}</h3>
+                <p>Commandé en {{order.quantity}} exemplaire(s) le {{order.date}}</p>
+                <p>Livré au {{order.number}} {{order.street}} {{order.city}} {{order.country}}</p>
+            </div>
         </div>
     </div>
+
+    <div class="disconnect-container"> <button @click="disconnectUser" class="main-button">Deconnexion</button> </div>
 
   </div>
 </template>
@@ -121,8 +124,9 @@ export default {
     {
         display: flex;
         flex-direction: column;
-        background-color: #eee;
-        box-shadow: rgba(0, 0, 0, 0.23) 0px 3px 8px;
+        background-color: #fff;
+        border-bottom: 4px solid black;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         width: 70%;
         min-height: 200px;
         padding: 20px;
@@ -133,7 +137,8 @@ export default {
     {
         display: flex;
         flex-direction: column;
-        background-color: #eee;
+        background-color: #fff;
+        border-bottom: 4px solid black;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         width: 70%;
         min-height: 200px;
@@ -149,18 +154,34 @@ export default {
         justify-content: center;
         align-items: center;
         padding: 20px;
-        gap: 50px;
+        gap: 20px;
         width: 70%;
         min-height: 200px;
+        max-height: 700px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #343434;
     }
 
     .order
     {
-        background-color: #eee;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #fff;
+        border-left: 4px solid black;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        width: 30%;
-        min-height: 200px;
+        width: 100%;
+        min-height: 150px;
         padding: 20px;
+        gap: 20px;
+    }
+
+    .order-infos
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 
 </style>

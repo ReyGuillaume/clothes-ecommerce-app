@@ -6,6 +6,7 @@ import ExploreView from '@/views/ExploreView.vue';
 import CartView from '@/views/CartView.vue';
 import OrderView from '@/views/OrderView.vue';
 import UserView from '@/views/UserView.vue';
+import AdminView from '@/views/AdminView.vue';
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
         name : 'User',
         path : '/user',
         component : UserView,
+    }, {
+        name : 'Admin',
+        path : '/admin',
+        component : AdminView,
     }
 ];
 

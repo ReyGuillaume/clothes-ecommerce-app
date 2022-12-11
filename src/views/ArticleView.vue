@@ -1,8 +1,4 @@
 <script lang="js">
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faChevronLeft)
 
 import axios from 'axios';
 
@@ -78,54 +74,131 @@ export default{
 
 <template>
   <div class="article-container container">
-    <div class="main-container">
-      
-      <div class="infos-container">
-        <h2>
-          <RouterLink class="back-button" to="/explore">
-            <font-awesome-icon icon="fa-solid fa-chevron-left" />
-          </RouterLink>
-          {{ article.name }}
-        </h2>
-        <h2>{{ article.price }}€</h2>
-        
-        <div class="sizes">
-          <h3>Tailles disponibles en stock :</h3>
-          <div v-for="size in sizes">
-            <input type="radio" :id="size.name" name="size" :value="size.id" v-model="selectedSize" >
-            <label :for="size.name">{{size.name}}</label>
+    <h2>
+      <RouterLink class="back-button" to="/explore">
+        <font-awesome-icon icon="fa-solid fa-chevron-left" />
+      </RouterLink>
+      {{ article.name }}
+    </h2>
+    <div>
+      <img v-bind:src="article.image" class="article-img" alt="Image de l'article">
+
+      <div class="article-info">
+        <div>
+          <p class="price">{{ article.price }}€</p>
+          
+          <div class="sizes">
+            <h3>Tailles disponibles en stock :</h3>
+            <div v-for="size in sizes">
+              <input type="radio" :id="size.name" name="size" :value="size.id" v-model="selectedSize" >
+              <label :for="size.name">{{size.name}}</label>
+            </div>
+
+            <div v-if="selectedSize">
+              <h3><label for="quantity">Combien en voulez-vous ?</label></h3>
+              <input type="number" id="quantity" v-model="quantity" >
+            </div>
           </div>
 
-          <div v-if="selectedSize">
-            <label for="quantity">Combien en voulez-vous ?</label>
-            <input type="number" id="quantity" v-model="quantity" >
-          </div>
+          <button class="full-button" @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)">
+            <font-awesome-icon icon="fa-solid fa-plus" />
+            Ajouter au panier
+          </button>
+          <RouterLink class="second-button" to="/login" v-if="(!this.idUser && this.sizes.length > 0)">Se connecter pour ajouter cet article au Panier</RouterLink>
+          <p class="no-stock" v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stock</p>
         </div>
-
-        <button @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)"><i class="fa-solid fa-plus"></i> Ajouter au panier</button>
-        <RouterLink to="/login" v-if="!this.idUser">Se connecter pour ajouter cet article au Panier</RouterLink>
-        <p v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stoque</p>
+        <p>{{ article.description }}</p>
       </div>
-      <img v-bind:src="article.image" class="article-img" alt="">
-    </div>
-    
-    <div class="details-container">
-      <p>{{ article.description }}</p>
     </div>
   </div>
 </template>
 
 <style>
 .article-container{
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: minmax(85vw,45rem);
+  margin: auto;
+}
+.article-container > * {
+  width: 100%;
+  max-width: 55rem;
+}
+.article-container > h2 {
+  display: flex;
+  align-items: center;
+}
+.article-container .back-button {
+  font-size: 1.8rem;
+  padding: 1rem;
+  transition: .35s ease-in-out;
+}
+.article-container > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  height: 80%;
+}
+.article-container > div > * {
+  width: 45%;
+  min-width: 23rem;
+  box-shadow: #5e5e5e 1px -1px 1px ;
+  border-radius: .4rem;
+  height: 100%;
+}
+.article-container .article-img {
+  box-shadow: #5e5e5e -1px 1px 1px ;
+  padding: 1.5rem;
+  max-height: 35rem;
+}
+.article-container .article-info {
+  display: flex;
+  gap: 2.2rem;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+.article-container .article-info > * {
+  text-align: center;
+}
+.article-container .article-info > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.article-container .article-info .price {
+  font-size: 1.8rem;
+  text-align: right;
+  font-weight: bold;
+}
+.article-container .article-info .full-button {
+  margin: 1rem auto;
+  text-align: center;
+}
+.article-container .article-info .second-button {
+  text-align: center;
+  margin: 1rem auto;
+  transition: .25s ease-in-out;
+  border: #5e5e5e 2px solid;
+}
+.article-container .article-info .second-button:hover {
+  border: #fff 2px solid;
+}
+.article-container .article-info .no-stock {
+  border: #dc143c 2px solid;
+  color: #dc143c;
 }
 
-.article-container > .main-container{
-  padding: 0 ;
+.article-container .article-info > p {
+  text-align: left;
+  font-style: italic;
+  height: 20%;
 }
-
-.article-container .article-img{
-}
-
-.details-container{
+@media screen and (min-width: 820px) {
+  .article-container > div {
+    flex-direction: row;
+  }
 }
 </style>
