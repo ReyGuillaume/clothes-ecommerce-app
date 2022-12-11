@@ -53,18 +53,24 @@ export default {
         }).then(
           this.updateData()
         )
-    }
+    },
 
-    // fetchCartContentLocal(){
-    //   for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
-    //     let item = []
-    //     item["id_article"] = cart_item[0]
-    //     item["id_size"] = cart_item[1]
-    //     item["quantity"] = cart_item[2]
-    //     this.articles.push(item)
-    //   }
-    //   console.log(this.articles)
-    // },
+    async fetchCartContentLocal(){
+      // for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
+      //   await axios
+      //   .get(`cart/cart.php`, {
+      //     params: {
+      //       function: "fetchArticlesForCart",
+      //       id_article: cart_item[0],
+      //       id_size: cart_item[1]
+      //     },
+      //   }).then(response => {
+      //     this.articles.push(response.data)
+      //     console.log(response.data)
+      //   })
+      // }
+      // console.log(this.articles)
+    },
   },
 
   mounted() {
@@ -74,9 +80,7 @@ export default {
         this.updateData();
       })();
     } else if (!(localStorage.getItem("cart_items") === null)) {
-      (async () => {
-        await this.fetchCartContentLocal();
-      })();
+      this.fetchCartContentLocal();
     }
   },
 };

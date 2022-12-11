@@ -19,7 +19,7 @@ axios.defaults.baseURL = "http://localhost/projetWebL2-Undefined/src/services";
 
 const app = createApp(App)
 app.use(router)
-app.config.globalProperties.idUser = 12;
+app.config.globalProperties.idUser = null;
 app.config.globalProperties.idAdmin = null;
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')
