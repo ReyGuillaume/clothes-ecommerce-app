@@ -45,10 +45,12 @@ export default{
         }
       )
     },
+
     fetchCartID(id) {
       return axios.get(`article/article.php?function=retrieveCartID&id_user=${id}`)
         .then(res => this.idCart = res.data[res.data.length -1].id)
     },
+
     handleAddToCart() {
       if(this.idUser){
         if (this.quantity && this.selectedSize && this.idCart && this.articleId) {
@@ -66,7 +68,7 @@ export default{
           cart_items = JSON.parse(localStorage.getItem("cart_items"));
 
           for(let index in cart_items){
-            if(cart_items[index][0] == this.articleId){
+            if(cart_items[index][0] == this.articleId && cart_items[index][1] == this.selectedSize){
               //Si l'article est déjà dans le panier on incrémente simplement la quantité
               
               cart_items[index][2] += this.quantity;
