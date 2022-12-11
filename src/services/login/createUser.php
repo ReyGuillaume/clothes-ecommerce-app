@@ -28,8 +28,15 @@ function create($db) {
     $stm->bindValue(":phone_number", $_GET["phone_number"]);
     $stm->bindValue(":password", $_GET["password"]);
 
-    $stm->execute();
-    echo json_encode($stm->fetchAll());
+    if($stm->execute()){
+        $lastId = $dbh->lastInsertId();
+        $cuc = $db->prepare("INSERT INTO `cart`(`id_user`) VALUES (:password)");
+        $cuc->bindValue(":id_user", $lastId);
+        $cuc->execute()
+    }
+    else{
+        echo json_encode($stm->fetchAll());
+    }
 }
 
 function emailExists($db) {
