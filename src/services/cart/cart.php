@@ -21,7 +21,7 @@ function retrieveCartContent($db){
 
 function removeArticleFromCart($db){
     $request = "DELETE FROM `cart_item`"
-    . "WHERE id_cart = {$_GET['id_cart']} AND id_article = {$_GET['id_article']}";
+    . "WHERE id_cart = {$_GET['id_cart']} AND id_article = {$_GET['id_article']} AND id_size = {$_GET['id_size']}";
 
     $stm = $db->prepare($request);
     $stm->execute();

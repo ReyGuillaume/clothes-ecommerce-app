@@ -11,48 +11,73 @@ export default {
     };
   },
   methods: {
-    fetchCartContentOfUser(id_user) {
-      return axios
+    async fetchCartContentOfUser(id_user) {
+      await axios
         .get(`cart/cart.php?function=retrieveCartContent&id_user=${id_user}`)
         .then((res) => {
           this.articles = res.data
+          this.verifyQuantity();
         });
     },
 
     updateData() {
       this.total_price = 0
       this.total_quantity = 0
+      console.log("rerr")
       for (let article of this.articles) {
           this.total_price += article.price * article.quantity;
           this.total_quantity += article.quantity;
+          
       }
     },
 
-    async handleArticleRemove(id_cart, id_article, index){
-      await axios
+    async handleArticleRemove(id_cart, id_article, id_size, index){
+      if(this.idUser){
+        await axios
         .get(`cart/cart.php`, {
           params: {
             function: "removeArticleFromCart",
             id_cart: id_cart,
-            id_article: id_article
+            id_article: id_article,
+            id_size: id_size
           },
         })
         .then(this.articles.splice(index, 1));
+      }
+      else{
+        let cart_items = JSON.parse(localStorage.getItem("cart_items"));
+        cart_items.splice(index, 1)
+        this.articles.splice(index, 1)
+        localStorage.setItem("cart_items", JSON.stringify(cart_items))
+      }
+  
+      this.updateData();
     },
 
     async handleQuantityVariation(id_cart, id_article, id_size, quantity){
-      await axios
-        .get(`cart/cart.php`, {
-          params: {
-            function: "modifyQuantityOfCartArticle",
-            id_cart: id_cart,
-            id_article: id_article,
-            id_size: id_size,
-            quantity: quantity
-          },
-        }).then(
-          this.updateData()
-        )
+      if(this.idUser){
+        await axios.get(`cart/cart.php`, {
+            params: {
+              function: "modifyQuantityOfCartArticle",
+              id_cart: id_cart,
+              id_article: id_article,
+              id_size: id_size,
+              quantity: quantity
+            },
+          }).then(
+            this.updateData()
+          )
+      }
+      else{
+        let cart_items = JSON.parse(localStorage.getItem("cart_items"));
+        for(let index in cart_items){
+          if(cart_items[index][0] == id_article && cart_items[index][1]== id_size){
+            cart_items[index][2] = quantity
+          }
+        }
+        localStorage.setItem("cart_items", JSON.stringify(cart_items))
+      }
+      this.updateData();
     },
 
     async fetchCartContentLocal(){
@@ -66,23 +91,55 @@ export default {
           },
         }).then(response => {
           if(this.articles == 0){
-            this.articles = response.data
+            for(let eachArticle of response.data){
+              eachArticle["quantity"] = cart_item[2]
+              this.articles.push(eachArticle)
+            }
           }
           else{
-            this.articles.push(response.data)
+            for(let eachArticle of response.data){
+              eachArticle["quantity"] = cart_item[2]
+              this.articles.push(eachArticle)
+            }
           }
-          console.log(response.data)
         })
       }
+      this.updateData()
     },
+
+    async verifyQuantity(){
+      for(let eachArticle of this.articles){
+        if(eachArticle.quantity > eachArticle.max_quantity){
+          //Si User connecté
+          if(this.idUser){
+            eachArticle.quantity = eachArticle.max_quantity
+            await axios
+            .get(`cart/cart.php`, {
+              params: {
+                function: "modifyQuantityOfCartArticle",
+                id_cart: eachArticle.id_cart,
+                id_article: eachArticle.id_article,
+                id_size: eachArticle.id_size,
+                quantity: eachArticle.quantity
+              },
+            }) 
+          }
+          else{
+            
+          }
+        }
+        else{
+          console.log("Bonne quantité" + eachArticle.quantity + " <= " + eachArticle.max_quantity)
+        }
+      }
+      this.updateData();
+    },
+
   },
 
   mounted() {
-    if (this.idUser) {
-      (async () => {
-        await this.fetchCartContentOfUser(this.idUser);
-        this.updateData();
-      })();
+    if(this.idUser) {
+      this.fetchCartContentOfUser(this.idUser);
     } else if (!(localStorage.getItem("cart_items") === null)) {
       this.fetchCartContentLocal();
     }
@@ -92,7 +149,6 @@ export default {
 
 <template>
   <main>
-
     <div v-if="articles.length == 0" class="empty-cart">
       <h1>Panier</h1>
       <h2>Oh noooon.. Votre panier est vide.</h2>
@@ -119,7 +175,7 @@ export default {
             </div>
 
             <div class="article-panel">
-              <font-awesome-icon icon="fa-solid fa-trash" v-on:click="handleArticleRemove(article.id_cart, article.id_article, index)"/>
+              <font-awesome-icon icon="fa-solid fa-trash" v-on:click="handleArticleRemove(article.id_cart, article.id_article, article.id_size, index)"/>
             </div>
           </div>
 
