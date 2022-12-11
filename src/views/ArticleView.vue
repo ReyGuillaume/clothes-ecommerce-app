@@ -164,7 +164,6 @@ export default{
   text-align: center;
 }
 .article-container .article-info > div:nth-child(1) {
-  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
