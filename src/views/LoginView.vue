@@ -93,8 +93,7 @@ export default {
         return;
       }
 
-      axios
-        .get("login/signup.php", {
+      axios.get("login/signup.php", {
           params: {
             firstname: this.firstname,
             lastname: this.lastname,
@@ -109,8 +108,8 @@ export default {
             this.$forceUpdate();
             return;
           }
-          app.config.globalProperties.idUser = response.data;
-          this.$router.push('Home')
+          alert("Congratulations, you can now log in.")
+          this.model = "sign-in"
         });
     },
   },
