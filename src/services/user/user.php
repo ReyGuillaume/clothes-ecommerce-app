@@ -23,9 +23,36 @@ function retrieveAllOrders($db) {
     echo json_encode($stm->fetchAll());
 }
 
+function updateMail($db) {
+    $stm = $db->prepare("UPDATE `user` SET mail = :mail WHERE id = :id");
+    $stm->bindValue(":id", $_GET["id"]);
+    $stm->bindValue(":mail", $_GET["mail"]);
+    $stm->execute();
+}
+
+function updatePhoneNumber($db) {
+    $stm = $db->prepare("UPDATE `user` SET phone_number = :phone_number WHERE id = :id");
+    $stm->bindValue(":id", $_GET["id"]);
+    $stm->bindValue(":phone_number", $_GET["phone_number"]);
+    $stm->execute();
+}
+
+function addAddress($db) {
+    $stm = $db->prepare("INSERT INTO `address` (number, street, city, country, id_user) VALUES (:number, :street, :city, :country, :id)");
+    $stm->bindValue(":number", $_GET["number"]);
+    $stm->bindValue(":street", $_GET["street"]);
+    $stm->bindValue(":city", $_GET["city"]);
+    $stm->bindValue(":country", $_GET["country"]);
+    $stm->bindValue(":id", $_GET["id"]);
+    $stm->execute();
+}
+
 switch($_GET["function"]) {
     case 'retrieveUserInfos': retrieveUserInfos($db); break;
     case 'retrieveAllAddresses': retrieveAllAddresses($db); break;
     case 'retrieveAllOrders': retrieveAllOrders($db); break;
+    case 'updateMail': updateMail($db); break;
+    case 'updatePhoneNumber': updatePhoneNumber($db); break;
+    case 'addAddress': addAddress($db); break;
     default: echo "Not found!"; break;
 }

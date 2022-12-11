@@ -34,9 +34,65 @@ export default {
         .get("user/user.php?function=retrieveAllOrders&id="+this.idUser)
         .then((response) => {
           this.orders = response.data;
-          window.alert(order);
         });
     },
+
+    updateMail(mail) {
+      this.mail = 
+      axios
+        .get("user/user.php?function=updateMail&id="+this.idUser+"&mail="+mail)
+        .then((response) => {
+          if(response.data != null)
+          {
+            window.alert("Le mail a été modifié avec succès.");
+          }
+          else
+          {
+            window.alert("Le mail n'a pas pu être modifié.");
+          }
+        });
+    },
+
+    updatePhoneNumber(phone_number) {
+      axios
+        .get("user/user.php?function=updatePhoneNumber&id="+this.idUser+"&phone_number="+phone_number)
+        .then((response) => {
+          if(response.data != null)
+          {
+            window.alert("Le numéro de téléphone a été modifié avec succès.");
+          }
+          else
+          {
+            window.alert("Le numéro de téléphone n'a pas pu être modifié.");
+          }
+        });
+    },
+
+    addAddress(number, street, city, country) {
+      if (number != null && street != null && city != null && country != null)
+      {
+        axios
+        .get("user/user.php?function=addAddress&id="+this.idUser+"&number="+number+"&street="+street+"&city="+city+"&country="+country)
+        .then((response) => {
+          if(response.data != null)
+          {
+            window.alert("L'adresse a été ajoutée avec succès.");
+          }
+          else
+          {
+            window.alert("L'adresse n'a pas pu être ajoutée.");
+          }
+        });
+
+        this.fetchAllAddresses;
+      }
+      
+      else
+      {
+        window.alert("Veuillez remplir tous les champs avant de valider.");
+      }
+    },
+
 
     disconnectUser() {
         app.config.globalProperties.idUser = null
@@ -63,18 +119,37 @@ export default {
     <div class="user-container">
         <div class="userInfo" v-for="user in userInfos">
             <h3>{{user.firstname}} {{user.lastname}}</h3>
-            <div>
-                <p>Mail</p>
-                <p>{{user.mail}}</p>
-            </div>
-            <div>
-                <p>Phone number</p>
-                <p>{{user.phone_number}}</p>
+            <div class="form-user-container">
+              <div class="form-user">
+                <input type="text" id="mail" class="input-user" placeholder="mail" v-model="user.mail">
+                <input type="submit" class="button-user" value="Modifier" @click="updateMail(user.mail)">
+              </div>
+              <div class="form-user">
+                <input type="text" id="phone_number" class="input-user" placeholder="phone number" v-model="user.phone_number">
+                <input type="submit" class="button-user" value="Modifier" @click="updatePhoneNumber(user.phone_number)">
+              </div>
             </div>
         </div>
         <div class="address">
-            <h3>ADRESSES</h3>
-            <p v-for="address in addresses">{{address.number}} {{address.street}} {{address.city}} en {{address.country}}</p>
+            <div class="address-list">
+              <h3>ADRESSES</h3>
+              <div class="list">
+                <li v-for="address in addresses">
+                  <ul>
+                    <p>{{address.number}} {{address.street}} {{address.city}} en {{address.country}}</p>
+                  </ul>
+                </li>
+              </div> 
+            </div>
+            <div class="form-address-container">
+              <div class="form-address">
+                <input type="text" id="number" class="input-address" placeholder="number" v-model="number">
+                <input type="text" id="street" class="input-address" placeholder="street" v-model="street">
+                <input type="text" id="city" class="input-address" placeholder="city" v-model="city">
+                <input type="text" id="country" class="input-address" placeholder="country" v-model="country">
+              </div>
+              <input type="submit" class="button-address" value="Ajouter" @click="addAddress(number, street, city, country)">
+            </div>
         </div>
     </div>
 
@@ -92,7 +167,7 @@ export default {
         </div>
     </div>
 
-    <div class="disconnect-container"> <button @click="disconnectUser" class="main-button">Deconnexion</button> </div>
+    <div class="disconnect-container"> <button @click="disconnectUser" class="disconnect-button">Deconnexion</button> </div>
 
   </div>
 </template>
@@ -112,7 +187,7 @@ export default {
     .user-container
     {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 70%;
@@ -127,8 +202,9 @@ export default {
         background-color: #fff;
         border-bottom: 4px solid black;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        width: 70%;
+        width: 100%;
         min-height: 200px;
+        height: 200px;
         padding: 20px;
         gap: 20px;
     }
@@ -136,12 +212,13 @@ export default {
     .address
     {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         background-color: #fff;
         border-bottom: 4px solid black;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        width: 70%;
-        min-height: 200px;
+        width: 100%;
+        min-height: 300px;
+        height: 300px;
         padding: 20px;
         gap: 20px;
     }
@@ -156,7 +233,7 @@ export default {
         padding: 20px;
         gap: 20px;
         width: 70%;
-        min-height: 200px;
+        min-height: 300px;
         max-height: 700px;
         overflow-x: hidden;
         overflow-y: auto;
@@ -182,6 +259,110 @@ export default {
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+
+    .form-address-container
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      width: 80%;
+    }
+
+    .address-list
+    {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .list
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .form-address
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .input-address
+    {
+      width: 99%;
+      margin: 5px;
+      height: 30px;
+    }
+
+    .button-address
+    {
+      width: 100%;
+      height: 30px;
+      border: none;
+      background-color: #343434;
+      color: #fff;
+      cursor: pointer;
+    }
+    
+    .form-user-container
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .form-user
+    {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .input-user
+    {
+      height: 30px;
+      width: 70%;
+    }
+
+    .button-user
+    {
+      width: 20%;
+      height: 30px;
+      border: none;
+      background-color: #343434;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .disconnect-button
+    {
+      background-color: red;
+      color: white;
+      border: none;
+      height: 30px;
+      width: 100px;
+      font-weight: bold;
     }
 
 </style>
