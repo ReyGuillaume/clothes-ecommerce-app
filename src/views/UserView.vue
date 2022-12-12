@@ -6,8 +6,13 @@ import axios from 'axios'
 export default {
     data() {
     return {
-        userInfos: "",
-        addresses: "",
+        userInfos: [],
+        addresses: [],
+        orders: [],
+        number: "",
+        street: "",
+        city: "",
+        country: "",
         loaded: false,
     };
   },
@@ -27,6 +32,65 @@ export default {
           this.addresses = response.data;
         });
     },
+
+    fetchAllOrders() {
+      axios
+        .get("user/user.php?function=retrieveAllOrders&id="+this.idUser)
+        .then((response) => {
+          this.orders = response.data;
+        });
+    },
+
+    updateMail(mail) {
+      this.mail = 
+      axios
+        .get("user/user.php?function=updateMail&id="+this.idUser+"&mail="+mail)
+        .then((response) => {
+          if(response.data != null)
+          {
+            window.alert("Le mail a été modifié avec succès.");
+          }
+          else
+          {
+            window.alert("Le mail n'a pas pu être modifié.");
+          }
+        });
+    },
+
+    updatePhoneNumber(phone_number) {
+      axios
+        .get("user/user.php?function=updatePhoneNumber&id="+this.idUser+"&phone_number="+phone_number)
+        .then((response) => {
+          if(response.data != null)
+          {
+            window.alert("Le numéro de téléphone a été modifié avec succès.");
+          }
+          else
+          {
+            window.alert("Le numéro de téléphone n'a pas pu être modifié.");
+          }
+        });
+    },
+
+    addAddress(number, street, city, country) {
+      if (number != null && street != null && city != null && country != null)
+      {
+        axios
+        .get("user/user.php?function=addAddress&id="+this.idUser+"&number="+number+"&street="+street+"&city="+city+"&country="+country)
+        .then(() => this.fetchAllAddresses())
+        this.number = ""
+        this.street = ""
+        this.city = ""
+        this.country = ""
+      }
+      
+      else
+      {
+        window.alert("Veuillez remplir tous les champs avant de valider.");
+      }
+    },
+
+
     disconnectUser() {
         app.config.globalProperties.idUser = null
         this.$router.push('/login')
@@ -39,6 +103,7 @@ export default {
     (async () => {
       await this.fetchUserInfos();
       await this.fetchAllAddresses();
+      await this.fetchAllOrders();
       this.loaded = true;
     })();
   },
@@ -46,59 +111,62 @@ export default {
 </script>
 
 <template>
-  <div class="userPage-container">
+  <div class="userPage-container container">
     
     <div class="user-container">
-        <button @click="disconnectUser" class="main-button">Deconnexion</button>
         <div class="userInfo" v-for="user in userInfos">
             <h3>{{user.firstname}} {{user.lastname}}</h3>
-            <div>
-                <p>Mail</p>
-                <p>{{user.mail}}</p>
-            </div>
-            <div>
-                <p>Phone number</p>
-                <p>{{user.phone_number}}</p>
+            <div class="form-user-container">
+              <div class="form-user">
+                <label for="mail">E-mail : </label>
+                <input type="text" id="mail" class="input-user" placeholder="mail" v-model="user.mail">
+                <input type="submit" class="button-user" value="Modifier" @click="updateMail(user.mail)">
+              </div>
+              <div class="form-user">
+                <label for="phone_number">N° de téléphone : </label>
+                <input type="text" id="phone_number" class="input-user" placeholder="phone number" v-model="user.phone_number">
+                <input type="submit" class="button-user" value="Modifier" @click="updatePhoneNumber(user.phone_number)">
+              </div>
             </div>
         </div>
         <div class="address">
-            <h3>ADRESSES</h3>
-            <p v-for="address in addresses">{{address.number}} {{address.street}} {{address.city}} {{address.country}}</p>
+            <div class="address-list">
+              <h3>ADRESSES</h3>
+              <div class="list">
+                <li v-for="address in addresses">
+                  <ul>
+                    <p>{{address.number}} {{address.street}} {{address.city}} en {{address.country}}</p>
+                  </ul>
+                </li>
+              </div> 
+            </div>
+            <div class="form-address-container">
+              <div class="form-address">
+                <input type="text" id="number" class="input-address" placeholder="number" v-model="number">
+                <input type="text" id="street" class="input-address" placeholder="street" v-model="street">
+                <input type="text" id="city" class="input-address" placeholder="city" v-model="city">
+                <input type="text" id="country" class="input-address" placeholder="country" v-model="country">
+              </div>
+              <input type="submit" class="button-address" value="Ajouter" @click="addAddress(number, street, city, country)">
+            </div>
         </div>
     </div>
 
     <div class="order-container">
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
-        </div>
-        <div class="order">
-            <p>f</p>
+        <div class="order" v-for="order in orders">
+            <div class="order-img">
+                <img v-bind:src="order.image" class="article-img" alt="">
+            </div>
+
+            <div class="order-infos">
+                <h3>{{order.articleName}} - {{order.sizeName}}</h3>
+                <p>Commandé en {{order.quantity}} exemplaire(s) le {{order.date}}</p>
+                <p>Livré au {{order.number}} {{order.street}} {{order.city}} {{order.country}}</p>
+            </div>
         </div>
     </div>
+
+    <div class="disconnect-container"> <button @click="disconnectUser" class="disconnect-button">Deconnexion</button> </div>
 
   </div>
 </template>
@@ -115,10 +183,10 @@ export default {
         gap: 20px;
     }
 
-    .user-container
+    .userPage-container .user-container
     {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 70%;
@@ -126,31 +194,35 @@ export default {
         gap: 20px;
     }
 
-    .userInfo
+    .userPage-container .userInfo
     {
         display: flex;
         flex-direction: column;
-        background-color: #eee;
+        background-color: #fff;
+        border-bottom: 4px solid black;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        width: 70%;
+        width: 100%;
         min-height: 200px;
+        height: 200px;
         padding: 20px;
         gap: 20px;
     }
 
-    .address
+    .userPage-container .address
     {
         display: flex;
-        flex-direction: column;
-        background-color: #eee;
+        flex-direction: row;
+        background-color: #fff;
+        border-bottom: 4px solid black;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        width: 70%;
-        min-height: 200px;
+        width: 100%;
+        min-height: 300px;
+        height: 300px;
         padding: 20px;
         gap: 20px;
     }
 
-    .order-container
+    .userPage-container .order-container
     {
         display: flex;
         flex-direction: row;
@@ -158,18 +230,132 @@ export default {
         justify-content: center;
         align-items: center;
         padding: 20px;
-        gap: 50px;
+        gap: 20px;
         width: 70%;
-        min-height: 200px;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
-    .order
+    .userPage-container .order
     {
-        background-color: #eee;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #fff;
+        border-left: 4px solid black;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        width: 30%;
-        min-height: 200px;
+        width: 100%;
+        min-height: 150px;
         padding: 20px;
+        gap: 20px;
+    }
+
+    .userPage-container .order-infos
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .userPage-container .form-address-container
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      width: 80%;
+    }
+
+    .userPage-container .address-list
+    {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .userPage-container .list
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .userPage-container .form-address
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .userPage-container .input-address
+    {
+      width: 99%;
+      margin: 5px;
+      height: 30px;
+    }
+
+    .userPage-container .button-address
+    {
+      width: 100%;
+      height: 30px;
+      border: none;
+      background-color: #343434;
+      color: #fff;
+      cursor: pointer;
+    }
+    
+    .userPage-container .form-user-container
+    {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .userPage-container .form-user
+    {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .userPage-container .input-user
+    {
+      height: 30px;
+    }
+
+    .userPage-container .button-user
+    {
+      width: 20%;
+      height: 30px;
+      border: none;
+      background-color: #343434;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .userPage-container .disconnect-button
+    {
+      background-color: red;
+      color: white;
+      border: none;
+      height: 30px;
+      width: 100px;
+      font-weight: bold;
     }
 
 </style>

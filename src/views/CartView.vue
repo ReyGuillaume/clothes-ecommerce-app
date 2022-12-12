@@ -1,5 +1,5 @@
-<script>
-import axios from "axios";
+<script lang="js">
+import axios from 'axios'
 
 export default {
   data() {
@@ -37,8 +37,7 @@ export default {
             id_article: id_article
           },
         })
-        .then(this.articles.splice(index, 1))
-        .then(() => this.updateData())
+        .then(this.articles.splice(index, 1));
     },
 
     async handleQuantityVariation(id_cart, id_article, id_size, quantity){
@@ -56,21 +55,14 @@ export default {
         )
     },
 
-    async fetchCartContentLocal(){
-      // for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
-      //   await axios
-      //   .get(`cart/cart.php`, {
-      //     params: {
-      //       function: "fetchArticlesForCart",
-      //       id_article: cart_item[0],
-      //       id_size: cart_item[1]
-      //     },
-      //   }).then(response => {
-      //     this.articles.push(response.data)
-      //     console.log(response.data)
-      //   })
-      // }
-      // console.log(this.articles)
+    fetchCartContentLocal(){
+    //   for(let cart_item of JSON.parse(localStorage.getItem("cart_items"))){
+    //     let item = []
+    //     item["id_article"] = cart_item[0]
+    //     item["id_size"] = cart_item[1]
+    //     item["quantity"] = cart_item[2]
+    //     this.articles.push(item)
+    //   }
     },
   },
 
@@ -88,9 +80,9 @@ export default {
 </script>
 
 <template>
-  <main class="container">
+  <main>
 
-    <div v-if="articles.length == 0" class="empty-cart">
+    <div v-if="articles.length == 0" class="empty-cart container">
       <h1>Panier</h1>
       <h2>Oh noooon.. Votre panier est vide.</h2>
       <router-link to="/explore">
@@ -98,7 +90,7 @@ export default {
       </router-link>
     </div>
 
-    <div class="cart-container" v-if="articles.length">
+    <div class="cart-container container" v-if="articles.length">
       <div class="left-container">
         <h1>Panier</h1>
 
@@ -121,7 +113,7 @@ export default {
           </div>
 
           <div class="article-price">
-            {{ (article.price * article.quantity).toFixed(2) }} €
+            {{ article.price * article.quantity }} €
           </div>
         </div>
       </div>
@@ -133,7 +125,7 @@ export default {
             <tbody>
               <tr v-for="article in articles">
                 <td>{{ article.article_name }} <span class="bold">x{{article.quantity}}</span></td>
-                <td>{{ (article.price * article.quantity).toFixed(2) }} €</td>
+                <td>{{ article.price * article.quantity }} €</td>
               </tr>
             </tbody>
             <tfoot>
@@ -143,7 +135,7 @@ export default {
               </tr>
               <tr>
                 <td>Total</td>
-                <td>{{ total_price.toFixed(2) }} €</td>
+                <td>{{ total_price }} €</td>
               </tr>
             </tfoot>
           </table>
@@ -165,6 +157,7 @@ export default {
 <style scoped>
 main{
   width: 90%;
+  min-height: 80vh;
   margin: auto;
 }
 
@@ -177,7 +170,11 @@ h1, h2{
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   text-align: center;
+  transform: translate(-50%, -50%);
 }
 
 .cart-container{
@@ -236,6 +233,7 @@ h1, h2{
   color: white;
   border: none;
   border-radius: 10px;
+  cursor: pointer;
   transition: all 0.3s;
 }
 
