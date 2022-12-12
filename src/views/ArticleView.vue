@@ -52,34 +52,35 @@ export default{
     },
 
     handleAddToCart() {
-      if(this.idUser){
-        if (this.quantity && this.selectedSize && this.idCart && this.articleId) {
-          axios
-          .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
-          .then(() => alert("Article ajouté au panier"))
-        } else {
-          alert("Choisir une taille et une quantité")
-        }
-      }
-      else{
-        //Si l'user n'est pas connecté on stocke le produit dans le local storage du browser.
-        let cart_items = [];
-        if(!(localStorage.getItem("cart_items") === null)){
-          cart_items = JSON.parse(localStorage.getItem("cart_items"));
+      if (this.quantity && this.selectedSize && this.articleId) {
+        if(this.idUser){
+            axios
+            .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
+            .then(() => alert("Article ajouté au panier"))
 
-          for(let index in cart_items){
-            if(cart_items[index][0] == this.articleId && cart_items[index][1] == this.selectedSize){
-              //Si l'article est déjà dans le panier on incrémente simplement la quantité
-              
-              cart_items[index][2] += this.quantity;
-              localStorage.setItem("cart_items", JSON.stringify(cart_items))
-              return;
-            }
-          }
         }
-        cart_items.push([this.articleId, this.selectedSize, this.quantity])
-        console.log(cart_items)
-        localStorage.setItem("cart_items", JSON.stringify(cart_items))
+        else{
+            //Si l'user n'est pas connecté on stocke le produit dans le local storage du browser.
+            let cart_items = [];
+            if(!(localStorage.getItem("cart_items") === null)){
+              cart_items = JSON.parse(localStorage.getItem("cart_items"));
+
+              for(let index in cart_items){
+                if(cart_items[index][0] == this.articleId && cart_items[index][1] == this.selectedSize){
+                  //Si l'article est déjà dans le panier on incrémente simplement la quantité
+                  
+                  cart_items[index][2] += this.quantity;
+                  localStorage.setItem("cart_items", JSON.stringify(cart_items))
+                  return;
+                }
+              }
+            }
+          cart_items.push([this.articleId, this.selectedSize, this.quantity])
+          console.log(cart_items)
+          localStorage.setItem("cart_items", JSON.stringify(cart_items))
+        }
+      } else {
+          alert("Choisir une taille et une quantité")
       }
     }
   },
