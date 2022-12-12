@@ -1,8 +1,8 @@
 <?php
 
-$dsn = "mysql:host=http://10.103.1.200/phpmyadmin/;dbname=Undefined;charset=UTF8";
-$user = 'info302';
-$password = 'info302!';
+$dsn = "mysql:host=localhost;dbname=projetwebl2;charset=UTF8";
+$user = 'user';
+$password = 'user';
 
 $db = new PDO($dsn, $user, $password);
 
