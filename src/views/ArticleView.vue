@@ -14,6 +14,8 @@ export default{
       idCart: null,
       selectedSize: null,
       quantity: null,
+      alert1: false,
+      alert2: false,
     };
   },
   methods: {
@@ -54,9 +56,13 @@ export default{
       if (this.quantity && this.selectedSize && this.idCart && this.articleId) {
         axios
         .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
-        .then(() => alert("Article ajouté au panier"))
+        .then(() => {
+          this.alert2 = true
+          setTimeout(() =>  this.alert2 = false, 5000);
+        })
       } else {
-        alert("Choisir une taille et une quantité")
+        this.alert1 = true
+        setTimeout(() =>  this.alert1 = false, 5000);
       }
     }
   },
@@ -73,6 +79,8 @@ export default{
 </script>
 
 <template>
+  <div class="alert-popup" v-if="alert2">Article ajouté au panier</div>
+  <div class="alert-popup" v-if="alert1">Choisir une taille et une quantité</div>
   <div class="article-container container">
     <h2>
       <RouterLink class="back-button" to="/explore">

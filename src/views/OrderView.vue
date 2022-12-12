@@ -49,7 +49,6 @@ export default {
           if(![this.street, this.city, this.country].includes("")) {
             axios.get(`order/order.php?function=create&id_user=${this.idUser}&id_cart=${this.idCart}&number=${this.number}&street=${this.street}&city=${this.city}&country=${this.country}&id_status=1&date=${date}`)
             .then(() => axios.get(`sql/Cart.crud.php?function=create&id_user=${this.idUser}`))
-            .then(() => alert("Redirection vers un système de paiement"))
           }
         }
     },

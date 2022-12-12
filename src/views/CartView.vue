@@ -113,7 +113,7 @@ export default {
           </div>
 
           <div class="article-price">
-            {{ article.price * article.quantity }} €
+            {{ (article.price * article.quantity).toFixed(2) }} €
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@ export default {
             <tbody>
               <tr v-for="article in articles">
                 <td>{{ article.article_name }} <span class="bold">x{{article.quantity}}</span></td>
-                <td>{{ article.price * article.quantity }} €</td>
+                <td>{{ (article.price * article.quantity).toFixed(2) }} €</td>
               </tr>
             </tbody>
             <tfoot>
@@ -135,7 +135,7 @@ export default {
               </tr>
               <tr>
                 <td>Total</td>
-                <td>{{ total_price }} €</td>
+                <td>{{ total_price.toFixed(2) }} €</td>
               </tr>
             </tfoot>
           </table>
