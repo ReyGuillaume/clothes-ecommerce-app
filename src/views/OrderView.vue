@@ -109,7 +109,7 @@ export default {
                     <h4 class="brand">{{ article.brand_name }}</h4>
                     <h4 class="size"> Taille : {{ article.size_name }}</h4>
                     <h4 class="quantity">Quantité : {{ article.quantity }}</h4>
-                    <h3 class="price bold">{{ article.price * article.quantity }} €</h3>
+                    <h3 class="price bold">{{ (article.price * article.quantity).toFixed(2) }} €</h3>
                 </div>
             </div>
             <div class="order-details">
@@ -121,7 +121,7 @@ export default {
                     </tr>
                     <tr>
                         <td class="bold">Total</td>
-                        <td class="bold">{{ total_price }} €</td>
+                        <td class="bold">{{ total_price.toFixed(2) }} €</td>
                     </tr>
                 </table>
             </div>
