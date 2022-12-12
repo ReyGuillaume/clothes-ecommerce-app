@@ -11,6 +11,7 @@ export default {
     newCatName: "",
     brands: [],
     newBrandName: "",
+    alert1: false,
   }
   },
   methods: {
@@ -31,7 +32,8 @@ export default {
     },
     async createCategory() {
       if ([this.newCatName].includes("")) {
-        alert("L'un des champs est vide")
+        this.alert2 = true
+        setTimeout(() =>  this.alert2 = false, 5000);
       } else {
         await axios.get(`sql/Category.crud.php?function=create&name=${this.newCatName}`)
         this.newCatName = ""
@@ -51,7 +53,8 @@ export default {
     },
     async createBrand() {
       if ([this.newBrandName].includes("")) {
-        alert("L'un des champs est vide")
+        this.alert1 = true
+        setTimeout(() =>  this.alert1 = false, 5000);
       } else {
         await axios.get(`sql/Brand.crud.php?function=create&name=${this.newBrandName}`)
         this.newBrandName = ""
@@ -72,6 +75,8 @@ export default {
 </script>
 
 <template>
+  <div class="alert-popup" v-if="alert1">Choisir une taille et une quantité</div>
+  <div class="alert-popup" v-if="alert2">L'un des champs est vide</div>
   <main class="admin-container container">
     <button @click="disconnectAdmin" class="main-button">Deconnexion</button>
 

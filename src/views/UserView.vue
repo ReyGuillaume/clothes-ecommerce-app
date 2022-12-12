@@ -14,6 +14,11 @@ export default {
         city: "",
         country: "",
         loaded: false,
+        alert1: false,
+        alert2: false,
+        alert3: false,
+        alert4: false,
+        alert5: false,
     };
   },
   methods: {
@@ -48,11 +53,13 @@ export default {
         .then((response) => {
           if(response.data != null)
           {
-            window.alert("Le mail a été modifié avec succès.");
+            this.alert1 = true
+            setTimeout(() =>  this.alert1 = false, 5000);
           }
           else
           {
-            window.alert("Le mail n'a pas pu être modifié.");
+            this.alert2 = true
+            setTimeout(() =>  this.alert2 = false, 5000);
           }
         });
     },
@@ -63,11 +70,13 @@ export default {
         .then((response) => {
           if(response.data != null)
           {
-            window.alert("Le numéro de téléphone a été modifié avec succès.");
+            this.alert3 = true
+            setTimeout(() =>  this.alert3 = false, 5000);
           }
           else
           {
-            window.alert("Le numéro de téléphone n'a pas pu être modifié.");
+            this.alert4 = true
+            setTimeout(() =>  this.alert4 = false, 5000);
           }
         });
     },
@@ -86,7 +95,8 @@ export default {
       
       else
       {
-        window.alert("Veuillez remplir tous les champs avant de valider.");
+        this.alert5 = true
+        setTimeout(() =>  this.alert5 = false, 5000);
       }
     },
 
@@ -111,6 +121,11 @@ export default {
 </script>
 
 <template>
+  <div class="alert-popup" v-if="alert1">Le mail a été modifié avec succès</div>
+  <div class="alert-popup" v-if="alert2">Le mail n'a pas pu être modifié</div>
+  <div class="alert-popup" v-if="alert3">Le numéro de téléphone a été modifié avec succès</div>
+  <div class="alert-popup" v-if="alert4">Le numéro de téléphone n'a pas pu être modifié</div>
+  <div class="alert-popup" v-if="alert5">Veuillez remplir tous les champs avant de valider</div>
   <div class="userPage-container container">
     
     <div class="user-container">
