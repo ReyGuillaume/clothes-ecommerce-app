@@ -7,6 +7,7 @@ import CartView from '@/views/CartView.vue';
 import OrderView from '@/views/OrderView.vue';
 import UserView from '@/views/UserView.vue';
 import AdminView from '@/views/AdminView.vue';
+import RedirectView from '@/views/404View.vue';
 
 const routes = [
     {
@@ -42,6 +43,14 @@ const routes = [
         name : 'Admin',
         path : '/admin',
         component : AdminView,
+    }, {
+        name : 'Redirect',
+        path : '/redirect',
+        component : RedirectView,
+    }, { 
+        name : '404',
+        path: '*', 
+        component : RedirectView,
     }
 ];
 
