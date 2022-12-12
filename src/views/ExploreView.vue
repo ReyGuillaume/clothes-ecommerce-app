@@ -225,12 +225,14 @@ export default {
   margin: 30px 0px;
   gap: 20px;
 }
-.reset-filters{
-  background-color: red;
-  color: white;
+.reset-filters, .filters-container select {
   border: 1px solid black;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+.reset-filters {
+  background-color: red;
+  color: white;
 }
 </style>

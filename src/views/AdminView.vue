@@ -83,6 +83,10 @@ export default {
     </select>
 
     <div class="content">
+      <div class="admin-null" v-if="choice == null">
+        <h2>Selectionner une liste délément à modifier</h2>
+      </div>
+
       <div class="admin-category" v-if="choice === 'category'">
         <table>
           <tr>
@@ -128,6 +132,9 @@ export default {
 </template>
 
 <style>
+.admin-null {
+  color: #bebebe;
+}
 .admin-container {
   display: flex;
   align-items: center;
