@@ -47,11 +47,7 @@ const routes = [
         name : 'Redirect',
         path : '/redirect',
         component : RedirectView,
-    }, { 
-        name : '404',
-        path: '*', 
-        component : RedirectView,
-    }
+    },
 ];
 
 const router = createRouter({

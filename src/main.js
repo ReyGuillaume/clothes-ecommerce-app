@@ -18,7 +18,8 @@ library.add(faTrash)
 library.add(faPlus)
 library.add(faChevronLeft)
 
-axios.defaults.baseURL = "http://localhost/projetWebL2-Undefined/src/services";
+// axios.defaults.baseURL = "http://localhost/projetWebL2-Undefined/src/services";
+axios.defaults.baseURL = "./src/services";
 
 const app = createApp(App)
 app.use(router)
