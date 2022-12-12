@@ -127,7 +127,10 @@ export default {
       for(let eachArticle of cart_items){
         console.log("Added", eachArticle)
         await axios.get(`article/article.php?function=createCartItem&id_cart=${id_cart}&id_article=${eachArticle[0]}&id_size=${eachArticle[1]}&quantity=${eachArticle[2]}`)
-            .then(() => localStorage.removeItem("cart_items"))
+            .then(() => {
+              localStorage.removeItem("cart_items")
+              this.$forceUpdate();
+            })
       }
     }
 
