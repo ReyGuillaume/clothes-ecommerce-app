@@ -93,7 +93,11 @@ export default {
         return;
       }
 
-      axios.get("login/signup.php", {
+      this.fireSignUpRequest();
+    },
+
+    async fireSignUpRequest(){
+      await axios.get("login/signup.php", {
           params: {
             firstname: this.firstname,
             lastname: this.lastname,
@@ -108,10 +112,25 @@ export default {
             this.$forceUpdate();
             return;
           }
-          alert("Congratulations, you can now log in.")
-          this.model = "sign-in"
+          if(response.data != null){
+            app.config.globalProperties.idUser = response.data.user
+            console.log(response.data)
+            if (!(localStorage.getItem("cart_items") === null)){
+              this.dumpCartLocalInDB(response.data.cart);
+            }
+          }
         });
     },
+    
+    async dumpCartLocalInDB(id_cart){
+      let cart_items = JSON.parse(localStorage.getItem("cart_items"));
+      for(let eachArticle of cart_items){
+        console.log("Added", eachArticle)
+        await axios.get(`article/article.php?function=createCartItem&id_cart=${id_cart}&id_article=${eachArticle[0]}&id_size=${eachArticle[1]}&quantity=${eachArticle[2]}`)
+            .then(() => localStorage.removeItem("cart_items"))
+      }
+    }
+
   },
   mounted() {},
 };
