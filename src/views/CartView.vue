@@ -16,18 +16,17 @@ export default {
         .get(`cart/cart.php?function=retrieveCartContent&id_user=${id_user}`)
         .then((res) => {
           this.articles = res.data
-          this.verifyQuantity();
         });
+
+      this.verifyQuantity();
     },
 
     updateData() {
-      this.total_price = 0
-      this.total_quantity = 0
-      console.log("rerr")
+      this.total_price = 0;
+      this.total_quantity = 0;
       for (let article of this.articles) {
           this.total_price += article.price * article.quantity;
           this.total_quantity += article.quantity;
-          
       }
     },
 
@@ -46,9 +45,9 @@ export default {
       }
       else{
         let cart_items = JSON.parse(localStorage.getItem("cart_items"));
-        cart_items.splice(index, 1)
-        this.articles.splice(index, 1)
-        localStorage.setItem("cart_items", JSON.stringify(cart_items))
+        cart_items.splice(index, 1);
+        this.articles.splice(index, 1);
+        localStorage.setItem("cart_items", JSON.stringify(cart_items));
       }
   
       this.updateData();
@@ -64,9 +63,8 @@ export default {
               id_size: id_size,
               quantity: quantity
             },
-          }).then(
-            this.updateData()
-          )
+          })
+        this.updateData();
       }
       else{
         let cart_items = JSON.parse(localStorage.getItem("cart_items"));
@@ -104,7 +102,7 @@ export default {
           }
         })
       }
-      this.updateData()
+      this.verifyQuantity()
     },
 
     async verifyQuantity(){
@@ -125,11 +123,15 @@ export default {
             }) 
           }
           else{
-            
+            eachArticle.quantity = eachArticle.max_quantity
+            let cart_items = JSON.parse(localStorage.getItem("cart_items"));
+            for(let index in cart_items){
+              if(cart_items[index][0] == eachArticle.id_article && cart_items[index][1]== eachArticle.id_size){
+                cart_items[index][2] = eachArticle.quantity
+              }
+            }
+            localStorage.setItem("cart_items", JSON.stringify(cart_items))
           }
-        }
-        else{
-          console.log("Bonne quantité" + eachArticle.quantity + " <= " + eachArticle.max_quantity)
         }
       }
       this.updateData();
