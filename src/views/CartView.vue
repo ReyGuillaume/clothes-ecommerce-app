@@ -113,7 +113,8 @@ export default {
           </div>
 
           <div class="article-price">
-            {{ article.price * article.quantity }} €
+            <p>Prix unitaire : {{article.price}} €</p>
+            <p>Total : {{ article.price * article.quantity }} €</p>
           </div>
         </div>
       </div>
@@ -207,7 +208,8 @@ h1, h2{
 .article-price{
   margin-left: auto;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.0rem;
+  text-align: end;
 }
 
 .article-data{
@@ -253,6 +255,10 @@ table{
 
 tfoot tr td{
   font-weight: bold;
+}
+
+td ~td {
+  text-align: end;
 }
 
 .bold{
