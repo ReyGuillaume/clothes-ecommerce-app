@@ -1,5 +1,6 @@
 <script lang="js">
 
+import emailjs from 'emailjs-com';
 import axios from "axios";
 
 export default {
@@ -7,7 +8,7 @@ export default {
         return {
             articles: [],
             addresses: [],
-            total: 0,
+            userInfos: [],
             idCart: null,
             address_number: "",
             address_street: "",
@@ -24,6 +25,10 @@ export default {
             return axios
                 .get(`order/order.php?function=retrieveCartContent&id_user=${id_user}`)
                 .then((res) => (this.articles = res.data));
+        },
+
+        fetchUserInfos() {
+            return axios.get("user/user.php?function=retrieveUserInfos&id="+this.idUser).then(res => [this.userInfos] = res.data)
         },
 
         fetchAddresses(id_user) {
@@ -46,11 +51,35 @@ export default {
           const year = d.getFullYear()
           const date = `${year}-${month}-${day}`
 
-          if(![this.street, this.city, this.country].includes("")) {
+          if([this.street, this.city, this.country].includes("")) {
+            alert("l'un des champs est vide")
+          } else {
             axios.get(`order/order.php?function=create&id_user=${this.idUser}&id_cart=${this.idCart}&number=${this.number}&street=${this.street}&city=${this.city}&country=${this.country}&id_status=1&date=${date}`)
             .then(() => axios.get(`sql/Cart.crud.php?function=create&id_user=${this.idUser}`))
+            .then(() => this.sendOrderMail())
+            .then(() => this.fetchCartContentOfUser(this.idUser))
           }
-        }
+        },
+
+        sendOrderMail() {
+            let message = ""
+            this.articles.forEach(elt => {
+                message +=  `${elt.quantity}x ${elt.article_name} (${elt.price}€) : ${(elt.price * elt.quantity).toFixed(2)}\n`
+            })
+            message += `Total : ${this.total_price.toFixed(2)}€`
+            try {
+                emailjs.send("service_ilge38j","template_fsdt2cx",{
+                    to_name: this.userInfos.firstname,
+                    from_name: "Sapes.com",
+                    message: message,
+                    email: this.userInfos.mail,
+                    },
+                    "x0Qag2m_m9Yx7QCGW"
+                )
+            } catch(error) {
+                console.log({error})
+            }
+        },
     },
 
     mounted() {
@@ -58,6 +87,7 @@ export default {
             (async () => {
                 await this.fetchCartContentOfUser(this.idUser);
                 await this.fetchAddresses(this.idUser);
+                await this.fetchUserInfos(this.idUser);
                 this.initializeData();
             })();
         }
@@ -66,7 +96,7 @@ export default {
 </script>
 
 <template>
-    <main class="order-container">
+    <main class="order-container container">
         <div class="main-container">
             <div class="data-container">
                 <h1 class="container-title">Adresse</h1>
@@ -97,6 +127,9 @@ export default {
                     </div>
                 </form>
             </div>
+            <button class="main-button" @click="createOrder">
+                Valider et payer
+            </button>
         </div>
 
         <div class="cart-container">
