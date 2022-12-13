@@ -108,6 +108,11 @@ img {
   background-color: #ffb870;
   border-radius: .5rem;
   border: #de9246 5px solid;
+  z-index: 999;
+}
+.alert-popup.ok {
+  background-color: #70fffd;
+  border: #46ded9 5px solid;
 }
 
 @keyframes popup {

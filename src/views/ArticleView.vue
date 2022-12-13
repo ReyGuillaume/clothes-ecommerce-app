@@ -79,7 +79,7 @@ export default{
 </script>
 
 <template>
-  <div class="alert-popup" v-if="alert2">Article ajouté au panier</div>
+  <div class="alert-popup ok" v-if="alert2">Article ajouté au panier</div>
   <div class="alert-popup" v-if="alert1">Choisir une taille et une quantité</div>
   <div class="article-container container">
     <h2>

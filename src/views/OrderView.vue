@@ -17,13 +17,15 @@ export default {
             total_price: 0,
             total_quantity: 0,
             selectedAddress: 0,
+            alert1: false,
+            alert2: false,
         };
     },
 
     methods: {
         fetchCartContentOfUser(id_user) {
             return axios
-                .get(`order/order.php?function=retrieveCartContent&id_user=${id_user}`)
+                .get(`cart/cart.php?function=retrieveCartContent&id_user=${id_user}`)
                 .then((res) => (this.articles = res.data));
         },
 
@@ -37,6 +39,12 @@ export default {
                 .then((res) => (this.addresses = res.data));
         },
 
+        fetchIDCart (id_user) {
+            return axios
+                .get(`article/article.php?function=retrieveCartID&id_user=${id_user}`)
+                .then(res => this.idCart = res.data[res.data.length - 1].id);
+        },
+
         initializeData() {
             for (let article of this.articles) {
                 this.total_price += article.price * article.quantity;
@@ -45,26 +53,36 @@ export default {
         },
 
         createOrder() {
-          const d = new Date()
-          const day = d.getDate()
-          const month = d.getMonth()
-          const year = d.getFullYear()
-          const date = `${year}-${month}-${day}`
-
-          if([this.street, this.city, this.country].includes("")) {
-            alert("l'un des champs est vide")
+          if([this.address_number, this.address_street, this.address_city, this.address_country].includes("")) {
+            this.alert2 = true
+            setTimeout(() =>  this.alert2 = false, 5000)
           } else {
+            const d = new Date()
+            const day = d.getDate()
+            const month = d.getMonth()
+            const year = d.getFullYear()
+            const date = `${year}-${month}-${day}`
             axios.get(`order/order.php?function=create&id_user=${this.idUser}&id_cart=${this.idCart}&number=${this.number}&street=${this.street}&city=${this.city}&country=${this.country}&id_status=1&date=${date}`)
-            .then(() => axios.get(`sql/Cart.crud.php?function=create&id_user=${this.idUser}`))
-            .then(() => this.sendOrderMail())
-            .then(() => this.fetchCartContentOfUser(this.idUser))
+                .then(() => axios.get(`sql/Cart.crud.php?function=create&id_user=${this.idUser}`))
+                .then(() => this.sendOrderMail())
+                .then(() => this.fetchCartContentOfUser(this.idUser))
+                .then(() => {
+                    this.alert1 = true
+                    setTimeout(() =>  this.alert1 = false, 5000);
+                })
+                .then(() => {
+                    this.address_number = ""
+                    this.address_street = ""
+                    this.address_city = ""
+                    this.address_country = ""
+                })
           }
         },
 
         sendOrderMail() {
             let message = ""
             this.articles.forEach(elt => {
-                message +=  `${elt.quantity}x ${elt.article_name} (${elt.price}€) : ${(elt.price * elt.quantity).toFixed(2)}\n`
+                message +=  `${elt.quantity}x ${elt.article_name} (${elt.price}€) : ${(elt.price * elt.quantity).toFixed(2)}€\n`
             })
             message += `Total : ${this.total_price.toFixed(2)}€`
             try {
@@ -88,6 +106,7 @@ export default {
                 await this.fetchCartContentOfUser(this.idUser);
                 await this.fetchAddresses(this.idUser);
                 await this.fetchUserInfos(this.idUser);
+                await this.fetchIDCart(this.idUser);
                 this.initializeData();
             })();
         }
@@ -96,6 +115,8 @@ export default {
 </script>
 
 <template>
+  <div class="alert-popup ok" v-if="alert1">Votre commande a bien été prise en compte<br>Un mail de confirmation vous a été envoyé</div>
+  <div class="alert-popup" v-if="alert2">L'un des champs est vide</div>
     <main class="order-container container">
         <div class="main-container">
             <div class="data-container">

@@ -148,11 +148,11 @@ export default {
             <div class="address-list">
               <h3>ADRESSES</h3>
               <div class="list">
-                <li v-for="address in addresses">
-                  <ul>
+                <ul>
+                  <li v-for="address in addresses">
                     <p>{{address.number}} {{address.street}} {{address.city}} en {{address.country}}</p>
-                  </ul>
-                </li>
+                  </li>
+                </ul>
               </div> 
             </div>
             <div class="form-address-container">

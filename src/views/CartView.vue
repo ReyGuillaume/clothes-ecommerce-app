@@ -5,7 +5,6 @@ export default {
   data() {
     return {
       articles: [],
-      idCart: null,
       total_price : 0,
       total_quantity : 0,
     };
