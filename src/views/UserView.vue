@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     fetchUserInfos() {
-      axios
+      return axios
         .get("user/user.php?function=retrieveUserInfos&id="+this.idUser)
         .then((response) => {
           this.userInfos = response.data;
@@ -31,7 +31,7 @@ export default {
     },
 
     fetchAllAddresses() {
-      axios
+      return axios
         .get("user/user.php?function=retrieveAllAddresses&id="+this.idUser)
         .then((response) => {
           this.addresses = response.data;
@@ -39,7 +39,7 @@ export default {
     },
 
     fetchAllOrders() {
-      axios
+      return axios
         .get("user/user.php?function=retrieveAllOrders&id="+this.idUser)
         .then((response) => {
           this.orders = response.data;
@@ -47,7 +47,6 @@ export default {
     },
 
     updateMail(mail) {
-      this.mail = 
       axios
         .get("user/user.php?function=updateMail&id="+this.idUser+"&mail="+mail)
         .then((response) => {
@@ -115,15 +114,16 @@ export default {
       await this.fetchAllAddresses();
       await this.fetchAllOrders();
       this.loaded = true;
+      console.log(this.orders)
     })();
   },
 }
 </script>
 
 <template>
-  <div class="alert-popup" v-if="alert1">Le mail a été modifié avec succès</div>
+  <div class="alert-popup ok" v-if="alert1">Le mail a été modifié avec succès</div>
   <div class="alert-popup" v-if="alert2">Le mail n'a pas pu être modifié</div>
-  <div class="alert-popup" v-if="alert3">Le numéro de téléphone a été modifié avec succès</div>
+  <div class="alert-popup ok" v-if="alert3">Le numéro de téléphone a été modifié avec succès</div>
   <div class="alert-popup" v-if="alert4">Le numéro de téléphone n'a pas pu être modifié</div>
   <div class="alert-popup" v-if="alert5">Veuillez remplir tous les champs avant de valider</div>
   <div class="userPage-container container">
@@ -176,7 +176,7 @@ export default {
             <div class="order-infos">
                 <h3>{{order.articleName}} - {{order.sizeName}}</h3>
                 <p>Commandé en {{order.quantity}} exemplaire(s) le {{order.date}}</p>
-                <p>Livré au {{order.number}} {{order.street}} {{order.city}} {{order.country}}</p>
+                <p>Status : {{order.status}}</p>
             </div>
         </div>
     </div>
