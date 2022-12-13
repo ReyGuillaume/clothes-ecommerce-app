@@ -14,11 +14,16 @@ export default {
         city: "",
         country: "",
         loaded: false,
+        alert1: false,
+        alert2: false,
+        alert3: false,
+        alert4: false,
+        alert5: false,
     };
   },
   methods: {
     fetchUserInfos() {
-      axios
+      return axios
         .get("user/user.php?function=retrieveUserInfos&id="+this.idUser)
         .then((response) => {
           this.userInfos = response.data;
@@ -26,7 +31,7 @@ export default {
     },
 
     fetchAllAddresses() {
-      axios
+      return axios
         .get("user/user.php?function=retrieveAllAddresses&id="+this.idUser)
         .then((response) => {
           this.addresses = response.data;
@@ -34,7 +39,7 @@ export default {
     },
 
     fetchAllOrders() {
-      axios
+      return axios
         .get("user/user.php?function=retrieveAllOrders&id="+this.idUser)
         .then((response) => {
           this.orders = response.data;
@@ -42,17 +47,18 @@ export default {
     },
 
     updateMail(mail) {
-      this.mail = 
       axios
         .get("user/user.php?function=updateMail&id="+this.idUser+"&mail="+mail)
         .then((response) => {
           if(response.data != null)
           {
-            window.alert("Le mail a été modifié avec succès.");
+            this.alert1 = true
+            setTimeout(() =>  this.alert1 = false, 5000);
           }
           else
           {
-            window.alert("Le mail n'a pas pu être modifié.");
+            this.alert2 = true
+            setTimeout(() =>  this.alert2 = false, 5000);
           }
         });
     },
@@ -63,11 +69,13 @@ export default {
         .then((response) => {
           if(response.data != null)
           {
-            window.alert("Le numéro de téléphone a été modifié avec succès.");
+            this.alert3 = true
+            setTimeout(() =>  this.alert3 = false, 5000);
           }
           else
           {
-            window.alert("Le numéro de téléphone n'a pas pu être modifié.");
+            this.alert4 = true
+            setTimeout(() =>  this.alert4 = false, 5000);
           }
         });
     },
@@ -86,7 +94,8 @@ export default {
       
       else
       {
-        window.alert("Veuillez remplir tous les champs avant de valider.");
+        this.alert5 = true
+        setTimeout(() =>  this.alert5 = false, 5000);
       }
     },
 
@@ -105,12 +114,18 @@ export default {
       await this.fetchAllAddresses();
       await this.fetchAllOrders();
       this.loaded = true;
+      console.log(this.orders)
     })();
   },
 }
 </script>
 
 <template>
+  <div class="alert-popup ok" v-if="alert1">Le mail a été modifié avec succès</div>
+  <div class="alert-popup" v-if="alert2">Le mail n'a pas pu être modifié</div>
+  <div class="alert-popup ok" v-if="alert3">Le numéro de téléphone a été modifié avec succès</div>
+  <div class="alert-popup" v-if="alert4">Le numéro de téléphone n'a pas pu être modifié</div>
+  <div class="alert-popup" v-if="alert5">Veuillez remplir tous les champs avant de valider</div>
   <div class="userPage-container container">
     
     <div class="user-container">
@@ -133,11 +148,11 @@ export default {
             <div class="address-list">
               <h3>ADRESSES</h3>
               <div class="list">
-                <li v-for="address in addresses">
-                  <ul>
+                <ul>
+                  <li v-for="address in addresses">
                     <p>{{address.number}} {{address.street}} {{address.city}} en {{address.country}}</p>
-                  </ul>
-                </li>
+                  </li>
+                </ul>
               </div> 
             </div>
             <div class="form-address-container">
@@ -161,7 +176,7 @@ export default {
             <div class="order-infos">
                 <h3>{{order.articleName}} - {{order.sizeName}}</h3>
                 <p>Commandé en {{order.quantity}} exemplaire(s) le {{order.date}}</p>
-                <p>Livré au {{order.number}} {{order.street}} {{order.city}} {{order.country}}</p>
+                <p>Status : {{order.status}}</p>
             </div>
         </div>
     </div>

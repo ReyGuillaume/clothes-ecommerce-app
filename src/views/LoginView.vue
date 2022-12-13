@@ -13,19 +13,31 @@ export default {
       firstname : "",
       lastname : "",
       phone_number : "",
+      alert1: false,
+      alert2: false,
+      alert3: false,
+      alert4: false,
+      alert5: false,
+      alert6: false,
+      alert7: false,
+      alert8: false,
+      alert9: false,
     };
   },
   methods: {
     login: function () {
       if (this.mail == "") {
         if (this.password == "") {
-          alert("Veuillez renseigner l'adresse mail et le mot de passe");
+        this.alert1 = true
+        setTimeout(() =>  this.alert1 = false, 5000);
         } else {
-          alert("Veuillez renseigner l'adresse mail");
+        this.alert2 = true
+        setTimeout(() =>  this.alert2 = false, 5000);
         }
       } else {
         if (this.password == "") {
-          alert("Veuillez renseigner le mot de passe");
+          this.alert3 = true
+          setTimeout(() =>  this.alert3 = false, 5000);
         } else {
           axios.get("login/Login.php?mail="+this.mail+"&password="+this.password).then(
             response => 
@@ -38,17 +50,18 @@ export default {
     },
 
     showAlert(message, id) {
-      let res = null
       switch (message) {
         case "userOK":
           app.config.globalProperties.idUser = id
           this.$router.push('/user')
           break;
         case "userNOKaddress":
-          res = "Adresse incorrecte"
+          this.alert7 = true
+          setTimeout(() =>  this.alert7 = false, 5000);
           break;
         case "userNOKpwd":
-          res = "Mot de passe incorrect"
+          this.alert8 = true
+          setTimeout(() =>  this.alert8 = false, 5000);
           break;
         case "adminOK":
           app.config.globalProperties.idAdmin = id
@@ -57,8 +70,6 @@ export default {
         default:
           break;
       }
-      if(res)
-        alert(res)
 
     },
     validateEmail(email) {
@@ -74,19 +85,22 @@ export default {
 
     handleSignUp() {
       if (!this.validateEmail(this.mail)) {
-        alert("Invalid e-mail format.");
+        this.alert4 = true
+        setTimeout(() =>  this.alert4 = false, 5000);
         return;
       }
 
       if (!this.validatePhoneNumber(this.phone_number)) {
-        alert("Invalid phone number.");
+        this.alert5 = true
+        setTimeout(() =>  this.alert5 = false, 5000);
         return;
       }
 
       if (this.password != this.password_confirmation) {
         this.password = "";
         this.password_confirmation = "";
-        alert("Passwords don't match.");
+        this.alert6 = true
+        setTimeout(() =>  this.alert6 = false, 5000);
         return;
       }
 
@@ -102,7 +116,8 @@ export default {
         })
         .then((response) => {
           if(response.data == "EAU"){
-            alert("E-mail already used.");
+            this.alert9 = true
+            setTimeout(() =>  this.alert9 = false, 5000);
             this.$forceUpdate();
             return;
           }
@@ -123,6 +138,16 @@ export default {
 </script>
 
 <template>
+  <div class="alert-popup" v-if="alert1">Veuillez renseigner l'adresse mail et le mot de passe</div>
+  <div class="alert-popup" v-if="alert2">Veuillez renseigner l'adresse mail</div>
+  <div class="alert-popup" v-if="alert3">Veuillez renseigner le mot de passe</div>
+  <div class="alert-popup" v-if="alert4">Invalid e-mail format</div>
+  <div class="alert-popup" v-if="alert5">Invalid phone number</div>
+  <div class="alert-popup" v-if="alert6">Passwords don't match</div>
+  <div class="alert-popup" v-if="alert7">Adresse incorrecte</div>
+  <div class="alert-popup" v-if="alert8">Mot de passe incorrecte</div>
+  <div class="alert-popup" v-if="alert9">Adresse e-mail déjà utilisée</div>
+
   <div class="login-container container" v-if="(!this.idUser && !this.idAdmin)">
     <div class="sign-in login-form" v-if="(model == 'sign-in')">
       <h1 class="login-title">Sign in</h1>

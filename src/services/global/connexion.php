@@ -1,6 +1,6 @@
 <?php
 
-$dsn = "mysql:host=http://10.103.1.200/phpmyadmin/;dbname=projetwebl2;charset=UTF8";
+$dsn = "mysql:host=http://10.103.1.200/phpmyadmin/;dbname=Undefined;charset=UTF8";
 $user = 'info302';
 $password = 'info302!';
 
