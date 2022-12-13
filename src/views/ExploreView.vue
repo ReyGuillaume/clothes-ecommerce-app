@@ -164,7 +164,7 @@ export default {
     </div>
 </template>
 
-<style>
+<style scoped>
 .articles-container{
   display: grid;
 	grid-template-columns: repeat(auto-fill,minmax(min(20rem,80vw), 1fr));

@@ -29,6 +29,8 @@ createAccount($db, $firstname, $lastname, $mail, $phone_number, $password);
 
 function createAccount($db, $firstname, $lastname, $mail, $phone_number, $password) {
     #Création du compte
+    $last_insert_id = array();
+    
     $stm = $db->prepare("INSERT INTO `user`(`firstname`, `lastname`, `mail`, `phone_number`, `password`) VALUES (:firstname, :lastname, :mail, :phone_number, :password)");
 
     $stm->bindValue(":firstname", $firstname);
@@ -39,16 +41,19 @@ function createAccount($db, $firstname, $lastname, $mail, $phone_number, $passwo
     $stm->execute();
     
     #Création du cart associé au compte.
-    $last_insert_id = $db->lastInsertId();
-    echo json_encode($last_insert_id);
+    $last_insert_id["user"] = $db->lastInsertId();
 
     createCart($db, $last_insert_id);
 }
 
-function createCart($db, $id_user) {
+function createCart($db, $last_insert_id) {
     $stm = $db->prepare("INSERT INTO `cart`(`id_user`) VALUES (:id_user)");
-    $stm->bindValue(":id_user", $id_user);
+    $stm->bindValue(":id_user", $last_insert_id["user"]);
     $stm->execute();
+
+    $last_insert_id["cart"] = $db->lastInsertId();
+
+    echo json_encode($last_insert_id);
 }
 
 function emailExists($db, $mail) {
