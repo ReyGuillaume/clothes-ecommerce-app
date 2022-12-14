@@ -54,6 +54,14 @@ export default{
         .then(res => this.idCart = res.data[res.data.length -1].id)
     },
 
+    checkQuantityInput(e){
+      if (e.keyCode == 8 || e.keyCode == 39 || e.keyCode == 37) return;
+      let number_regex = new RegExp('[0-9]');
+      if(!number_regex.test(e.key)){
+        e.preventDefault();
+      }
+    },
+
     handleAddToCart() {
       if (this.quantity && this.selectedSize && this.articleId) {
         if(this.idUser){
@@ -126,7 +134,7 @@ export default{
 
             <div v-if="selectedSize">
               <h3><label for="quantity">Combien en voulez-vous ?</label></h3>
-              <input type="number" id="quantity" v-model="quantity" >
+              <input type="number" id="quantity" v-on:keydown="checkQuantityInput" v-model="quantity">
             </div>
           </div>
 
