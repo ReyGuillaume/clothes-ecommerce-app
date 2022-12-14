@@ -39,9 +39,9 @@ function retrieveArticlesFiltered($db) {
     $category_key = $_GET['category_key'];
     $subcategory_key = $_GET['subcategory_key'];
 
-    $query = "SELECT article.*, subcategory.name, category.name FROM article 
-    JOIN subcategory ON id_subcategory = subcategory.id
-    JOIN category ON subcategory.id_category = category.id";
+    $query = "SELECT article.*, subcategory.name AS sub_cat_name, category.name AS cat_name FROM article \n"
+    . "JOIN subcategory ON id_subcategory = subcategory.id \n"
+    . "JOIN category ON subcategory.id_category = category.id";
 
     $conditions = array();
 
