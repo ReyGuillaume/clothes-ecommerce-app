@@ -9,6 +9,7 @@ export default {
             articles: [],
             addresses: [],
             userInfos: [],
+            total: 0,
             idCart: null,
             address_number: "",
             address_street: "",
@@ -193,7 +194,7 @@ main {
     min-height: 80vh;
 }
 
-.main-container {
+.order-container {
     display: flex;
     width: 60%;
     min-width: 400px;

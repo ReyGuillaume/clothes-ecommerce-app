@@ -4,7 +4,7 @@ import app from '../main.js'
 import axios from 'axios'
 
 export default {
-    data() {
+  data() {
     return {
       model: "sign-in",
       mail: "",
@@ -39,12 +39,13 @@ export default {
           this.alert3 = true
           setTimeout(() =>  this.alert3 = false, 5000);
         } else {
-          axios.get("login/Login.php?mail="+this.mail+"&password="+this.password).then(
-            response => 
-            {
-              this.showAlert(response.data.message, response.data.id)
-            }
-          )
+          axios
+            .get(
+              "login/Login.php?mail=" + this.mail + "&password=" + this.password
+            )
+            .then((response) => {
+              this.showAlert(response.data.message, response.data.id);
+            });
         }
       }
     },
@@ -121,11 +122,28 @@ export default {
             this.$forceUpdate();
             return;
           }
-          app.config.globalProperties.idUser = response.data;
+          if(response.data != null){
+            app.config.globalProperties.idUser = response.data.user
+            if (!(localStorage.getItem("cart_items") === null)){
+              this.dumpCartLocalInDB(response.data.cart);
+            }
+          }
           this.$router.push('/user')
         }
       )
     },
+
+        
+    async dumpCartLocalInDB(id_cart){
+      let cart_items = JSON.parse(localStorage.getItem("cart_items"));
+      for(let eachArticle of cart_items){
+        await axios.get(`article/article.php?function=createCartItem&id_cart=${id_cart}&id_article=${eachArticle[0]}&id_size=${eachArticle[1]}&quantity=${eachArticle[2]}`)
+            .then(() => {
+              localStorage.removeItem("cart_items")
+              this.$forceUpdate();
+            })
+      }
+    }
   },
   mounted() {
     if (this.idUser) {
@@ -133,8 +151,9 @@ export default {
     } else if(this.idAdmin) {
       this.$router.push('/admin')
     }
-  },
-}
+
+  }
+};
 </script>
 
 <template>

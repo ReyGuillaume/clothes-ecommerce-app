@@ -48,21 +48,40 @@ export default{
         }
       )
     },
+
     fetchCartID(id) {
       return axios.get(`article/article.php?function=retrieveCartID&id_user=${id}`)
         .then(res => this.idCart = res.data[res.data.length -1].id)
     },
+
     handleAddToCart() {
-      if (this.quantity && this.selectedSize && this.idCart && this.articleId) {
-        axios
-        .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
-        .then(() => {
-          this.alert2 = true
-          setTimeout(() =>  this.alert2 = false, 5000);
-        })
+      if (this.quantity && this.selectedSize && this.articleId) {
+        if(this.idUser){
+            axios
+            .get(`article/article.php?function=createCartItem&id_cart=${this.idCart}&id_article=${this.articleId}&id_size=${this.selectedSize}&quantity=${Math.floor(this.quantity)}`)
+            .then(() => alert("Article ajouté au panier"))
+        }
+        else{
+            //Si l'user n'est pas connecté on stocke le produit dans le local storage du browser.
+            let cart_items = [];
+            if(!(localStorage.getItem("cart_items") === null)){
+              cart_items = JSON.parse(localStorage.getItem("cart_items"));
+
+              for(let index in cart_items){
+                if(cart_items[index][0] == this.articleId && cart_items[index][1] == this.selectedSize){
+                  //Si l'article est déjà dans le panier on incrémente simplement la quantité
+                  
+                  cart_items[index][2] += this.quantity;
+                  localStorage.setItem("cart_items", JSON.stringify(cart_items))
+                  return;
+                }
+              }
+            }
+          cart_items.push([this.articleId, this.selectedSize, this.quantity])
+          localStorage.setItem("cart_items", JSON.stringify(cart_items))
+        }
       } else {
-        this.alert1 = true
-        setTimeout(() =>  this.alert1 = false, 5000);
+          alert("Choisir une taille et une quantité")
       }
     }
   },
@@ -108,11 +127,10 @@ export default{
             </div>
           </div>
 
-          <button class="full-button" @click="handleAddToCart" v-if="(this.idUser && this.sizes.length > 0)">
+          <button class="full-button" @click="handleAddToCart" v-if="(this.sizes.length > 0)">
             <font-awesome-icon icon="fa-solid fa-plus" />
             Ajouter au panier
           </button>
-          <RouterLink class="second-button" to="/login" v-if="(!this.idUser && this.sizes.length > 0)">Se connecter pour ajouter cet article au Panier</RouterLink>
           <p class="no-stock" v-if="(this.sizes.length === 0)">Cet article n'est pas disponible en stock</p>
         </div>
         <p>{{ article.description }}</p>
@@ -121,7 +139,7 @@ export default{
   </div>
 </template>
 
-<style>
+<style scoped>
 .article-container{
   padding: 1rem;
   display: flex;
