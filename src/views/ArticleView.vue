@@ -78,7 +78,6 @@ export default{
               }
             }
           cart_items.push([this.articleId, this.selectedSize, this.quantity])
-          console.log(cart_items)
           localStorage.setItem("cart_items", JSON.stringify(cart_items))
         }
       } else {

@@ -124,7 +124,6 @@ export default {
           }
           if(response.data != null){
             app.config.globalProperties.idUser = response.data.user
-            console.log(response.data)
             if (!(localStorage.getItem("cart_items") === null)){
               this.dumpCartLocalInDB(response.data.cart);
             }
@@ -138,7 +137,6 @@ export default {
     async dumpCartLocalInDB(id_cart){
       let cart_items = JSON.parse(localStorage.getItem("cart_items"));
       for(let eachArticle of cart_items){
-        console.log("Added", eachArticle)
         await axios.get(`article/article.php?function=createCartItem&id_cart=${id_cart}&id_article=${eachArticle[0]}&id_size=${eachArticle[1]}&quantity=${eachArticle[2]}`)
             .then(() => {
               localStorage.removeItem("cart_items")
@@ -154,8 +152,7 @@ export default {
       this.$router.push('/admin')
     }
 
-  },
-  mounted() {},
+  }
 };
 </script>
 

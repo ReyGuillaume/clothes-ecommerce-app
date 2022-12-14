@@ -1,3 +1,4 @@
+
 <script lang="js">
 import axios from 'axios'
 
@@ -16,8 +17,7 @@ export default {
         .get(`cart/cart.php?function=retrieveCartContent&id_user=${id_user}`)
         .then((res) => {
           this.articles = res.data
-        });
-      console.log(this.articles)
+        })
 
       this.verifyQuantity();
     },

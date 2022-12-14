@@ -114,7 +114,6 @@ export default {
       await this.fetchAllAddresses();
       await this.fetchAllOrders();
       this.loaded = true;
-      console.log(this.orders)
     })();
   },
 }
