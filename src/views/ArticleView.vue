@@ -80,8 +80,11 @@ export default{
           cart_items.push([this.articleId, this.selectedSize, this.quantity])
           localStorage.setItem("cart_items", JSON.stringify(cart_items))
         }
+        this.alert2 = true
+        setTimeout(() =>  this.alert2 = false, 5000);
       } else {
-          alert("Choisir une taille et une quantité")
+        this.alert1 = true
+        setTimeout(() =>  this.alert1 = false, 5000);
       }
     }
   },

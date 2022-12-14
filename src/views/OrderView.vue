@@ -117,8 +117,8 @@ export default {
 
 <template>
     <div class="alert-popup ok" v-if="alert1">
-        Votre commande a bien été prise en compte<br />Un mail de confirmation vous
-        a été envoyé
+        Votre commande a bien été prise en compte<br />
+        Un mail de confirmation vous a été envoyé
     </div>
     <div class="alert-popup" v-if="alert2">L'un des champs est vide</div>
     <main class="container">

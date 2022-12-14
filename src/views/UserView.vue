@@ -133,12 +133,12 @@ export default {
             <div class="form-user-container">
               <div class="form-user">
                 <label for="mail">E-mail : </label>
-                <input type="text" id="mail" class="input-user" placeholder="mail" v-model="user.mail">
+                <input type="text" id="mail" class="input-user" placeholder="utilisateur@mail.com" v-model="user.mail">
                 <input type="submit" class="button-user" value="Modifier" @click="updateMail(user.mail)">
               </div>
               <div class="form-user">
                 <label for="phone_number">N° de téléphone : </label>
-                <input type="text" id="phone_number" class="input-user" placeholder="phone number" v-model="user.phone_number">
+                <input type="text" id="phone_number" class="input-user" placeholder="0611223344" v-model="user.phone_number">
                 <input type="submit" class="button-user" value="Modifier" @click="updatePhoneNumber(user.phone_number)">
               </div>
             </div>

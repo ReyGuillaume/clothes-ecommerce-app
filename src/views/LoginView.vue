@@ -160,24 +160,24 @@ export default {
   <div class="alert-popup" v-if="alert1">Veuillez renseigner l'adresse mail et le mot de passe</div>
   <div class="alert-popup" v-if="alert2">Veuillez renseigner l'adresse mail</div>
   <div class="alert-popup" v-if="alert3">Veuillez renseigner le mot de passe</div>
-  <div class="alert-popup" v-if="alert4">Invalid e-mail format</div>
-  <div class="alert-popup" v-if="alert5">Invalid phone number</div>
-  <div class="alert-popup" v-if="alert6">Passwords don't match</div>
+  <div class="alert-popup" v-if="alert4">Format de l'e-mail invalide</div>
+  <div class="alert-popup" v-if="alert5">Format de numéro de téléphone invalide</div>
+  <div class="alert-popup" v-if="alert6">Mot de passe incorrecte</div>
   <div class="alert-popup" v-if="alert7">Adresse incorrecte</div>
   <div class="alert-popup" v-if="alert8">Mot de passe incorrecte</div>
   <div class="alert-popup" v-if="alert9">Adresse e-mail déjà utilisée</div>
 
   <div class="login-container container" v-if="(!this.idUser && !this.idAdmin)">
     <div class="sign-in login-form" v-if="(model == 'sign-in')">
-      <h1 class="login-title">Sign in</h1>
+      <h1 class="login-title">Se connecter</h1>
       <div class="form">
         <div class="form-elt">
           <label for="mail">Adresse e-mail</label>
           <input type="text" id="mail" class="input-login" placeholder="E-mail" v-model="mail">
         </div>
         <div class="form-elt">
-          <label for="password">password</label>
-          <input type="password" id="password" class="input-login" placeholder="Password" v-model="password">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" class="input-login" placeholder="Mot de passe" v-model="password">
         </div>
       </div>
       <input type="submit" class="full-button" value="Sign-in" @click="login">
@@ -185,53 +185,53 @@ export default {
     </div>
     
     <div class="sign-up login-form" v-else-if="(model == 'sign-up')">
-      <h1 class="login-title">Sign up</h1>
+      <h1 class="login-title">Se créer un compte</h1>
       <div class="form">
         <div class="form-elt">
-          <label for="Firstname">Firstname</label>
+          <label for="Firstname">Prénom</label>
           <input
             type="text"
             id="Firstname"
-            placeholder="Firstname"
+            placeholder="Prénom"
             v-model="firstname"
           />
         </div>
         <div class="form-elt">
-          <label for="Lastname">Lastname</label>
+          <label for="Lastname">Nom de famille</label>
           <input
             type="text"
             id="Lastname"
-            placeholder="Lastname"
+            placeholder="Nom de famille"
             v-model="lastname"
           />
         </div>
         <div class="form-elt">
-          <label for="mail">mail</label>
+          <label for="mail">Mail</label>
           <input
             type="text"
             id="mail"
             class="input-login"
-            placeholder="E-mail"
+            placeholder="utilisateur@mail.com"
             v-model="mail"
           />
         </div>
         <div class="form-elt">
-          <label for="password">password</label>
+          <label for="password">Mot de passe</label>
           <input
             type="password"
             id="password"
             class="input-login"
-            placeholder="Password"
+            placeholder="Mot de passe"
             v-model="password"
           />
         </div>
         <div class="form-elt">
-          <label for="password_confirmation">Confirm your password</label>
+          <label for="password_confirmation">Confirmer mot de passe</label>
           <input
             type="password"
             id="password_confirmation"
             class="input-login"
-            placeholder="Password Confirmation"
+            placeholder="Mot de passe"
             v-model="password_confirmation"
           />
         </div>
@@ -240,7 +240,7 @@ export default {
           <input
             type="text"
             id="Phone-Number"
-            placeholder="Phone Number"
+            placeholder="0411223344"
             v-model="phone_number"
           />
         </div>

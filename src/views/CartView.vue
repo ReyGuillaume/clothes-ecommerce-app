@@ -228,8 +228,8 @@ export default {
 
 <style scoped>
 main{
+  flex-grow: 1;
   width: 90%;
-  min-height: 80vh;
   margin: auto;
 }
 
