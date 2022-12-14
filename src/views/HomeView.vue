@@ -11,7 +11,7 @@
       </div>
       <div class="void">
         <h3>Sapes</h3>
-        <p>Qween of shoes</p>
+        <p>Queen of shoes</p>
       </div>
       <div class="image">
         <img src="../assets/images/accueil2.jpg" alt="accueil">
