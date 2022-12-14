@@ -134,7 +134,7 @@ export default{
 
             <div v-if="selectedSize">
               <h3><label for="quantity">Combien en voulez-vous ?</label></h3>
-              <input type="number" id="quantity" v-on:keydown="checkQuantityInput" v-model="quantity">
+              <input type="number" id="quantity" v-on:keydown="checkQuantityInput" v-bind:min="1" v-model="quantity">
             </div>
           </div>
 
