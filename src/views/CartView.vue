@@ -184,7 +184,8 @@ export default {
           </div>
 
           <div class="article-price">
-            {{ (article.price * article.quantity).toFixed(2) }} €
+            <p>Prix unitaire : {{(article.price * 1).toFixed(2)}} €</p>
+            <p>Total : {{ (article.price * article.quantity).toFixed(2) }} €</p>
           </div>
         </div>
       </div>
@@ -276,9 +277,10 @@ h1, h2{
 }
 
 .article-price{
+  text-align: right;
   margin-left: auto;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .article-data{
